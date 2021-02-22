@@ -2,6 +2,8 @@ import { CaptureConsole } from '@sentry/integrations';
 import { BrowserOptions } from '@sentry/browser';
 import { TOR_DOMAIN } from '@suite-constants/urls';
 
+const fiatRatesRe = new RegExp(`FiatRatesFetchError.*${TOR_DOMAIN}`, 'gmi');
+
 export default {
     dsn: 'https://a7d74121d386447a8a25363a61599985@o554666.ingest.sentry.io/5688891',
     normalizeDepth: 10,
@@ -20,8 +22,7 @@ export default {
     },
     beforeSend(event, hint) {
         const error = hint?.syntheticException;
-        const re = new RegExp(`FiatRatesFetchError.*${TOR_DOMAIN}`, 'gmi');
-        if (error?.message?.match(re)) {
+        if (error?.message?.match(fiatRatesRe)) {
             // discard failed fiat rate fetch on TOR
             event.fingerprint = ['FiatRatesFetchError'];
             return null;
