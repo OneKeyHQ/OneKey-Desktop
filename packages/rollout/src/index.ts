@@ -77,15 +77,21 @@ const getChangelog = (releases: Release[], features: ParsedFeatures) => {
         return releases;
     }
 
+    // @ts-expect-error
+    const { onekey_version } = features;
+    let { major_version } = features;
+    let { minor_version } = features;
+    let { patch_version } = features;
+    if (onekey_version) {
+        const onekey_version_list = onekey_version.split('.');
+        [major_version, minor_version, patch_version] = onekey_version_list;
+    }
+
     // otherwise we are in firmware mode and because each release in releases list has
     // version higher than the previous one, we can filter out the version that is already
     // installed and show only what's new!
     return releases.filter(r =>
-        versionUtils.isNewer(r.version, [
-            features.major_version,
-            features.minor_version,
-            features.patch_version,
-        ])
+        versionUtils.isNewer(r.version, [major_version, minor_version, patch_version])
     );
 };
 
@@ -93,11 +99,16 @@ const isNewer = (release: Release, features: ParsedFeatures) => {
     if (features.major_version === 1 && features.bootloader_mode) {
         return null;
     }
-    return versionUtils.isNewer(release.version, [
-        features.major_version,
-        features.minor_version,
-        features.patch_version,
-    ]);
+    // @ts-expect-error
+    const { onekey_version } = features;
+    let { major_version } = features;
+    let { minor_version } = features;
+    let { patch_version } = features;
+    if (onekey_version) {
+        const onekey_version_list = onekey_version.split('.');
+        [major_version, minor_version, patch_version] = onekey_version_list;
+    }
+    return versionUtils.isNewer(release.version, [major_version, minor_version, patch_version]);
 };
 
 const isRequired = (changelog: ReturnType<typeof getChangelog>) => {
