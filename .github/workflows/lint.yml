@@ -1,0 +1,29 @@
+
+name: lint
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Dependiences
+        run: |
+          yarn install
+          yarn build:libs
+      - name: Log Info
+        run: |
+          echo "node version: $(node -v)"
+          echo "npm version: $(npm -v)"
+          echo "webpack version: $(./node_modules/.bin/webpack -v)"
+      - name: Lint & Type Check
+        run: |
+          yarn type-check
+          yarn lint
