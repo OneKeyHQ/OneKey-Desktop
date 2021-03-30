@@ -480,7 +480,7 @@
 	"TR_DEVICE_IN_BOOTLOADER": "你的 OneKey 硬件设备目前正在 bootloader 模式。",
 	"TR_DEVICE_IN_BOOTLOADER_EXPLAINED": "在 bootloader 模式下，硬件设备已准备就绪，可以接收固件更新，但是这也意味着它无法进行任何其他操作。要恢复到正常模式，只需重新连接即可。",
 	"TR_DEVICE_IN_RECOVERY_MODE": "你的硬件设备处于恢复模式。",
-	"TR_DEVICE_IS_IN_UNEXPECTED_MODE": "硬件设备处于意外模式。在下一步中，系统将要求你正常重新连接硬件设备。",
+	"TR_DEVICE_IS_IN_UNEXPECTED_MODE": "硬件设备处于意外状态。建议重新连接设备后关闭当前窗口重新初始化",
 	"TR_DEVICE_IS_USED_IN_OTHER_WINDOW_BUTTON": "重试",
 	"TR_DEVICE_IS_USED_IN_OTHER_WINDOW_HEADING": "OneKey 硬件设备已经在使用中",
 	"TR_DEVICE_IS_USED_IN_OTHER_WINDOW_TEXT": "你的 OneKey 硬件设备似乎正在另一个窗口中使用。请关闭所有其他可能正在使用 OneKey 硬件设备的窗口或标签。",
