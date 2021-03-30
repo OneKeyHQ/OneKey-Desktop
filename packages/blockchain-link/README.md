@@ -1,10 +1,10 @@
-# @trezor/blockchain-link
+# @onekeyhq/blockchain-link
 
 API for communication with blockchain backends.
 Every type of a backed is isolated inside own worker file.
 Currently supported:
 
--   [blockbook](https://github.com/trezor/blockbook/)
+-   [blockbook](https://github.com/onekeyhq/blockbook/)
 -   [ripple-lib](https://github.com/ripple/ripple-lib/)
 
 ## Development:
@@ -27,11 +27,11 @@ yarn build
 ## Integration
 
 ```
-yarn add @trezor/blockchain-link
+yarn add @onekeyhq/blockchain-link
 ```
 
 ```
-import BlockchainLink from '@trezor/blockchain-link';
+import BlockchainLink from '@onekeyhq/blockchain-link';
 
 const link = new BlockchainLink({
     name: string;
@@ -49,7 +49,7 @@ try {
 
 ## Workers compilation
 
-Workers are already builded and minified inside `@trezor/blockchain-link/build/` directory.
+Workers are already builded and minified inside `@onekeyhq/blockchain-link/build/` directory.
 
 Then set your project to compile and provide those workers into blockchain-link instance.
 An webpack configuration example using `worker-loader` could be found in [here](./webpack/dev.babel.js)

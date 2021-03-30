@@ -42,11 +42,11 @@ module.exports = (async () => {
                 child_process: nodejs.path,
                 net: nodejs.path,
                 tls: nodejs.path,
-                '@trezor/blockchain-link': path.resolve(
+                '@onekeyhq/blockchain-link': path.resolve(
                     __dirname,
                     '../../packages/blockchain-link',
                 ),
-                '@trezor/rollout': path.resolve(__dirname, '../../packages/rollout'),
+                '@onekeyhq/rollout': path.resolve(__dirname, '../../packages/rollout'),
             },
             // https://github.com/facebook/metro/issues/265
             blacklistRE: blacklist([
