@@ -1,4 +1,4 @@
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { FIRMWARE } from '@firmware-actions/constants';
 import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';

@@ -102,7 +102,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Graph: Toggle between linear and logarithmic scale
 
 ### Changed
-- Update trezor-connect
+- Update @onekeyhq/connect
 - Graph: responsivity improvements
 
 ### Fixed
@@ -116,7 +116,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Design: improved Dashboard, Modal for switching wallets and list of transactions
-- Update trezor-connect
+- Update @onekeyhq/connect
 
 ### Fixed
 - Synchronizing state of multiple remembered devices to local storage
@@ -129,7 +129,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Send: Compatibility with Zcash Heartwood upgrade
 
 ### Changed
-- Update trezor-connect and electron dependencies
+- Update @onekeyhq/connect and electron dependencies
 - Change Blockbook backends for BTC, BTH, ETH and LTC from the beta back to stable
 - Bump minimal supported chrome/firefox version
 - Design: General layout and navigation overhaul
@@ -152,7 +152,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 - Better looking Y axis in dashboard/account graph (linear scale)
-- Update dependencies (Electron, trezor-connect, Styled Components, Next,...)
+- Update dependencies (Electron, @onekeyhq/connect, Styled Components, Next,...)
 - Update landing page
 
 ### Fixed

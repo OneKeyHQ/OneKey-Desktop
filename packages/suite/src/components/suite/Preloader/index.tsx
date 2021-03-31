@@ -92,7 +92,6 @@ const getSuiteApplicationState = ({
     }
 
     // TODO: 蓝牙更新判断
-    // @ts-expect-error
     if (window.$BLE_DATA?.required && device?.features?.ble_ver !== window.$BLE_DATA?.version) {
         if (typeof window !== 'undefined') {
             // @ts-ignore
@@ -180,7 +179,7 @@ const Preloader = ({ children, hideModals = false }: Props) => {
     }, [loaded, loading, error, actions]);
 
     if (error) {
-        // trezor-connect initialization failed
+        // @onekeyhq/connect initialization failed
         // throw error to <ErrorBoundary /> in _app.tsx
         throw new Error(error);
     }
@@ -209,7 +208,7 @@ const Preloader = ({ children, hideModals = false }: Props) => {
         );
     }
 
-    // trezor-connect was initialized, but didn't emit "TRANSPORT" event yet (it could take a while)
+    // @onekeyhq/connect was initialized, but didn't emit "TRANSPORT" event yet (it could take a while)
     // if "router.app" is already set
     // display Loader wrapped in modal above requested route to keep "modal" flow continuity (see ApplicationStateModal)
     // otherwise display Loader as full page view

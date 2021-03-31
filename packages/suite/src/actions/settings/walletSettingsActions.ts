@@ -1,4 +1,4 @@
-import TrezorConnect, { FeeLevel } from 'trezor-connect';
+import TrezorConnect, { FeeLevel } from '@onekeyhq/connect';
 import { WALLET_SETTINGS } from './constants';
 import * as suiteActions from '@suite-actions/suiteActions';
 import { Dispatch, GetState } from '@suite-types';

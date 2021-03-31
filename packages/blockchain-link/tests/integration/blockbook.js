@@ -1,8 +1,6 @@
-import BlockchainLink from '@trezor/blockchain-link';
+import BlockchainLink from '@onekeyhq/blockchain-link';
 import createServer from '../websocket';
-import {
-    blockbookWorkerFactory
-} from './worker';
+import { blockbookWorkerFactory } from './worker';
 
 describe('Blockbook', () => {
     let server;
@@ -82,7 +80,7 @@ describe('Blockbook', () => {
             1,
             false,
             {
-                foo: 'bar'
+                foo: 'bar',
             },
         ];
         try {

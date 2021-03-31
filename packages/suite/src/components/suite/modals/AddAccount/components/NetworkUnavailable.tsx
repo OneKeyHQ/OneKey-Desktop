@@ -1,5 +1,5 @@
 import React from 'react';
-import { UnavailableCapability } from 'trezor-connect';
+import { UnavailableCapability } from '@onekeyhq/connect';
 import { Translation } from '@suite-components/Translation';
 
 import styled from 'styled-components';
@@ -29,7 +29,7 @@ const Header = ({ capability }: { capability: UnavailableCapability }) => {
             return <Translation id="FW_CAPABILITY_NO_SUPPORT" />;
         case 'update-required':
             return <Translation id="FW_CAPABILITY_UPDATE_REQUIRED" />;
-        // case 'trezor-connect-outdated':
+        // case '@onekeyhq/connect-outdated':
         default:
             return <Translation id="FW_CAPABILITY_CONNECT_OUTDATED" />;
     }

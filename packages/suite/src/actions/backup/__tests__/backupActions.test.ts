@@ -10,7 +10,7 @@ import { SUITE } from '@suite-actions/constants';
 import { BACKUP } from '@backup-actions/constants';
 import * as backupActions from '@backup-actions/backupActions';
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     let fixture: any;
 
     const backupDevice = () => {
@@ -65,14 +65,14 @@ const mockStore = configureStore<ReturnType<typeof getInitialState>, any>([thunk
 
 describe('Backup Actions', () => {
     it('backup success', async () => {
-        require('trezor-connect').setTestFixtures({ success: true });
+        require('@onekeyhq/connect').setTestFixtures({ success: true });
 
         const state = getInitialState({});
         const store = mockStore(state);
         await store.dispatch(init());
 
         await store.dispatch(backupActions.backupDevice({ device: store.getState().suite.device }));
-        // discard @suite/trezor-connect-initialized action we don't care about it in this test
+        // discard @suite/@onekeyhq/connect-initialized action we don't care about it in this test
         store.getActions().shift();
 
         expect(store.getActions().shift()).toEqual({
@@ -88,7 +88,7 @@ describe('Backup Actions', () => {
     });
 
     it('backup error', async () => {
-        require('trezor-connect').setTestFixtures({
+        require('@onekeyhq/connect').setTestFixtures({
             success: false,
             payload: { error: 'avadakedavra' },
         });
@@ -98,7 +98,7 @@ describe('Backup Actions', () => {
         await store.dispatch(init());
 
         await store.dispatch(backupActions.backupDevice({ device: store.getState().suite.device }));
-        // discard @suite/trezor-connect-initialized action we don't care about it in this test
+        // discard @suite/@onekeyhq/connect-initialized action we don't care about it in this test
         store.getActions().shift();
 
         expect(store.getActions().shift()).toEqual({

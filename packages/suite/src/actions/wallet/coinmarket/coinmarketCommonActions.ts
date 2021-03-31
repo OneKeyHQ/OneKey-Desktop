@@ -1,4 +1,4 @@
-import TrezorConnect, { UI, ButtonRequestMessage } from 'trezor-connect';
+import TrezorConnect, { UI, ButtonRequestMessage } from '@onekeyhq/connect';
 import * as coinmarketCommonActions from '@wallet-actions/coinmarket/coinmarketCommonActions';
 import { formatNetworkAmount, formatAmount } from '@wallet-utils/accountUtils';
 import BigNumber from 'bignumber.js';

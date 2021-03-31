@@ -2,7 +2,7 @@ import { Action } from '@suite-types';
 import { Account } from '@wallet-types';
 import { ACCOUNT, TRANSACTION } from '@wallet-actions/constants';
 import { SUITE } from '@suite-actions/constants';
-import { DEVICE, AccountTransaction, Device } from 'trezor-connect';
+import { DEVICE, AccountTransaction, Device } from '@onekeyhq/connect';
 import { DeepPartial } from '@suite/types/utils';
 import { CustomLogEntry } from '@suite/reducers/suite/logReducer';
 

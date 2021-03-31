@@ -21,7 +21,7 @@ import { Action } from '@suite-types';
 //     suite?: SuiteState;
 // }
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     let connectResponse: any;
 
     return {

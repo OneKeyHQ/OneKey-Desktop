@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { Button } from '@trezor/components';
 import { OnboardingButton, Text, Wrapper, Loaders } from '@onboarding-components';
 import {

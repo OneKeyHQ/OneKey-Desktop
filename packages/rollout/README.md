@@ -1,7 +1,5 @@
-trezor-rollout
+onekeyhq-rollout
 =========
-
-[![npm version](https://badge.fury.io/js/trezor-rollout.svg)](https://badge.fury.io/js/trezor-rollout)
 
 Tldr: For historical reasons, OneKey devices firmware updates are not always straightforward.
 
@@ -30,17 +28,17 @@ Installation
 -----
 
 #### Npm
-```npm install trezor-rollout --save```
+```npm install @onekeyhq/rollout --save```
 
 or
 
 #### Yarn
-```yarn add trezor-rollout```
+```yarn add @onekeyhq/rollout```
 
 Usage
 -----
 
-```import Rollout from 'trezor-rollout';```
+```import Rollout from '@onekeyhq/rollout';```
 
 Functions
 -----
@@ -49,14 +47,15 @@ Functions
 - options
 ```
 {
-  baseUrl: 'https://wallet.trezor.io',
+  baseUrl: 'https://connect.onekey.so',
   releasesListsPaths: {
     1: 'data/firmware/1/releases.json',
     2: 'data/firmware/2/releases.json',
   }
 }
 ```
--  [t1 list](https://github.com/trezor/webwallet-data/blob/master/firmware/1/releases.json), [t2 list](https://github.com/trezor/webwallet-data/blob/master/firmware/2/releases.json)
+- [stm firmware list](https://connect.onekey.so/data/firmware/1/releases.json),
+- [nrf firmware list](https://connect.onekey.so/data/nrf/releases.json)
 - returns rollout object that exposes following functions:
 
 #### getScore()

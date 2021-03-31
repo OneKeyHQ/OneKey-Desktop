@@ -28,7 +28,7 @@
             "name": "BinanceAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -67,7 +67,7 @@
             "name": "BinancePublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
@@ -377,14 +377,14 @@
             "name": "BinanceSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
@@ -523,14 +523,14 @@
             "name": "PublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "HDNodeType",
                     "name": "node",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "xpub",
@@ -590,13 +590,6 @@
                     "type": "InputScriptType",
                     "name": "script_type",
                     "id": 5
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "ignore_xpub_magic",
-                    "id": 6
                 }
             ],
             "enums": [],
@@ -722,14 +715,14 @@
             "name": "MessageSignature",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -860,15 +853,6 @@
                     "type": "uint32",
                     "name": "branch_id",
                     "id": 10
-                },
-                {
-                    "rule": "optional",
-                    "options": {
-                        "default": "BITCOIN"
-                    },
-                    "type": "AmountUnit",
-                    "name": "amount_unit",
-                    "id": 11
                 }
             ],
             "enums": [],
@@ -2002,15 +1986,6 @@
                     "type": "InputScriptType",
                     "name": "script_type",
                     "id": 6
-                },
-                {
-                    "rule": "optional",
-                    "options": {
-                        "default": "BITCOIN"
-                    },
-                    "type": "AmountUnit",
-                    "name": "amount_unit",
-                    "id": 11
                 }
             ],
             "enums": [],
@@ -2022,22 +1997,6 @@
         },
         {
             "name": "FirmwareErase",
-            "fields": [
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "uint32",
-                    "name": "length",
-                    "id": 1
-                }
-            ],
-            "enums": [],
-            "messages": [],
-            "options": {},
-            "oneofs": {}
-        },
-        {
-            "name": "FirmwareEraseEX",
             "fields": [
                 {
                     "rule": "optional",
@@ -2115,24 +2074,40 @@
             "oneofs": {}
         },
         {
+            "name": "FirmwareErase_ex",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "uint32",
+                    "name": "length",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
             "name": "CardanoBlockchainPointerType",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "block_index",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "tx_index",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "certificate_index",
@@ -2148,7 +2123,7 @@
             "name": "CardanoAddressParametersType",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "CardanoAddressType",
                     "name": "address_type",
@@ -2193,29 +2168,27 @@
             "fields": [
                 {
                     "rule": "optional",
-                    "options": {
-                        "default": false
-                    },
+                    "options": {},
                     "type": "bool",
                     "name": "show_display",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "protocol_magic",
                     "id": 3
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "network_id",
                     "id": 4
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "CardanoAddressParametersType",
                     "name": "address_parameters",
@@ -2231,7 +2204,7 @@
             "name": "CardanoAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -2270,14 +2243,14 @@
             "name": "CardanoPublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "xpub",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "HDNodeType",
                     "name": "node",
@@ -2307,14 +2280,14 @@
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "protocol_magic",
                     "id": 5
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint64",
                     "name": "fee",
@@ -2328,7 +2301,7 @@
                     "id": 7
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "network_id",
@@ -2354,13 +2327,6 @@
                     "type": "bytes",
                     "name": "metadata",
                     "id": 11
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "uint64",
-                    "name": "validity_interval_start",
-                    "id": 12
                 }
             ],
             "enums": [],
@@ -2376,14 +2342,14 @@
                             "id": 1
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "prev_hash",
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint32",
                             "name": "prev_index",
@@ -2406,7 +2372,7 @@
                             "id": 1
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "amount",
@@ -2418,59 +2384,6 @@
                             "type": "CardanoAddressParametersType",
                             "name": "address_parameters",
                             "id": 4
-                        },
-                        {
-                            "rule": "repeated",
-                            "options": {},
-                            "type": "CardanoAssetGroupType",
-                            "name": "token_bundle",
-                            "id": 5
-                        }
-                    ],
-                    "enums": [],
-                    "messages": [],
-                    "options": {},
-                    "oneofs": {}
-                },
-                {
-                    "name": "CardanoAssetGroupType",
-                    "fields": [
-                        {
-                            "rule": "required",
-                            "options": {},
-                            "type": "bytes",
-                            "name": "policy_id",
-                            "id": 1
-                        },
-                        {
-                            "rule": "repeated",
-                            "options": {},
-                            "type": "CardanoTokenType",
-                            "name": "tokens",
-                            "id": 2
-                        }
-                    ],
-                    "enums": [],
-                    "messages": [],
-                    "options": {},
-                    "oneofs": {}
-                },
-                {
-                    "name": "CardanoTokenType",
-                    "fields": [
-                        {
-                            "rule": "required",
-                            "options": {},
-                            "type": "bytes",
-                            "name": "asset_name_bytes",
-                            "id": 1
-                        },
-                        {
-                            "rule": "required",
-                            "options": {},
-                            "type": "uint64",
-                            "name": "amount",
-                            "id": 2
                         }
                     ],
                     "enums": [],
@@ -2651,7 +2564,7 @@
                     "name": "CardanoTxCertificateType",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "CardanoCertificateType",
                             "name": "type",
@@ -2695,7 +2608,7 @@
                             "id": 1
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "amount",
@@ -2715,14 +2628,14 @@
             "name": "CardanoSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "tx_hash",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "serialized_tx",
@@ -2739,9 +2652,7 @@
             "fields": [
                 {
                     "rule": "optional",
-                    "options": {
-                        "default": ""
-                    },
+                    "options": {},
                     "type": "string",
                     "name": "message",
                     "id": 1
@@ -2987,6 +2898,14 @@
                         {
                             "name": "PinMatrixRequestType_WipeCodeSecond",
                             "id": 5
+                        },
+                        {
+                            "name": "PinMatrixRequestType_BackupFirst",
+                            "id": 6
+                        },
+                        {
+                            "name": "PinMatrixRequestType_BackupSecond",
+                            "id": 7
                         }
                     ],
                     "options": {}
@@ -3005,6 +2924,13 @@
                     "type": "string",
                     "name": "pin",
                     "id": 1
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "new_pin",
+                    "id": 2
                 }
             ],
             "enums": [],
@@ -3142,6 +3068,14 @@
             "oneofs": {}
         },
         {
+            "name": "BixinPinInputOnDevice",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
             "name": "CipherKeyValue",
             "fields": [
                 {
@@ -3152,14 +3086,14 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "key",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "value",
@@ -3203,7 +3137,7 @@
             "name": "CipheredKeyValue",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "value",
@@ -3272,7 +3206,7 @@
             "name": "SignIdentity",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "IdentityType",
                     "name": "identity",
@@ -3280,18 +3214,14 @@
                 },
                 {
                     "rule": "optional",
-                    "options": {
-                        "default": ""
-                    },
+                    "options": {},
                     "type": "bytes",
                     "name": "challenge_hidden",
                     "id": 2
                 },
                 {
                     "rule": "optional",
-                    "options": {
-                        "default": ""
-                    },
+                    "options": {},
                     "type": "string",
                     "name": "challenge_visual",
                     "id": 3
@@ -3320,14 +3250,14 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -3343,14 +3273,14 @@
             "name": "GetECDHSessionKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "IdentityType",
                     "name": "identity",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "peer_public_key",
@@ -3373,7 +3303,7 @@
             "name": "ECDHSessionKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "session_key",
@@ -3472,7 +3402,7 @@
             "name": "CosiSignature",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -4010,14 +3940,14 @@
             "name": "EosPublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "wif_public_key",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "raw_public_key",
@@ -4295,7 +4225,7 @@
                     "name": "EosAuthorizationKey",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint32",
                             "name": "type",
@@ -4316,7 +4246,7 @@
                             "id": 3
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint32",
                             "name": "weight",
@@ -4856,7 +4786,7 @@
                     "name": "EosActionUnknown",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint32",
                             "name": "data_size",
@@ -4883,7 +4813,7 @@
             "name": "EosSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "signature",
@@ -4922,14 +4852,14 @@
             "name": "EthereumPublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "HDNodeType",
                     "name": "node",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "xpub",
@@ -5148,14 +5078,14 @@
             "name": "EthereumMessageSignature",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -5224,7 +5154,7 @@
             "name": "LiskAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -5263,7 +5193,7 @@
             "name": "LiskPublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
@@ -5286,7 +5216,7 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "LiskTransactionCommon",
                     "name": "transaction",
@@ -5522,7 +5452,7 @@
             "name": "LiskSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -5545,7 +5475,7 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "message",
@@ -5561,14 +5491,14 @@
             "name": "LiskMessageSignature",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -5584,21 +5514,21 @@
             "name": "LiskVerifyMessage",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "message",
@@ -5645,21 +5575,21 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "major_version",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "minor_version",
                     "id": 3
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "patch_version",
@@ -5875,7 +5805,6 @@
                     "name": "passphrase_always_on_device",
                     "id": 36
                 },
-
                 {
                     "rule": "optional",
                     "options": {},
@@ -5893,6 +5822,55 @@
                 {
                     "rule": "optional",
                     "options": {},
+                    "type": "uint32",
+                    "name": "offset",
+                    "id": 500
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "ble_name",
+                    "id": 501
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "ble_ver",
+                    "id": 502
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "ble_enable",
+                    "id": 503
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "se_enable",
+                    "id": 504
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "se_ver",
+                    "id": 506
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "backup_only",
+                    "id": 507
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
                     "type": "string",
                     "name": "onekey_version",
                     "id": 508
@@ -5901,8 +5879,8 @@
                     "rule": "optional",
                     "options": {},
                     "type": "string",
-                    "name": "ble_ver",
-                    "id": 502
+                    "name": "onekey_serial",
+                    "id": 509
                 }
             ],
             "enums": [
@@ -6066,9 +6044,77 @@
                     "type": "bool",
                     "name": "experimental_features",
                     "id": 10
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "use_ble",
+                    "id": 100
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "use_se",
+                    "id": 101
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "is_bixinapp",
+                    "id": 102
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "fastpay_pin",
+                    "id": 103
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "fastpay_confirm",
+                    "id": 104
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "uint64",
+                    "name": "fastpay_money_limit",
+                    "id": 105
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "uint32",
+                    "name": "fastpay_times",
+                    "id": 106
                 }
             ],
-            "enums": [],
+            "enums": [
+                {
+                    "name": "ExportType",
+                    "values": [
+                        {
+                            "name": "SeedEncExportType_NO",
+                            "id": 0
+                        },
+                        {
+                            "name": "SeedEncExportType_YES",
+                            "id": 1
+                        },
+                        {
+                            "name": "MnemonicPlainExportType_YES",
+                            "id": 2
+                        }
+                    ],
+                    "options": {}
+                }
+            ],
             "messages": [],
             "options": {},
             "oneofs": {}
@@ -6161,9 +6207,7 @@
             "fields": [
                 {
                     "rule": "optional",
-                    "options": {
-                        "default": ""
-                    },
+                    "options": {},
                     "type": "string",
                     "name": "message",
                     "id": 1
@@ -6397,14 +6441,6 @@
             "oneofs": {}
         },
         {
-            "name": "UnlockInDevice",
-            "fields": [],
-            "enums": [],
-            "messages": [],
-            "options": {},
-            "oneofs": {}
-        },
-        {
             "name": "EntropyRequest",
             "fields": [],
             "enums": [],
@@ -6625,6 +6661,325 @@
         {
             "name": "CancelAuthorization",
             "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinSeedOperate",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "SeedRequestType",
+                    "name": "type",
+                    "id": 1
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "seed_importData",
+                    "id": 2
+                }
+            ],
+            "enums": [
+                {
+                    "name": "SeedRequestType",
+                    "values": [
+                        {
+                            "name": "SeedRequestType_Gen",
+                            "id": 0
+                        },
+                        {
+                            "name": "SeedRequestType_EncExport",
+                            "id": 1
+                        },
+                        {
+                            "name": "SeedRequestType_EncImport",
+                            "id": 2
+                        }
+                    ],
+                    "options": {}
+                }
+            ],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinMessageSE",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "inputmessage",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinOutMessageSE",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "outmessage",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinReboot",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinBackupRequest",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinBackupAck",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "data",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinRestoreRequest",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "data",
+                    "id": 1
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "language",
+                    "id": 2
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "label",
+                    "id": 3
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "passphrase_protection",
+                    "id": 4
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinRestoreAck",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "data",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinVerifyDeviceRequest",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "data",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinVerifyDeviceAck",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "cert",
+                    "id": 1
+                },
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "bytes",
+                    "name": "signature",
+                    "id": 2
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinWhiteListRequest",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "WL_OperationType",
+                    "name": "type",
+                    "id": 1
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "addr_in",
+                    "id": 2
+                }
+            ],
+            "enums": [
+                {
+                    "name": "WL_OperationType",
+                    "values": [
+                        {
+                            "name": "WL_OperationType_Add",
+                            "id": 0
+                        },
+                        {
+                            "name": "WL_OperationType_Delete",
+                            "id": 1
+                        },
+                        {
+                            "name": "WL_OperationType_Inquire",
+                            "id": 2
+                        }
+                    ],
+                    "options": {}
+                }
+            ],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinWhiteListAck",
+            "fields": [
+                {
+                    "rule": "repeated",
+                    "options": {},
+                    "type": "string",
+                    "name": "address",
+                    "id": 1
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinLoadDevice",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "string",
+                    "name": "mnemonics",
+                    "id": 1
+                },
+                {
+                    "rule": "optional",
+                    "options": {
+                        "default": "en-US"
+                    },
+                    "type": "string",
+                    "name": "language",
+                    "id": 5
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "label",
+                    "id": 6
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "skip_checksum",
+                    "id": 7
+                }
+            ],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinBackupDevice",
+            "fields": [],
+            "enums": [],
+            "messages": [],
+            "options": {},
+            "oneofs": {}
+        },
+        {
+            "name": "BixinBackupDeviceAck",
+            "fields": [
+                {
+                    "rule": "required",
+                    "options": {},
+                    "type": "string",
+                    "name": "mnemonics",
+                    "id": 1
+                }
+            ],
             "enums": [],
             "messages": [],
             "options": {},
@@ -8804,14 +9159,14 @@
             "name": "NEMSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "data",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -8864,7 +9219,7 @@
             "name": "NEMDecryptedMessage",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "payload",
@@ -8875,91 +9230,6 @@
             "messages": [],
             "options": {},
             "oneofs": {}
-        },
-        {
-            "ref": "google.protobuf.EnumValueOptions",
-            "fields": [
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_in",
-                    "id": 50002
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_out",
-                    "id": 50003
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_debug_in",
-                    "id": 50004
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_debug_out",
-                    "id": 50005
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_tiny",
-                    "id": 50006
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_bootloader",
-                    "id": 50007
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "wire_no_fsm",
-                    "id": 50008
-                }
-            ]
-        },
-        {
-            "ref": "google.protobuf.MessageOptions",
-            "fields": [
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "unstable",
-                    "id": 50001
-                },
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "uint32",
-                    "name": "wire_type",
-                    "id": 50002
-                }
-            ]
-        },
-        {
-            "ref": "google.protobuf.FieldOptions",
-            "fields": [
-                {
-                    "rule": "optional",
-                    "options": {},
-                    "type": "bool",
-                    "name": "experimental",
-                    "id": 52001
-                }
-            ]
         },
         {
             "name": "RippleGetAddress",
@@ -8988,7 +9258,7 @@
             "name": "RippleAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -9052,14 +9322,14 @@
                     "name": "RipplePayment",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "amount",
                             "id": 1
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "string",
                             "name": "destination",
@@ -9086,14 +9356,14 @@
             "name": "RippleSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "serialized_tx",
@@ -9109,7 +9379,7 @@
             "name": "StellarAssetType",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "uint32",
                     "name": "type",
@@ -9162,7 +9432,7 @@
             "name": "StellarAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -9756,14 +10026,14 @@
             "name": "StellarSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "public_key",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "signature",
@@ -9802,7 +10072,7 @@
             "name": "TezosAddress",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "address",
@@ -9841,7 +10111,7 @@
             "name": "TezosPublicKey",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "public_key",
@@ -9864,7 +10134,7 @@
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "branch",
@@ -9919,14 +10189,14 @@
                     "name": "TezosContractID",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "TezosContractType",
                             "name": "tag",
                             "id": 1
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "hash",
@@ -9957,42 +10227,42 @@
                     "name": "TezosRevealOp",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "source",
                             "id": 7
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "fee",
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "counter",
                             "id": 3
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "gas_limit",
                             "id": 4
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "storage_limit",
                             "id": 5
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "public_key",
@@ -10008,49 +10278,49 @@
                     "name": "TezosTransactionOp",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "source",
                             "id": 9
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "fee",
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "counter",
                             "id": 3
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "gas_limit",
                             "id": 4
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "storage_limit",
                             "id": 5
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "amount",
                             "id": 6
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "TezosContractID",
                             "name": "destination",
@@ -10135,35 +10405,35 @@
                     "name": "TezosOriginationOp",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "source",
                             "id": 12
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "fee",
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "counter",
                             "id": 3
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "gas_limit",
                             "id": 4
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "storage_limit",
@@ -10177,7 +10447,7 @@
                             "id": 6
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "balance",
@@ -10205,7 +10475,7 @@
                             "id": 10
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "script",
@@ -10221,42 +10491,42 @@
                     "name": "TezosDelegationOp",
                     "fields": [
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "source",
                             "id": 7
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "fee",
                             "id": 2
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "counter",
                             "id": 3
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "gas_limit",
                             "id": 4
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "uint64",
                             "name": "storage_limit",
                             "id": 5
                         },
                         {
-                            "rule": "required",
+                            "rule": "optional",
                             "options": {},
                             "type": "bytes",
                             "name": "delegate",
@@ -10362,21 +10632,21 @@
             "name": "TezosSignedTx",
             "fields": [
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "signature",
                     "id": 1
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "bytes",
                     "name": "sig_op_contents",
                     "id": 2
                 },
                 {
-                    "rule": "required",
+                    "rule": "optional",
                     "options": {},
                     "type": "string",
                     "name": "operation_hash",
@@ -10537,6 +10807,91 @@
             ],
             "options": {},
             "oneofs": {}
+        },
+        {
+            "ref": "google.protobuf.EnumValueOptions",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_in",
+                    "id": 50002
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_out",
+                    "id": 50003
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_debug_in",
+                    "id": 50004
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_debug_out",
+                    "id": 50005
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_tiny",
+                    "id": 50006
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_bootloader",
+                    "id": 50007
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "wire_no_fsm",
+                    "id": 50008
+                }
+            ]
+        },
+        {
+            "ref": "google.protobuf.MessageOptions",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "unstable",
+                    "id": 50001
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "uint32",
+                    "name": "wire_type",
+                    "id": 50002
+                }
+            ]
+        },
+        {
+            "ref": "google.protobuf.FieldOptions",
+            "fields": [
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "bool",
+                    "name": "experimental",
+                    "id": 52001
+                }
+            ]
         }
     ],
     "enums": [
@@ -10592,28 +10947,6 @@
                 {
                     "name": "PAYTOP2SHWITNESS",
                     "id": 5
-                }
-            ],
-            "options": {}
-        },
-        {
-            "name": "AmountUnit",
-            "values": [
-                {
-                    "name": "BITCOIN",
-                    "id": 0
-                },
-                {
-                    "name": "MILLIBITCOIN",
-                    "id": 1
-                },
-                {
-                    "name": "MICROBITCOIN",
-                    "id": 2
-                },
-                {
-                    "name": "SATOSHI",
-                    "id": 3
                 }
             ],
             "options": {}
@@ -10908,7 +11241,7 @@
                     "id": 6
                 },
                 {
-                    "name": "MessageType_FirmwareEraseEX",
+                    "name": "MessageType_FirmwareErase_ex",
                     "id": 16
                 },
                 {
@@ -11544,7 +11877,67 @@
                     "id": 803
                 },
                 {
-                    "name": "MessageType_UnlockInDevice",
+                    "name": "MessageType_BixinSeedOperate",
+                    "id": 901
+                },
+                {
+                    "name": "MessageType_BixinMessageSE",
+                    "id": 902
+                },
+                {
+                    "name": "MessageType_BixinReboot",
+                    "id": 903
+                },
+                {
+                    "name": "MessageType_BixinOutMessageSE",
+                    "id": 904
+                },
+                {
+                    "name": "MessageType_BixinBackupRequest",
+                    "id": 905
+                },
+                {
+                    "name": "MessageType_BixinBackupAck",
+                    "id": 906
+                },
+                {
+                    "name": "MessageType_BixinRestoreRequest",
+                    "id": 907
+                },
+                {
+                    "name": "MessageType_BixinRestoreAck",
+                    "id": 908
+                },
+                {
+                    "name": "MessageType_BixinVerifyDeviceRequest",
+                    "id": 909
+                },
+                {
+                    "name": "MessageType_BixinVerifyDeviceAck",
+                    "id": 910
+                },
+                {
+                    "name": "MessageType_BixinWhiteListRequest",
+                    "id": 911
+                },
+                {
+                    "name": "MessageType_BixinWhiteListAck",
+                    "id": 912
+                },
+                {
+                    "name": "MessageType_BixinLoadDevice",
+                    "id": 913
+                },
+                {
+                    "name": "MessageType_BixinBackupDevice",
+                    "id": 914
+                },
+                {
+                    "name": "MessageType_BixinBackupDeviceAck",
+                    "id": 915
+                },
+                {
+                    "name": "MessageType_BixinPinInputOnDevice",
                     "id": 10000
                 }
             ],

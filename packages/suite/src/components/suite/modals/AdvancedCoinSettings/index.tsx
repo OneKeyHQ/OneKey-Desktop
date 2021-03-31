@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import TrezorConnect, { CoinInfo } from 'trezor-connect';
+import TrezorConnect, { CoinInfo } from '@onekeyhq/connect';
 import { Loader } from '@trezor/components';
 import { Modal } from '@suite-components';
 import { Translation } from '@suite-components/Translation';

@@ -116,7 +116,6 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
         }
 
         if (window?.$BLE_MODE) {
-            // @ts-expect-error
             if (device?.features?.ble_ver === window.$BLE_DATA?.version) {
                 return {
                     Heading: <NoNewFirmware.Heading />,

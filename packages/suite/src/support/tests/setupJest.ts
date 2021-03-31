@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable require-await */
 
-import { Device, Features } from 'trezor-connect';
+import { Device, Features } from '@onekeyhq/connect';
 import { TrezorDevice } from '@suite-types';
 import { Account, WalletAccountTransaction } from '@wallet-types';
 // in-memory implementation of indexedDB
@@ -94,7 +94,7 @@ export const getDeviceFeatures = (feat?: Partial<Features>): Features => ({
 });
 
 /**
- * simplified Device from 'trezor-connect'
+ * simplified Device from '@onekeyhq/connect'
  * @param {Partial<Device>} [dev]
  * @param {Partial<Features>} [feat]
  * @returns {Device}

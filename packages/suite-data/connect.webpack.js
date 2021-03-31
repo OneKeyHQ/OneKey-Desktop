@@ -7,7 +7,7 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 
 const path = require('path');
 
-const SRC = 'node_modules/trezor-connect';
+const SRC = 'node_modules/@onekeyhq/connect';
 const DATA_SRC = `${SRC}/data`;
 
 // iframe is not in npm, so we have its template in suite-data
@@ -18,7 +18,7 @@ const DIST = path.resolve(__dirname, 'files/connect');
 module.exports = {
     mode: 'production',
     entry: {
-        iframe: `./node_modules/trezor-connect/lib/iframe/iframe.js`,
+        iframe: `./node_modules/@onekeyhq/connect/lib/iframe/iframe.js`,
     },
     output: {
         filename: 'js/[name].[hash].js',

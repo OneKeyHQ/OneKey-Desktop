@@ -1,4 +1,4 @@
-import TrezorConnect, { UI, ButtonRequestMessage } from 'trezor-connect';
+import TrezorConnect, { UI, ButtonRequestMessage } from '@onekeyhq/connect';
 import { RECEIVE } from '@wallet-actions/constants';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as modalActions from '@suite-actions/modalActions';

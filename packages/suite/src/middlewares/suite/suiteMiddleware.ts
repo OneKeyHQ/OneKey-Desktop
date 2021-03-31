@@ -1,5 +1,5 @@
 import { MiddlewareAPI } from 'redux';
-import TrezorConnect, { DEVICE } from 'trezor-connect';
+import TrezorConnect, { DEVICE } from '@onekeyhq/connect';
 import { SUITE, STORAGE, ROUTER } from '@suite-actions/constants';
 import { BLOCKCHAIN } from '@wallet-actions/constants';
 import * as routerActions from '@suite-actions/routerActions';
@@ -68,7 +68,7 @@ const suite = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => as
             break;
         }
         case SUITE.CONNECT_INITIALIZED:
-            // trezor-connect init successfully
+            // @onekeyhq/connect init successfully
             api.dispatch(blockchainActions.init());
             if (isWeb()) TrezorConnect.renderWebUSBButton();
             break;

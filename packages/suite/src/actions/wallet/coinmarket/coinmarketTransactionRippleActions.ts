@@ -1,4 +1,4 @@
-import TrezorConnect, { FeeLevel, RipplePayment } from 'trezor-connect';
+import TrezorConnect, { FeeLevel, RipplePayment } from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
 import {
     ComposeTransactionData,
@@ -53,7 +53,7 @@ const calculate = (
         return {
             ...payloadData,
             type: 'final',
-            // compatibility with BTC PrecomposedTransaction from trezor-connect
+            // compatibility with BTC PrecomposedTransaction from @onekeyhq/connect
             transaction: {
                 inputs: [],
                 outputs: [
@@ -101,7 +101,7 @@ export const composeTransaction = (composeTransactionData: ComposeTransactionDat
         const { minFee } = feeInfo;
         const lastKnownFee = predefinedLevels[predefinedLevels.length - 1].feePerUnit;
         let maxFee = new BigNumber(lastKnownFee).minus(1);
-        // generate custom levels in range from lastKnownFee -1 to feeInfo.minFee (coinInfo in trezor-connect)
+        // generate custom levels in range from lastKnownFee -1 to feeInfo.minFee (coinInfo in @onekeyhq/connect)
         const customLevels: FeeLevel[] = [];
         while (maxFee.gte(minFee)) {
             customLevels.push({ feePerUnit: maxFee.toString(), label: 'custom', blocks: -1 });

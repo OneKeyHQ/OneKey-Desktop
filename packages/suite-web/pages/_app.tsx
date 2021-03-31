@@ -15,7 +15,7 @@ import Router from '@suite-support/Router';
 import ThemeProvider from '@suite-support/ThemeProvider';
 
 import { isDev } from '@suite-utils/build';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { SENTRY_CONFIG } from '@suite-config';
 import { Store } from '@suite-types';
 import ImagesPreloader from '../support/ImagesPreloader';
@@ -67,7 +67,7 @@ class TrezorSuiteApp extends App<Props> {
                             <IntlProvider>
                                 <>
                                     {/*
-                                just because we need make trezor-connect render the iframe
+                                just because we need make @onekeyhq/connect render the iframe
                             */}
                                     <div
                                         className="trezor-webusb-button"

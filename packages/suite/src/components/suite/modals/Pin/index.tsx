@@ -10,7 +10,7 @@ import {
     Modal,
     ModalProps,
 } from '@suite-components';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { TrezorDevice } from '@suite-types';
 import * as suiteActions from '@suite-actions/suiteActions';
 import { URLS } from '@suite-constants';
@@ -196,7 +196,7 @@ const Pin = ({
     const modeType = settings.unlockPin;
 
     useEffect(() => {
-        if (!device.features) return null;
+        if (!device.features) return;
         if (!isExtended && !submitted && modeType === 'device') {
             submit('@@ONEKEY_INPUT_PIN_IN_DEVICE');
         }

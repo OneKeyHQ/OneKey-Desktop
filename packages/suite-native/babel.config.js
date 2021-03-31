@@ -87,7 +87,7 @@ module.exports = api => {
                         // ??????
                         '^@trezor/components$': './packages/components',
                         '^@trezor/suite-data$': './packages/suite-data',
-                        '^@trezor/blockchain-link$': './packages/blockchain-link', // maybe not necessary, since blockchain-link is declared as extra node_modules in metro.config.js
+                        '^@onekeyhq/blockchain-link$': './packages/blockchain-link', // maybe not necessary, since blockchain-link is declared as extra node_modules in metro.config.js
                     },
                 },
             ],

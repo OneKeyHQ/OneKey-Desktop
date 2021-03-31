@@ -12,7 +12,7 @@ import fixtures from '../__fixtures__/receiveActions';
 
 const { getSuiteDevice } = global.JestMocks;
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     let fixture: any;
     let buttonRequest: ((e?: any) => any) | undefined;
 
@@ -124,7 +124,7 @@ describe('ReceiveActions', () => {
     fixtures.forEach(f => {
         it(f.description, async () => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            require('trezor-connect').setTestFixtures(f.mocks);
+            require('@onekeyhq/connect').setTestFixtures(f.mocks);
             const state = getInitialState(f.initialState as any);
             const store = initStore(state);
             await store.dispatch(init());
@@ -138,7 +138,7 @@ describe('ReceiveActions', () => {
 
     it('show unverified address then verify', async () => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require('trezor-connect').setTestFixtures({});
+        require('@onekeyhq/connect').setTestFixtures({});
         const state = getInitialState(undefined);
         const store = initStore(state);
         await store.dispatch(init());

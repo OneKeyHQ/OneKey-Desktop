@@ -443,7 +443,7 @@ export const composeDebouncedTransaction = [
         },
     },
     {
-        description: 'trezor-connect call respond with success:false',
+        description: '@onekeyhq/connect call respond with success:false',
         connect: {
             success: false,
             payload: { error: 'error' },
@@ -455,7 +455,7 @@ export const composeDebouncedTransaction = [
         },
     },
     {
-        description: 'Fast typing, one trezor-connect call',
+        description: 'Fast typing, one @onekeyhq/connect call',
         connect: {
             success: true,
             payload: [
@@ -475,14 +475,14 @@ export const composeDebouncedTransaction = [
         },
     },
     {
-        description: 'Slow typing, multiple trezor-connect calls, only last call gets processed',
+        description: 'Slow typing, multiple @onekeyhq/connect calls, only last call gets processed',
         connect: [
             {
                 success: true,
                 payload: [{ type: 'nonfinal', totalSpent: '100000000' }],
             },
             {
-                // delay in trezor-connect response greater than typing delay
+                // delay in @onekeyhq/connect response greater than typing delay
                 // basically it means: return this response AFTER third call to connect, this response should be ignored
                 delay: 500,
                 success: true,
@@ -491,7 +491,7 @@ export const composeDebouncedTransaction = [
             {
                 success: true,
                 payload: [{ type: 'nonfinal', totalSpent: '11100000000' }],
-            }, // delay in trezor-connect response, greater than typing delay
+            }, // delay in @onekeyhq/connect response, greater than typing delay
         ],
         actions: [{ type: 'input', element: 'outputs[0].amount', value: '111', delay: 310 }], // delay greater than composeDebounced timeout
         finalResult: {

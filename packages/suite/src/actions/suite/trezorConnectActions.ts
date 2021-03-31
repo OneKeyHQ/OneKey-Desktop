@@ -3,7 +3,7 @@ import TrezorConnect, {
     UI_EVENT,
     TRANSPORT_EVENT,
     BLOCKCHAIN_EVENT,
-} from 'trezor-connect';
+} from '@onekeyhq/connect';
 import * as buildUtils from '@suite-utils/build';
 import { SUITE } from '@suite-actions/constants';
 import { lockDevice } from '@suite-actions/suiteActions';

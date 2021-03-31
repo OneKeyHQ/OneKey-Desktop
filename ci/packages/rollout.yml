@@ -1,4 +1,4 @@
-# This test should exist only until trezor-connect is in monorepo.
+# This test should exist only until @onekeyhq/connect is in monorepo.
 # It checks whether rollout works with currently released webwallet data
 rollout test integration:
   only:

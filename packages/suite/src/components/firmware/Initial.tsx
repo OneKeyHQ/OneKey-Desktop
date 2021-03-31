@@ -69,7 +69,6 @@ const Heading = () => {
                                       firmware: getFwVersion(device),
                                   }
                                 : {
-                                      // @ts-expect-error
                                       firmware: device.features.ble_ver,
                                   }
                         }
@@ -86,7 +85,7 @@ const BLEBody = () => {
 
     // ensure that device is connected in requested mode
     if (device?.mode !== 'normal') return <ReconnectInNormalStep.Body />;
-    // @ts-expect-error
+
     if (device?.features.ble_ver === window.$BLE_DATA?.version) return <NoNewFirmware.Body />;
 
     const { firmwareRelease } = device;
@@ -244,7 +243,7 @@ const BLEBottomBar = () => {
     if (!device?.connected || !device?.features || device.mode !== 'normal') {
         return null;
     }
-    // @ts-expect-error
+
     if (device.features.ble_ver !== window.$BLE_DATA?.version) {
         return (
             <>

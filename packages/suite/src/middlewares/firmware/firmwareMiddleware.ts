@@ -1,5 +1,5 @@
 import { MiddlewareAPI } from 'redux';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 
 import { SUITE } from '@suite-actions/constants';
 import * as firmwareActions from '@firmware-actions/firmwareActions';
@@ -52,7 +52,7 @@ const firmware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) =>
             ) {
                 // TLDR: if you don't reload features, after updating model T from non-shamir firmware to shamir firmware, you
                 // won't see shamir vs. standard wallet selection.
-                // firmwareActions.firmwareUpdate method sends skipFinalReload parameter into trezor-connect, which results
+                // firmwareActions.firmwareUpdate method sends skipFinalReload parameter into @onekeyhq/connect, which results
                 // in capabilities not being reloaded properly even after device reconnect. this is because messages definitions
                 // which are required to parse incoming message from trezor are reloaded only before call to device starts and
                 // after it ends (if there is no skipFinalReload flag). This does not apply for our case here, so we must

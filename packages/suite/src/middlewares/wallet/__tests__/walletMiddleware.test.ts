@@ -13,10 +13,10 @@ import * as fixtures from '../__fixtures__/walletMiddleware';
 
 const { getWalletAccount } = global.JestMocks;
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     return global.JestMocks.getTrezorConnect({});
 });
-const TrezorConnect = require('trezor-connect').default;
+const TrezorConnect = require('@onekeyhq/connect').default;
 
 type AccountsState = ReturnType<typeof accountsReducer>;
 type SettingsState = ReturnType<typeof walletSettingsReducer>;
