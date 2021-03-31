@@ -62,3 +62,9 @@ Please report suspected security vulnerabilities in private to [hi@onekey.so](ma
 ## IDE specific settings
 
 Find specific settings for Integrated Development Environments (IDE) in [IDE.md](./IDE.md)
+
+## Frequently issue
+
+### `Module not found: Can't resolve '@trezor/components'`
+
+It happends because the modules hasn't been properly installed, run `yarn && yarn build:libs` to fix the problem.
