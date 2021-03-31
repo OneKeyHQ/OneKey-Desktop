@@ -14,15 +14,29 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+          scope: '@onekeyhq'
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
       - name: Install Dependiences
-        run: |
-          yarn install
-          yarn build:libs
+        run: yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Log Info
         run: |
           echo "node version: $(node -v)"
           echo "npm version: $(npm -v)"
           echo "webpack version: $(./node_modules/.bin/webpack -v)"
+      - name: Build Libs
+        run: yarn build:libs
       - name: Lint & Type Check
         run: |
           yarn type-check
