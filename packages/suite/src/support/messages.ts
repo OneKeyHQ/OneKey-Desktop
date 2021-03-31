@@ -3241,7 +3241,7 @@ const definedMessages = defineMessages({
         id: 'FW_CAPABILITY_NO_SUPPORT',
         defaultMessage: 'Not supported',
         description:
-            'Similar to missing capability but tested on different level (coin info is missing in trezor-connect)',
+            'Similar to missing capability but tested on different level (coin info is missing in @onekeyhq/connect)',
     },
     FW_CAPABILITY_UPDATE_REQUIRED: {
         id: 'FW_CAPABILITY_UPDATE_REQUIRED',
@@ -3255,7 +3255,7 @@ const definedMessages = defineMessages({
     FW_CAPABILITY_CONNECT_OUTDATED: {
         id: 'FW_CAPABILITY_CONNECT_OUTDATED',
         defaultMessage: 'Application update required',
-        description: 'Firmware is too NEW use this coin (trezor-connect is outdated)',
+        description: 'Firmware is too NEW use this coin (@onekeyhq/connect is outdated)',
     },
     MODAL_ADD_ACCOUNT_TITLE: {
         id: 'MODAL_ADD_ACCOUNT_TITLE',

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 // @ts-ignore
-import { DEVICE, Features, Device } from 'trezor-connect';
+import { DEVICE, Features, Device } from '@onekeyhq/connect';
 import {
     getConnectDevice,
     getDeviceFeatures,

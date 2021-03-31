@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import transactionReducer from '@wallet-reducers/transactionReducer';
-import { AccountTransaction } from 'trezor-connect';
+import { AccountTransaction } from '@onekeyhq/connect';
 import { getAccountKey, getAccountTransactions } from '@wallet-utils/accountUtils';
 import * as transactionActions from '../transactionActions';
 import { Account, WalletAccountTransaction } from '@wallet-types';

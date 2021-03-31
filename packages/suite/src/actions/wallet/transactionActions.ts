@@ -1,4 +1,4 @@
-import TrezorConnect, { AccountTransaction, PrecomposedTransaction } from 'trezor-connect';
+import TrezorConnect, { AccountTransaction, PrecomposedTransaction } from '@onekeyhq/connect';
 import { saveAs } from 'file-saver';
 import {
     getAccountTransactions,

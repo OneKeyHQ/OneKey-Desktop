@@ -217,7 +217,7 @@ export const interruptionFixtures = [
     },
     {
         description:
-            'Last account discovered, results from trezor-connect are ok, but discovery is expecting interruption',
+            'Last account discovered, results from @onekeyhq/connect are ok, but discovery is expecting interruption',
         connect: {
             success: true,
         },

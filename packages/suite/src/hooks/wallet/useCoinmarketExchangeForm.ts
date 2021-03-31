@@ -1,6 +1,6 @@
 import { createContext, useContext, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { ExchangeTradeQuoteRequest } from 'invity-api';
 import BigNumber from 'bignumber.js';
 import { NETWORKS } from '@wallet-config';

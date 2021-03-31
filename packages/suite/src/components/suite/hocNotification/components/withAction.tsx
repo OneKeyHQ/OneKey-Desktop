@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DEVICE } from 'trezor-connect';
+import { DEVICE } from '@onekeyhq/connect';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as discoveryActions from '@wallet-actions/discoveryActions';
 import { Dispatch } from '@suite-types';

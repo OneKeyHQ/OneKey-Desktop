@@ -34,7 +34,7 @@ interface Installer {
 const UdevRules = (props: InjectedModalApplicationProps) => {
     const [selectedTarget, setSelectedTarget] = useState<Installer | null>(null);
     const linuxPackage = getLinuxPackage();
-    // TODO: this data should be a part of TRANSPORT.START event from trezor-connect (same as bridge installers)
+    // TODO: this data should be a part of TRANSPORT.START event from @onekeyhq/connect (same as bridge installers)
     // there is no point to move this logic into config/constants
     // leaving hard coded for now until it's available from connect
     const installers = [

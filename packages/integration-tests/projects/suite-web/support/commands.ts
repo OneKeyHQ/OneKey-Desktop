@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-import TrezorConnect, { Device, Features } from 'trezor-connect';
+import TrezorConnect, { Device, Features } from '@onekeyhq/connect';
 import { Store, Action } from '@suite-types';
 
 import {
@@ -44,7 +44,7 @@ declare global {
             prefixedVisit: typeof prefixedVisit;
             getConfirmActionOnDeviceModal: typeof getConfirmActionOnDeviceModal;
             resetDb: typeof resetDb;
-            // todo: better types, this is not 100% correct as this fn may get more args from 
+            // todo: better types, this is not 100% correct as this fn may get more args from
             // cypress-image-snapshot lib
             matchImageSnapshot: typeof cy['screenshot'];
             connectDevice: (

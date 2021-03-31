@@ -1,16 +1,19 @@
 {
-    "name": "@trezor/blockchain-link",
-    "version": "1.0.16",
+    "name": "@onekeyhq/blockchain-link",
+    "version": "1.0.17",
     "author": "OneKey <hi@onekey.so>",
-    "homepage": "https://github.com/trezor/trezor-suite/packages/blockchain-link",
+    "homepage": "https://github.com/OneKeyHQ/OneKey-Desktop/packages/blockchain-link",
     "description": "High-level javascript interface for blockchain communication",
     "license": "SEE LICENSE IN LICENSE.md",
     "repository": {
         "type": "git",
-        "url": "git://github.com/trezor/trezor-suite.git"
+        "url": "git://github.com:OneKeyHQ/OneKey-Desktop.git"
     },
     "bugs": {
-        "url": "https://github.com/trezor/trezor-suite/issues"
+        "url": "https://github.com/OneKeyHQ/OneKey-Desktop/issues"
+    },
+    "publishConfig": {
+        "registry":"https://npm.pkg.github.com"
     },
     "keywords": [
         "OneKey",

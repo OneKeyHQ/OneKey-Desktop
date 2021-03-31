@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { UseFormMethods } from 'react-hook-form';
-import { FeeLevel } from 'trezor-connect';
+import { FeeLevel } from '@onekeyhq/connect';
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
 import { useActions } from '@suite-hooks';
 import { FeeInfo, PrecomposedLevels } from '@wallet-types/sendForm';

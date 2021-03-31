@@ -2,7 +2,7 @@
 import { Boolean, Number, String, Literal, Tuple, Record, Union, Partial, Static } from 'runtypes';
 
 /**
- * Partial types from trezor-connect, argument of `getInfo` method
+ * Partial types from @onekeyhq/connect, argument of `getInfo` method
  * @param extFeatures
  */
 export interface Features {
@@ -18,7 +18,7 @@ export interface Features {
 }
 
 /**
- * Accepts external features (from trezor-connect), checks whether it comes in expected
+ * Accepts external features (from @onekeyhq/connect), checks whether it comes in expected
  * shape and narrows its type to stricter one.
  * @param extFeatures
  */
@@ -96,7 +96,7 @@ export type VersionArray = VersionArrayT1 | VersionArrayT2;
  * https://github.com/trezor/webwallet-data/blob/master/firmware/2/releases.json
  * https://github.com/trezor/webwallet-data/blob/master/firmware/1/releases.json
  * and narrows them down into (somewhat more) strongly typed releases.
- * Once we have trezor-connect in monorepo and ts we might remove this, but Id rather
+ * Once we have @onekeyhq/connect in monorepo and ts we might remove this, but Id rather
  * be more defensive now.
  */
 export const parseReleases = (extReleases: any): Release[] => {

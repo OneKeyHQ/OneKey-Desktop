@@ -7,7 +7,7 @@ import { FiatValue, Translation } from '@suite-components';
 import { formatNetworkAmount, formatAmount } from '@wallet-utils/accountUtils';
 import { BTC_LOCKTIME_VALUE } from '@wallet-constants/sendForm';
 import { Network } from '@wallet-types';
-import { TokenInfo } from 'trezor-connect';
+import { TokenInfo } from '@onekeyhq/connect';
 import { ANIMATION } from '@suite-config';
 
 const ROW_PADDING = '16px 14px';

@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { AccountTransaction, AccountUtxo, AccountAddress } from 'trezor-connect';
+import { AccountTransaction, AccountUtxo, AccountAddress } from '@onekeyhq/connect';
 import { ACCOUNT, TRANSACTION, FIAT_RATES } from '@wallet-actions/constants';
 import { getAccountKey } from '@wallet-utils/accountUtils';
 import { findTransaction, enhanceTransaction } from '@wallet-utils/transactionUtils';

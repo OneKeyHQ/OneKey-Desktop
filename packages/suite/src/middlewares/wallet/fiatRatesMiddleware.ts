@@ -14,7 +14,7 @@ const fiatRatesMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: D
     switch (action.type) {
         // ACTION来源：
         //      BlockchainLink worker 收到已连接的message：'r_connected'
-        //  node_modules/trezor-connect/lib/backend/BlockchainLink.js.flow L93
+        //  node_modules/@onekeyhq/connect/lib/backend/BlockchainLink.js.flow L93
         //      link.on('connected')
         //      postMessage(BlockchainMessage(BLOCKCHAIN.CONNECT,{...}))
         //  packages/blockchain-link/src/index.ts L253
@@ -26,7 +26,7 @@ const fiatRatesMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: D
         // ACTION来源：
         //      BlockchainLink wss订阅 subscribeFiatRates，触发fiatRates事件，
         //                     分发动作BLOCKCHAIN.FIAT_RATES_UPDATE，更新价格
-        //  node_modules/trezor-connect/lib/backend/BlockchainLink.js.flow L202
+        //  node_modules/@onekeyhq/connect/lib/backend/BlockchainLink.js.flow L202
         //        link.on('fiatRates')
         //        postMessage(BlockchainMessage(BLOCKCHAIN.FIAT_RATES_UPDATE))
         //  packages/blockchain-link/src/workers/blockbook/websocket.ts L350

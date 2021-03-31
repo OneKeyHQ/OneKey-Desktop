@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js';
 import { FieldError, UseFormMethods } from 'react-hook-form';
-import { EthereumTransaction, TokenInfo, ComposeOutput } from 'trezor-connect';
+import { EthereumTransaction, TokenInfo, ComposeOutput } from '@onekeyhq/connect';
 import Common from 'ethereumjs-common';
 import { Transaction, TxData } from 'ethereumjs-tx';
 import { fromWei, padLeft, toHex, toWei } from 'web3-utils';

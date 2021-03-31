@@ -1,5 +1,5 @@
 import { Discovery, PartialDiscovery } from '@wallet-reducers/discoveryReducer';
-import TrezorConnect, { BundleProgress, AccountInfo, UI } from 'trezor-connect';
+import TrezorConnect, { BundleProgress, AccountInfo, UI } from '@onekeyhq/connect';
 import { addToast } from '@suite-actions/notificationActions';
 import { SUITE } from '@suite-actions/constants';
 import { create as createAccount } from '@wallet-actions/accountActions';
@@ -26,7 +26,7 @@ type UpdateActionType =
     | typeof DISCOVERY.COMPLETE;
 
 export interface DiscoveryItem {
-    // trezor-connect
+    // @onekeyhq/connect
     path: string;
     coin: Account['symbol'];
     details?: 'basic' | 'tokens' | 'tokenBalances' | 'txids' | 'txs';
@@ -179,7 +179,7 @@ const getBundle = (discovery: Discovery) => (_d: Dispatch, getState: GetState): 
     );
 
     // corner-case: discovery is running so it's at least second iteration
-    // progress event wasn't emitted from 'trezor-connect' so there are no accounts, neither loaded or failed
+    // progress event wasn't emitted from '@onekeyhq/connect' so there are no accounts, neither loaded or failed
     // return empty bundle to complete discovery
     if (
         discovery.status === DISCOVERY.STATUS.RUNNING &&
@@ -366,7 +366,7 @@ export const start = () => async (dispatch: Dispatch, getState: GetState): Promi
 
     dispatch(update({ deviceState, bundleSize: bundle.length, status: DISCOVERY.STATUS.RUNNING }));
 
-    // handle trezor-connect event
+    // handle @onekeyhq/connect event
     const onBundleProgress = (event: ProgressEvent) => {
         const { progress } = event;
         // pass more parameters to handler

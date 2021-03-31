@@ -1,6 +1,6 @@
 import { ExternalOutput } from '@wallet-types/sendForm';
 import { amountToSatoshi, networkAmountToSatoshi } from '@wallet-utils/accountUtils';
-import { ComposeOutput } from 'trezor-connect';
+import { ComposeOutput } from '@onekeyhq/connect';
 import { ComposeTransactionData } from '@wallet-types/transaction';
 import { invityApiSymbolToSymbol } from '@wallet-utils/coinmarket/coinmarketUtils';
 

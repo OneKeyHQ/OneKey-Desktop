@@ -1,5 +1,5 @@
 import React from 'react';
-import TrezorConnect, { UI } from 'trezor-connect';
+import TrezorConnect, { UI } from '@onekeyhq/connect';
 import { Translation, WordInput, Modal, ModalProps } from '@suite-components';
 
 const Word = (props: ModalProps) => {

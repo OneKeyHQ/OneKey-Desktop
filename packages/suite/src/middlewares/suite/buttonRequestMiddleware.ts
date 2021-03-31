@@ -1,7 +1,7 @@
 import { MiddlewareAPI } from 'redux';
 import { SUITE } from '@suite-actions/constants';
 import { AppState, Action, Dispatch } from '@suite-types';
-import TrezorConnect, { UI } from 'trezor-connect';
+import TrezorConnect, { UI } from '@onekeyhq/connect';
 
 const buttonRequest = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => (
     action: Action,

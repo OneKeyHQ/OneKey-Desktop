@@ -1,4 +1,4 @@
-import { Device } from 'trezor-connect';
+import { Device } from '@onekeyhq/connect';
 import { TrezorDevice, AcquiredDevice } from '@suite-types';
 
 export const getStatus = (device: TrezorDevice): string => {
@@ -118,7 +118,6 @@ export const getVersion = (device: TrezorDevice) => {
 
 export const getFwVersion = (device: AcquiredDevice) => {
     const { features } = device;
-    // @ts-expect-error
     if (features.onekey_version) return features.onekey_version;
     return `${features.major_version}.${features.minor_version}.${features.patch_version}`;
 };

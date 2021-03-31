@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { DEVICE, TRANSPORT } from 'trezor-connect';
+import { DEVICE, TRANSPORT } from '@onekeyhq/connect';
 import { SUITE, STORAGE, NOTIFICATION, MODAL } from '@suite-actions/constants';
 import { DISCOVERY } from '@wallet-actions/constants';
 import * as suiteActions from '../suiteActions';
@@ -324,7 +324,7 @@ const selectDevice = [
         },
     },
     {
-        description: `two instances of device (trezor-connect Device)`,
+        description: `two instances of device (@onekeyhq/connect Device)`,
         state: {
             devices: [
                 getSuiteDevice({
@@ -957,7 +957,7 @@ const createDeviceInstance = [
         result: SUITE.CREATE_DEVICE_INSTANCE,
     },
     {
-        description: `without passphrase_protection and trezor-connect error`,
+        description: `without passphrase_protection and @onekeyhq/connect error`,
         state: {
             device: getSuiteDevice({
                 connected: true,

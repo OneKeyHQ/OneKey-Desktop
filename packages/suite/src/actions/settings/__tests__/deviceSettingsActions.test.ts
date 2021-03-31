@@ -8,7 +8,7 @@ import fixtures from '../__fixtures__/deviceSettings';
 
 const { getSuiteDevice } = global.JestMocks;
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     let fixture: any;
 
     return {
@@ -41,7 +41,7 @@ describe('DeviceSettings Actions', () => {
     fixtures.forEach(f => {
         it(f.description, async () => {
             if (f.mocks) {
-                require('trezor-connect').setTestFixtures(f.mocks);
+                require('@onekeyhq/connect').setTestFixtures(f.mocks);
             }
 
             const state = getInitialState();

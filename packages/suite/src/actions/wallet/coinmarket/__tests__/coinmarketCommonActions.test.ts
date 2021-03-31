@@ -37,7 +37,7 @@ const initStore = (state: State) => {
     return store;
 };
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     let fixture: any;
     let buttonRequest: ((e?: any) => any) | undefined;
     let fixtureIndex = 0;
@@ -134,7 +134,7 @@ describe('Coinmarket Common Actions', () => {
     COMPOSE_TRANSACTION_FIXTURES.forEach(f => {
         it(f.description, async () => {
             const store = initStore(getInitialState(f.initialState));
-            require('trezor-connect').setTestFixtures(f.connect);
+            require('@onekeyhq/connect').setTestFixtures(f.connect);
 
             const result = await store.dispatch(
                 coinmarketCommonActions.composeTransaction(f.params.data as ComposeTransactionData),

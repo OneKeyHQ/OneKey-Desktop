@@ -214,7 +214,6 @@ const Settings = ({
                             <>
                                 <Translation
                                     id="TR_YOUR_CURRENT_BLE_FIRMWARE"
-                                    // @ts-expect-error
                                     values={{ version: features.ble_ver ?? '-' }}
                                 />
                             </>
@@ -232,13 +231,9 @@ const Settings = ({
                             data-test="@settings/device/update-button"
                             isDisabled={isDeviceLocked}
                         >
-                            {/*
-                            // @ts-expect-error */}
                             {device && device.features.ble_ver !== window.$BLE_DATA?.version && (
                                 <Translation id="TR_UPDATE_AVAILABLE" />
                             )}
-                            {/*
-                            // @ts-expect-error */}
                             {device && device.features.ble_ver === window.$BLE_DATA?.version && (
                                 <Translation id="TR_UP_TO_DATE" />
                             )}

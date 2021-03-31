@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FocusLock from 'react-focus-lock';
-import { UI } from 'trezor-connect';
+import { UI } from '@onekeyhq/connect';
 
 import * as allModalActions from '@suite-actions/modalActions';
 import * as routerActions from '@suite-actions/routerActions';
@@ -61,7 +61,7 @@ export type Props = ReturnType<typeof mapStateToProps> &
         background?: boolean;
     };
 
-// Modals requested byt Device from `trezor-connect`
+// Modals requested byt Device from `@onekeyhq/connect`
 const getDeviceContextModal = (props: Props) => {
     const { modal, device, router } = props;
     if (modal.context !== MODAL.CONTEXT_DEVICE || !device) return null;
@@ -129,7 +129,7 @@ const getDeviceContextModal = (props: Props) => {
     }
 };
 
-// Modals requested from `trezor-connect`
+// Modals requested from `@onekeyhq/connect`
 const getDeviceConfirmationModal = (props: Props) => {
     const { modal, modalActions, goto } = props;
 

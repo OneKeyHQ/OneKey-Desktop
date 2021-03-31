@@ -12,7 +12,7 @@ import {
 } from '@wallet-types/graph';
 import { formatNetworkAmount } from './accountUtils';
 import { resetTime } from '@suite-utils/date';
-import { BlockchainAccountBalanceHistory } from 'trezor-connect';
+import { BlockchainAccountBalanceHistory } from '@onekeyhq/connect';
 
 type FiatRates = NonNullable<CoinFiatRates['current']>['rates'];
 

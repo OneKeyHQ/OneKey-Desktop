@@ -7,7 +7,7 @@ import {
     BlockchainEvent,
     KnownDevice,
     UnknownDevice as UnknownDeviceBase,
-} from 'trezor-connect';
+} from '@onekeyhq/connect';
 import { RouterAction } from '@suite-actions/routerActions';
 import { Route } from '@suite-constants/routes';
 import { AppState } from '@suite/reducers/store';

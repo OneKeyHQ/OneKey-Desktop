@@ -1,8 +1,8 @@
 {
-    "name": "@trezor/rollout",
-    "version": "1.0.5",
+    "name": "@onekeyhq/rollout",
+    "version": "1.0.6",
     "author": "OneKey <hi@onekey.so>",
-    "homepage": "https://github.com/trezor/trezor-suite/packages/rollout",
+    "homepage": "https://github.com/OneKeyHQ/OneKey-Desktop/packages/rollout",
     "keywords": [
         "OneKey",
         "onekey-rollout",
@@ -10,13 +10,16 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git://github.com/trezor/trezor-suite.git"
+        "url": "git://github.com/OneKeyHQ/OneKey-Desktop.git"
     },
     "bugs": {
-        "url": "https://github.com/trezor/trezor-suite/issues"
+        "url": "https://github.com/OneKeyHQ/OneKey-Desktop/issues"
+    },
+    "publishConfig": {
+        "registry":"https://npm.pkg.github.com"
     },
     "license": "SEE LICENSE IN LICENSE.md",
-    "description": "Small javascript library to get latest safe firmware version for trezor update.",
+    "description": "Small javascript library to get latest safe firmware version for OneKey update.",
     "main": "lib/index.js",
     "module": "lib/index.es.js",
     "types": "lib/index.d.ts",
