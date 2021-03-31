@@ -1,4 +1,4 @@
-import { Device } from 'trezor-connect';
+import { Device } from '@onekeyhq/connect';
 import { TrezorDevice, AcquiredDevice } from '@suite-types';
 
 export const getStatus = (device: TrezorDevice): string => {

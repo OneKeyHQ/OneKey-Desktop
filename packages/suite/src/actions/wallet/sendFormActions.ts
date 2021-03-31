@@ -1,4 +1,4 @@
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
 import * as accountActions from '@wallet-actions/accountActions';
 import * as transactionActions from '@wallet-actions/transactionActions';

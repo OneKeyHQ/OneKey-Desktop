@@ -1,5 +1,5 @@
 import { MiddlewareAPI } from 'redux';
-import { UI } from 'trezor-connect';
+import { UI } from '@onekeyhq/connect';
 import { AppState, Action, Dispatch } from '@suite-types';
 
 // actionBlockerMiddleware serves one purpose only, to block certain actions based on activated device's processMode.

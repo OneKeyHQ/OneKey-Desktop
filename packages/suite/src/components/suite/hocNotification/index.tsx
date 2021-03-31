@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconProps } from '@trezor/components';
-import { DEVICE } from 'trezor-connect';
+import { DEVICE } from '@onekeyhq/connect';
 import { SUITE } from '@suite-actions/constants';
 import { NotificationEntry } from '@suite-reducers/notificationReducer';
 import { ExtendedMessageDescriptor, ToastNotificationVariant } from '@suite-types';

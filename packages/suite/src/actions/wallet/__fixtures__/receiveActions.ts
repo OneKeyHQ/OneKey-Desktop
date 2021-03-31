@@ -107,7 +107,7 @@ export default [
         },
     },
     {
-        description: 'Show address failed, trezor-connect method not specified',
+        description: 'Show address failed, @onekeyhq/connect method not specified',
         initialState: {
             wallet: {
                 selectedAccount: {
@@ -164,7 +164,7 @@ export default [
         },
     },
     {
-        description: 'Show address, trezor-connect error',
+        description: 'Show address, @onekeyhq/connect error',
         initialState: undefined,
         mocks: {
             getAddress: { success: false, payload: { error: 'Runtime error' } },
@@ -183,7 +183,7 @@ export default [
         },
     },
     {
-        description: 'Show address, trezor-connect permissions not granted',
+        description: 'Show address, @onekeyhq/connect permissions not granted',
         initialState: undefined,
         mocks: {
             getAddress: {

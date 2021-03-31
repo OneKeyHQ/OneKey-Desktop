@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Translation, Modal } from '@suite-components';
 import { variables, Button } from '@trezor/components';
 import { WalletAccountTransaction } from '@wallet-types';
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import BasicDetails from './components/BasicDetails';
 import AdvancedDetails, { TabID } from './components/AdvancedDetails';
 import ChangeFee from './components/ChangeFee';

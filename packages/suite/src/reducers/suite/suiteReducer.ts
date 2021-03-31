@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { TRANSPORT, TransportInfo } from 'trezor-connect';
+import { TRANSPORT, TransportInfo } from '@onekeyhq/connect';
 import { SUITE, STORAGE } from '@suite-actions/constants';
 import { DISCOVERY } from '@wallet-actions/constants';
 import { Action, TrezorDevice, Lock, SuiteThemeVariant, SuiteThemeColors } from '@suite-types';

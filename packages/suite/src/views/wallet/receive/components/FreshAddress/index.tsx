@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, Card, variables } from '@trezor/components';
 import { Translation, QuestionTooltip, ReadMoreLink } from '@suite-components';
 import { ChildProps as Props } from '../../Container';
-import { AccountAddress } from 'trezor-connect';
+import { AccountAddress } from '@onekeyhq/connect';
 
 const StyledCard = styled(Card)`
     width: 100%;

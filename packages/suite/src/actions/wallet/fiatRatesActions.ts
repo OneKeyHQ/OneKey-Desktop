@@ -1,4 +1,4 @@
-import TrezorConnect, { AccountTransaction, BlockchainFiatRatesUpdate } from 'trezor-connect';
+import TrezorConnect, { AccountTransaction, BlockchainFiatRatesUpdate } from '@onekeyhq/connect';
 import { getUnixTime, differenceInSeconds, subWeeks } from 'date-fns';
 import {
     fetchCurrentFiatRates,

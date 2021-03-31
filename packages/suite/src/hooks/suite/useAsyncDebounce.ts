@@ -4,7 +4,7 @@ import { createDeferred } from '@suite-utils/deferred';
 type TimeoutType = ReturnType<typeof setTimeout>; // resolves to Timeout type in react-native, number otherwise
 
 // composeTransaction should be debounced from both sides
-// `timeout` prevents from calling 'trezor-connect' method to many times (inputs mad-clicking)
+// `timeout` prevents from calling '@onekeyhq/connect' method to many times (inputs mad-clicking)
 // TODO: maybe it should be converted to regular module, could be useful elsewhere
 export const useAsyncDebounce = () => {
     const timeout = useRef<TimeoutType | null>(null);

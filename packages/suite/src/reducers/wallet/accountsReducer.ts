@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { AccountInfo } from 'trezor-connect';
+import { AccountInfo } from '@onekeyhq/connect';
 import { ACCOUNT } from '@wallet-actions/constants';
 import { STORAGE, METADATA } from '@suite-actions/constants';
 import { WalletAction, Network } from '@wallet-types';

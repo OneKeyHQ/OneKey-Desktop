@@ -1,5 +1,5 @@
 import { State as TransactionsState } from '@wallet-reducers/transactionReducer';
-import { AccountInfo, AccountAddress, PrecomposedTransaction } from 'trezor-connect';
+import { AccountInfo, AccountAddress, PrecomposedTransaction } from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
 import { ACCOUNT_TYPE } from '@wallet-constants/account';
 import { Account, Network, CoinFiatRates, WalletParams, Discovery } from '@wallet-types';

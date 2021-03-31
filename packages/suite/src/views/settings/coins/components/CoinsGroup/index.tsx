@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { P, Switch, Icon, variables, Button, useTheme } from '@trezor/components';
 import { Translation } from '@suite-components';
 import { NETWORKS } from '@wallet-config';
-import { UnavailableCapability } from 'trezor-connect';
+import { UnavailableCapability } from '@onekeyhq/connect';
 import { Network } from '@wallet-types';
 import { Section, ActionColumn, Row } from '@suite-components/Settings';
 import { useDevice, useActions } from '@suite-hooks';
@@ -110,7 +110,7 @@ const Unavailable = ({ type }: { type: UnavailableCapability }) => {
             return <Translation id="FW_CAPABILITY_NO_SUPPORT" />;
         case 'update-required':
             return <Translation id="FW_CAPABILITY_UPDATE_REQUIRED" />;
-        // case 'trezor-connect-outdated':
+        // case '@onekeyhq/connect-outdated':
         default:
             return <Translation id="FW_CAPABILITY_CONNECT_OUTDATED" />;
     }

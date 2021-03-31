@@ -4,7 +4,7 @@ import TrezorConnect, {
     BlockchainNotification,
     BlockchainError,
     BlockchainEstimateFee,
-} from 'trezor-connect';
+} from '@onekeyhq/connect';
 import * as accountUtils from '@wallet-utils/accountUtils';
 import * as accountActions from '@wallet-actions/accountActions';
 import { getNetwork } from '@wallet-utils/accountUtils';
@@ -39,7 +39,7 @@ export type BlockchainAction =
       };
 
 // sort FeeLevels in reversed order (Low > High)
-// TODO: consider to use same order in trezor-connect to avoid double sorting
+// TODO: consider to use same order in @onekeyhq/connect to avoid double sorting
 const order: FeeLevel['label'][] = ['low', 'economy', 'normal', 'high'];
 const sortLevels = (levels: FeeLevel[]) => {
     return levels.sort(

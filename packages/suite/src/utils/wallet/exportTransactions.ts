@@ -1,4 +1,4 @@
-import { AccountTransaction } from 'trezor-connect';
+import { AccountTransaction } from '@onekeyhq/connect';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';

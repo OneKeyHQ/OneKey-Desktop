@@ -1,5 +1,5 @@
 import { MiddlewareAPI } from 'redux';
-import { BLOCKCHAIN } from 'trezor-connect';
+import { BLOCKCHAIN } from '@onekeyhq/connect';
 import * as blockchainActions from '@wallet-actions/blockchainActions';
 import { AppState, Action, Dispatch } from '@suite-types';
 

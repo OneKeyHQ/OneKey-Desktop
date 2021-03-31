@@ -40,7 +40,7 @@ const useRbfState = ({ tx, finalize, chainedTxs }: Props, currentState: boolean)
         ...account,
         // use only utxo from original tx
         utxo: tx.rbfParams.utxo,
-        // make sure that the exact same change output will be picked by trezor-connect > hd-wallet during the tx compose process
+        // make sure that the exact same change output will be picked by @onekeyhq/connect > hd-wallet during the tx compose process
         // fallback to default if change address is not present
         addresses: account.addresses
             ? {

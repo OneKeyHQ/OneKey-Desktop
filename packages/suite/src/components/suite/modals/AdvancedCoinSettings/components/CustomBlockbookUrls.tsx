@@ -2,7 +2,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { CoinInfo } from 'trezor-connect';
+import { CoinInfo } from '@onekeyhq/connect';
 import { Input, Button, variables } from '@trezor/components';
 import { Translation } from '@suite-components/Translation';
 import { Network } from '@suite/types/wallet';

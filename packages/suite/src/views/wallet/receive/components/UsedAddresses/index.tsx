@@ -4,7 +4,7 @@ import { variables, Button } from '@trezor/components';
 import { Card, Translation, HiddenPlaceholder, MetadataLabeling } from '@suite-components';
 import { formatNetworkAmount } from '@wallet-utils/accountUtils';
 import { ChildProps as Props } from '../../Container';
-import { AccountAddress } from 'trezor-connect';
+import { AccountAddress } from '@onekeyhq/connect';
 import { Network } from '@wallet-types';
 import { MetadataAddPayload } from '@suite-types/metadata';
 

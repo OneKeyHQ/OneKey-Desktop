@@ -1,5 +1,5 @@
 import React from 'react';
-import { UI } from 'trezor-connect';
+import { UI } from '@onekeyhq/connect';
 
 import { Translation, Image } from '@suite-components';
 import { Text, OnboardingButton, Wrapper } from '@onboarding-components';

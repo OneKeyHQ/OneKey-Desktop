@@ -1,4 +1,4 @@
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { validateAddress } from '@wallet-utils/ethUtils';
 import * as notificationActions from '@suite-actions/notificationActions';
 import { SIGN_VERIFY } from './constants';
