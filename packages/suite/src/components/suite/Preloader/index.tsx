@@ -92,7 +92,6 @@ const getSuiteApplicationState = ({
     }
 
     // TODO: 蓝牙更新判断
-    // @ts-expect-error
     if (window.$BLE_DATA?.required && device?.features?.ble_ver !== window.$BLE_DATA?.version) {
         if (typeof window !== 'undefined') {
             // @ts-ignore

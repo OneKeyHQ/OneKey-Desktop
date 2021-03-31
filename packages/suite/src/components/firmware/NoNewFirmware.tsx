@@ -35,7 +35,6 @@ const Body = () => {
                                   version: getFwVersion(device),
                               }
                             : {
-                                  // @ts-expect-error
                                   version: device.features.ble_ver,
                               }
                     }

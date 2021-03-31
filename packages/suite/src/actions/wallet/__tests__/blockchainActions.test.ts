@@ -10,10 +10,10 @@ import notificationsReducer from '@suite-reducers/notificationReducer';
 import * as blockchainActions from '../blockchainActions';
 import * as fixtures from '../__fixtures__/blockchainActions';
 
-jest.mock('trezor-connect', () => {
+jest.mock('@onekeyhq/connect', () => {
     return global.JestMocks.getTrezorConnect({});
 });
-const TrezorConnect = require('trezor-connect').default;
+const TrezorConnect = require('@onekeyhq/connect').default;
 
 type AccountsState = ReturnType<typeof accountsReducer>;
 type TransactionsState = ReturnType<typeof transactionReducer>;
@@ -144,7 +144,7 @@ describe('Blockchain Actions', () => {
 
     fixtures.onBlock.forEach(f => {
         it(`onBlock: ${f.description}`, async () => {
-            // set fixtures in trezor-connect
+            // set fixtures in @onekeyhq/connect
             if (Array.isArray(f.connect)) {
                 TrezorConnect.setTestFixtures(
                     f.connect.map(payload => ({ success: true, payload })),
