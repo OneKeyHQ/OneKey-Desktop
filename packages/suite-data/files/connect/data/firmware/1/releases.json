@@ -1,0 +1,17 @@
+[
+  {
+    "required": true,
+    "version": [2, 0, 7],
+    "bootloader_version": [1, 8, 6],
+    "min_bridge_version": [2, 0, 25],
+    "min_firmware_version": [1, 6, 2],
+    "min_bootloader_version": [1, 5, 0],
+    "url_bitcoinonly": "",
+    "url": "https://devs.243096.com/onekey/hw/v2.0.7/bixin-2.0.7.bin",
+    "fingerprint": "112393f1a91daa5f06c03790eceda69b849db11d1e8897899cf2c7222660753b",
+    "fingerprint_bitcoinonly": "",
+    "changelog": "此更新包含一些错误修复和性能提升。",
+    "changelog_en": "This update contains several bug fixes and performance enhancements.",
+    "notes": ""
+  }
+]

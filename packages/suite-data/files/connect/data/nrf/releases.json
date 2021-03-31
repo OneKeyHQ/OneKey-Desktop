@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "version": "1.2.0",
+  "url": "https://devs.243096.com/onekey/App_Signed-2021-3-5_1.2.0.zip",
+  "web_update": "https://devs.243096.com/onekey/App_Signed-2021-3-5_1.2.0.bin",
+  "changelog_cn": "修复已知问题",
+  "changelog_en": "minor fixes"
+}
