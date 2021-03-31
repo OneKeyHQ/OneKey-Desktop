@@ -49,6 +49,7 @@ const Settings = ({
     unlockPin,
     passphraseShowSwitch,
     changeShowPassphraseSwitch,
+    language,
 }: Props) => {
     const [label, setLabel] = useState('');
     const [customHomescreen, setCustomHomescreen] = useState('');
@@ -307,10 +308,13 @@ const Settings = ({
                                     <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER" />
                                 }
                                 data-test="@settings/unlock-pin-method-select"
-                                options={UNLOCK_PIN.map(l => ({ value: l.code, label: l.name }))}
+                                options={UNLOCK_PIN.map(l => ({
+                                    value: l.code,
+                                    label: l[language] ?? l.zh,
+                                }))}
                                 onChange={(option: {
                                     value: typeof UNLOCK_PIN[number]['code'];
-                                    label: typeof UNLOCK_PIN[number]['name'];
+                                    label: typeof UNLOCK_PIN[number]['zh'];
                                 }) => {
                                     changeUnlockPinMethod(option.value);
                                 }}
@@ -318,8 +322,9 @@ const Settings = ({
                                     unlockPin
                                         ? {
                                               value: unlockPin,
-                                              label: UNLOCK_PIN.find(l => l.code === unlockPin)!
-                                                  .name,
+                                              label: UNLOCK_PIN.find(l => l.code === unlockPin)![
+                                                  language
+                                              ],
                                           }
                                         : null
                                 }

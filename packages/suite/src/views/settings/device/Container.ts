@@ -14,6 +14,7 @@ import { AppState, Dispatch } from '@suite-types';
 import DeviceSettings from './index';
 
 const mapStateToProps = (state: AppState) => ({
+    language: state.suite.settings.language,
     device: state.suite.device,
     unlockPin: state.suite.settings.unlockPin,
     passphraseShowSwitch: state.suite.settings.passphraseShowSwitch,
