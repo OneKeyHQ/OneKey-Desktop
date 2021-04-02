@@ -127,7 +127,7 @@ const MetadataProvider = (props: Props) => {
                         isDisabled={!!isLoading}
                         data-test="@modal/metadata-provider/file-system-button"
                     >
-                        Local file system
+                        本地文件
                     </StyledButton>
                 )}
             </Buttons>
