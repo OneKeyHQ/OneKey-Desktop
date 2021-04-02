@@ -1,7 +1,6 @@
 import React from 'react';
 import { TrezorDevice } from '@suite-types';
 import { useTranslation } from '@suite-hooks/useTranslation';
-import TrezorConnect from '@onekeyhq/connect';
 
 interface Props {
     device: TrezorDevice;
