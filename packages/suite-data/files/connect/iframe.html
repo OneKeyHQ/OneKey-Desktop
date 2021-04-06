@@ -16,6 +16,17 @@
 <body>
 
     <script type="text/javascript">
+        window.addEventListener('message', (event) => {
+            if (event.data === 'BLE_MODE_SUCCESS') {
+                window.$BLE_MODE = true;
+                return;
+            }
+
+            if (event.data === 'BLE_MODE_FAIL') {
+                window.$BLE_MODE = false;
+                return;
+            }
+        });
         window.parent.postMessage({
             event: 'UI_EVENT',
             type: 'iframe-bootstrap',
@@ -23,7 +34,7 @@
 
         const iframeScript = document.createElement('script');
         iframeScript.setAttribute('type', 'text/javascript');
-        iframeScript.setAttribute('src', './js/iframe.3f90dc3f80235f789f54.js');
+        iframeScript.setAttribute('src', './js/iframe.4057fae72d0816222e04.js');
         iframeScript.setAttribute('async', 'false');
         document.body.appendChild(iframeScript);
     </script>
