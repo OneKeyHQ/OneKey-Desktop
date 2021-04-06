@@ -1,7 +1,7 @@
 {
     "name": "@trezor/suite-desktop",
     "description": "OneKey Desktop desktop application",
-    "version": "21.3.4",
+    "version": "21.3.5",
     "private": true,
     "author": "OneKey <hi@onekey.so>",
     "homepage": "https://onekey.so/",
