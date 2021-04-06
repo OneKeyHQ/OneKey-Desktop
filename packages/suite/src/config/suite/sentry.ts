@@ -12,6 +12,12 @@ export default {
     ],
     release: process.env.COMMITHASH,
     environment: process.env.SUITE_TYPE,
+    beforeBreadcrumb(breadcrumb) {
+        if (breadcrumb.category === 'console') {
+            return null;
+        }
+        return breadcrumb;
+    },
     beforeSend(event, hint) {
         const error = hint?.syntheticException;
         const re = new RegExp(`FiatRatesFetchError.*${TOR_DOMAIN}`, 'gmi');
@@ -20,5 +26,6 @@ export default {
             event.fingerprint = ['FiatRatesFetchError'];
             return null;
         }
+        return event;
     },
 } as BrowserOptions;
