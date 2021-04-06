@@ -6,6 +6,7 @@ import { Translation, ExternalLink } from '@suite-components';
 import { getFwVersion } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
+import { isNewer, isNewerOrEqual } from '@firmware-utils';
 
 const { FONT_SIZE, FONT_WEIGHT } = variables;
 
@@ -86,7 +87,22 @@ const BLEBody = () => {
     // ensure that device is connected in requested mode
     if (device?.mode !== 'normal') return <ReconnectInNormalStep.Body />;
 
-    if (device?.features.ble_ver === window.$BLE_DATA?.version) return <NoNewFirmware.Body />;
+    if (
+        isNewerOrEqual(
+            (device?.features?.ble_ver?.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+
+            (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+        )
+    )
+        return <NoNewFirmware.Body />;
 
     const { firmwareRelease } = device;
     if (!device?.features || !firmwareRelease) return null; // ts
@@ -244,7 +260,20 @@ const BLEBottomBar = () => {
         return null;
     }
 
-    if (device.features.ble_ver !== window.$BLE_DATA?.version) {
+    if (
+        isNewer(
+            (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+            (device?.features?.ble_ver?.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+        )
+    ) {
         return (
             <>
                 <ContinueButton onClick={() => setStatus('check-seed')} />

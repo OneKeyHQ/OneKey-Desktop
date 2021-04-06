@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { ConfirmOnDevice } from '@trezor/components';
-
+import { isNewerOrEqual } from '@firmware-utils';
 import * as firmwareActions from '@firmware-actions/firmwareActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { InjectedModalApplicationProps, Dispatch, AppState } from '@suite-types';
@@ -116,7 +116,21 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
         }
 
         if (window?.$BLE_MODE) {
-            if (device?.features?.ble_ver === window.$BLE_DATA?.version) {
+            if (
+                isNewerOrEqual(
+                    (device?.features?.ble_ver?.split('.').map(Number) as [
+                        number,
+                        number,
+                        number,
+                    ]) ?? [1, 0, 0],
+
+                    (window.$BLE_DATA?.version.split('.').map(Number) as [
+                        number,
+                        number,
+                        number,
+                    ]) ?? [1, 0, 0],
+                )
+            ) {
                 return {
                     Heading: <NoNewFirmware.Heading />,
                     Body: <NoNewFirmware.Body />,

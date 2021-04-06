@@ -9,7 +9,7 @@ import Modals from '@suite-components/modals';
 import * as routerActions from '@suite-actions/routerActions';
 import { AppState } from '@suite-types';
 import { useDiscovery, useSelector, useActions } from '@suite-hooks';
-
+import { isNewer } from '@firmware-utils';
 import Firmware from '@firmware-views';
 import Onboarding from '@onboarding-views';
 import Recovery from '@suite/views/recovery';
@@ -91,8 +91,21 @@ const getSuiteApplicationState = ({
         return DeviceUpdateRequired;
     }
 
-    // TODO: 蓝牙更新判断
-    if (window.$BLE_DATA?.required && device?.features?.ble_ver !== window.$BLE_DATA?.version) {
+    if (
+        window.$BLE_DATA?.required &&
+        isNewer(
+            (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+            (device?.features?.ble_ver?.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+        )
+    ) {
         if (typeof window !== 'undefined') {
             // @ts-ignore
             window.$BLE_MODE = true;

@@ -18,6 +18,7 @@ import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics } from '@suite-hooks';
 import { variables, Switch } from '@trezor/components';
 import { UNLOCK_PIN } from '@suite-config';
+import { isNewer, isNewerOrEqual } from '@firmware-utils';
 
 import { Props } from './Container';
 
@@ -231,12 +232,33 @@ const Settings = ({
                             data-test="@settings/device/update-button"
                             isDisabled={isDeviceLocked}
                         >
-                            {device && device.features.ble_ver !== window.$BLE_DATA?.version && (
-                                <Translation id="TR_UPDATE_AVAILABLE" />
-                            )}
-                            {device && device.features.ble_ver === window.$BLE_DATA?.version && (
-                                <Translation id="TR_UP_TO_DATE" />
-                            )}
+                            {device &&
+                                isNewer(
+                                    (window.$BLE_DATA?.version.split('.').map(Number) as [
+                                        number,
+                                        number,
+                                        number,
+                                    ]) ?? [1, 0, 0],
+                                    (device?.features?.ble_ver?.split('.').map(Number) as [
+                                        number,
+                                        number,
+                                        number,
+                                    ]) ?? [1, 0, 0],
+                                ) && <Translation id="TR_UPDATE_AVAILABLE" />}
+                            {device &&
+                                isNewerOrEqual(
+                                    (device?.features?.ble_ver?.split('.').map(Number) as [
+                                        number,
+                                        number,
+                                        number,
+                                    ]) ?? [1, 0, 0],
+
+                                    (window.$BLE_DATA?.version.split('.').map(Number) as [
+                                        number,
+                                        number,
+                                        number,
+                                    ]) ?? [1, 0, 0],
+                                ) && <Translation id="TR_UP_TO_DATE" />}
                         </ActionButton>
                     </ActionColumn>
                 </SectionItem>
