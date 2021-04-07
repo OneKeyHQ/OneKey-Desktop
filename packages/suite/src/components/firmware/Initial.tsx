@@ -250,6 +250,7 @@ const HowLong = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 16px;
+    align-items: center;
 `;
 
 const BLEBottomBar = () => {
