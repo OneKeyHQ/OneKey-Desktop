@@ -64,7 +64,8 @@ const suite = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => as
             // 3. init connect;
             api.dispatch(trezorConnectActions.init());
             // 4. init analytics
-            api.dispatch(analyticsActions.init(action.payload.analytics, true));
+            // disable analytics by default
+            api.dispatch(analyticsActions.init(action.payload.analytics, false));
             break;
         }
         case SUITE.CONNECT_INITIALIZED:

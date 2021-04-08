@@ -21,13 +21,14 @@ const analyticsReducer = (state: State = initialState, action: Action): State =>
     return produce(state, draft => {
         switch (action.type) {
             case ANALYTICS.INIT:
-                draft.enabled = action.payload.enabled;
+                // draft.enabled = action.payload.enabled;
+                draft.enabled = false;
                 draft.instanceId = action.payload.instanceId;
                 draft.sessionId = action.payload.sessionId;
                 draft.sessionStart = action.payload.sessionStart;
                 break;
             case ANALYTICS.ENABLE:
-                draft.enabled = true;
+                draft.enabled = false;
                 break;
             case ANALYTICS.DISPOSE:
                 draft.enabled = false;
