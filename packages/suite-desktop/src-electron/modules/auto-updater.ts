@@ -14,6 +14,17 @@ const enableUpdater = app.commandLine.hasSwitch('enable-updater');
 const disableUpdater = app.commandLine.hasSwitch('disable-updater');
 const preReleaseFlag = app.commandLine.hasSwitch('pre-release');
 
+function isNetworkError(errorObject: Error) {
+    return (
+        errorObject.message === 'net::ERR_INTERNET_DISCONNECTED' ||
+        errorObject.message === 'net::ERR_PROXY_CONNECTION_FAILED' ||
+        errorObject.message === 'net::ERR_CONNECTION_RESET' ||
+        errorObject.message === 'net::ERR_CONNECTION_CLOSE' ||
+        errorObject.message === 'net::ERR_NAME_NOT_RESOLVED' ||
+        errorObject.message === 'net::ERR_CONNECTION_TIMED_OUT'
+    );
+}
+
 const init = ({ mainWindow, store }: Dependencies) => {
     const { logger } = global;
 
@@ -138,7 +149,18 @@ const init = ({ mainWindow, store }: Dependencies) => {
 
         logger.info('auto-updater', `Update checking request (manual: ${b2t(isManualCheck)})`);
         autoUpdater.setFeedURL(SS_PREFIX);
-        autoUpdater.checkForUpdates();
+        autoUpdater.checkForUpdates().catch(error => {
+            if (isNetworkError(error)) {
+                logger.info('auto-updater', `Check for update network error`);
+            } else {
+                logger.info(
+                    'auto-updater',
+                    `Unknown Error: ${
+                        error == null ? 'unknown' : (error.stack || error).toString()
+                    }`,
+                );
+            }
+        });
     });
     ipcMain.on('update/download', () => {
         logger.info('auto-updater', 'Download requested');
