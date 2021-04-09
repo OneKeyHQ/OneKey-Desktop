@@ -6,6 +6,6 @@ interface Pin {
 }
 
 export default [
-    { code: 'desktop', zh: '在桌面端解锁', en: 'unlock on desktop' },
-    { code: 'device', zh: '在设备上解锁', en: 'unlock on device' },
+    { code: 'desktop', zh: '在桌面端解锁', en: 'Desktop' },
+    { code: 'device', zh: '在设备上解锁', en: 'Device' },
 ] as ReadonlyArray<Pin>;
