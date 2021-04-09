@@ -20,7 +20,6 @@ export type StorageAction =
 const isDBAccessible = async () => {
     const isSupported = await db.isSupported();
     // if the instance is blocking db upgrade, db connection will be closed
-    // @ts-ignore
     return isSupported && !db.blocking && !db.blocked;
 };
 
@@ -427,12 +426,9 @@ export const loadStorage = () => async (dispatch: Dispatch, getState: GetState) 
 
 export const init = () => async (dispatch: Dispatch) => {
     // should be called only once
-    // @ts-ignore
     if (!db.onBlocked && !db.onBlocking) {
         // set callbacks that are fired when upgrading the db is blocked because of multiple instances are running
-        // @ts-ignore
         db.onBlocked = () => dispatch(suiteActions.setDbError('blocked'));
-        // @ts-ignore
         db.onBlocking = () => dispatch(suiteActions.setDbError('blocking'));
         await db.getDB();
     }
