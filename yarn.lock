@@ -2749,10 +2749,10 @@
     "@octokit/openapi-types" "^2.2.0"
     "@types/node" ">= 8"
 
-"@onekeyhq/connect@8.1.25-extended":
-  version "8.1.25-extended"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.1.25-extended/a1621d8927cc50126954abd58f2f57b04d68ac1a7c21ca4ddc7d21235b9b6a79#f7830937a41e70fd83f3421c5434e5d30815d95d"
-  integrity sha512-dGDNOk3+HU/sxEdJaLU+XsYEKXiz+WGoUf3bmK3r2+PQmDCS2an0TsZQfEL1S5g8lcovP4qzT0x+71key8SKGw==
+"@onekeyhq/connect@8.1.26-extended":
+  version "8.1.26-extended"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.1.26-extended/bc1517c657abe2c88f31efd589756bf6086add4e557cef2a9a61520cbf36fa5f#9eed1b1dd19650ea2fbe45cc535ba9cf360b59b5"
+  integrity sha512-WIAWXucK/Uq7HYUkpHJN5nUEyTGbU4gG6JJn9KgDY2GAUrT5hjCR2OUruTBxg0oeWnQMpv/SEYw6IrNAbJpxOw==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@onekeyhq/blockchain-link" "^1.0.17"
@@ -21291,10 +21291,10 @@ symbol.prototype.description@^1.0.0:
     has-symbols "^1.0.1"
     object.getownpropertydescriptors "^2.1.0"
 
-systeminformation@^4.34.7:
-  version "4.34.7"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-4.34.7.tgz#8b4a00c44781349905881c95dded8bafe7aae47f"
-  integrity sha512-cS3FiSZasFgVNjO9CP3aZmTO2VHwXKG+JN6Z85nWRyOzxRMNbZe7Xzwrewp42hj+OPMC3hk7MrAFyu/qLM65Mw==
+systeminformation@5.6.10:
+  version "5.6.10"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.6.10.tgz#832fb1e57a798f4419123119e0e90ed8eeb38e56"
+  integrity sha512-OHOsd0OuVxocAzrG0TXz4yw7bixR6qrYot9G3w8oNX8OF7hjmGTePCieVvSfgWNgK2NBA5tfziwxTfNqX0ej9g==
 
 table@^6.0.3, table@^6.0.4:
   version "6.0.7"

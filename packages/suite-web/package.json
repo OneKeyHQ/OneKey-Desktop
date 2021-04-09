@@ -1,6 +1,6 @@
 {
     "name": "@trezor/suite-web",
-    "version": "21.3.4",
+    "version": "21.3.5",
     "private": true,
     "scripts": {
         "type-check": "tsc --project tsconfig.json",

@@ -1,7 +1,7 @@
 {
     "name": "@trezor/suite-desktop",
     "description": "OneKey Desktop desktop application",
-    "version": "21.3.4",
+    "version": "21.3.5",
     "private": true,
     "author": "OneKey <hi@onekey.so>",
     "homepage": "https://onekey.so/",
@@ -21,6 +21,9 @@
         "build:linux": "yarn clean && yarn build:ui && yarn build:app:linux",
         "build:mac": "yarn clean && yarn build:ui && yarn build:app:mac",
         "build:win": "yarn clean && yarn build:ui && yarn build:app:win",
+        "build:dev:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:mac",
+        "build:dev:win": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:win",
+        "build:dev:linux": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:linux",
         "build:desktop": "yarn clean && yarn build:ui && yarn build:app:win && yarn build:app:mac && yarn build:app:linux",
         "publish:all": "yarn clean && yarn build:ui && yarn build:app && electron-builder --publish always --mac --linux --win",
         "publish:linux": "yarn build:linux && electron-builder --publish always --linux",
@@ -152,7 +155,7 @@
         "electron-store": "^5.1.1",
         "electron-updater": "^4.3.5",
         "node-fetch": "^2.6.1",
-        "systeminformation": "^4.34.7"
+        "systeminformation": "5.6.10"
     },
     "devDependencies": {
         "@sentry/browser": "^5.29.2",

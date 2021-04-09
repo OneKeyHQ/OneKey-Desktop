@@ -14,7 +14,7 @@ const Body = () => {
     return (
         <>
             <InitImg
-                model={device?.features?.major_version || prevDevice?.features?.major_version || 2}
+                model={device?.features?.major_version || prevDevice?.features?.major_version || 1}
             />
 
             {statusText && (

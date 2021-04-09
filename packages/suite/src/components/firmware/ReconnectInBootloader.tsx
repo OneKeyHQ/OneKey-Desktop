@@ -16,7 +16,7 @@ import { useDevice, useFirmware, useSelector } from '@suite-hooks';
 const Body = () => {
     const { device } = useDevice();
     const { prevDevice } = useFirmware();
-    const expectedModel = prevDevice?.features?.major_version || 2;
+    const expectedModel = prevDevice?.features?.major_version || 1;
 
     if (!device?.connected) {
         return (

@@ -13,9 +13,10 @@ const WalletLabelling = (props: Props) => {
 
     let label: string | null = null;
     if (device.state) {
-        label = device.useEmptyPassphrase
-            ? translationString('TR_NO_PASSPHRASE_WALLET')
-            : translationString('TR_PASSPHRASE_WALLET', { id: device.walletNumber });
+        label =
+            device.useEmptyPassphrase || !device.features.passphrase_protection
+                ? translationString('TR_NO_PASSPHRASE_WALLET')
+                : translationString('TR_PASSPHRASE_WALLET', { id: device.walletNumber });
     }
 
     if (props.useDeviceLabel) {

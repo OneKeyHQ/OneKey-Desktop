@@ -16,7 +16,7 @@ export const allowedDomains = [
     'api.dropboxapi.com',
     'content.dropboxapi.com',
     'notify.dropboxapi.com',
-    'o117836.ingest.sentry.io',
+    'o554666.ingest.sentry.io',
     'oauth2.googleapis.com',
     'googleapis.com',
     'onekey.so',

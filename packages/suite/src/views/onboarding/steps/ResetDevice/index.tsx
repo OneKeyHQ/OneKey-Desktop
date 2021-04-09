@@ -27,7 +27,7 @@ const ResetDeviceStep = (props: Props) => {
             <Wrapper.StepBody>
                 {!isShamirBackupAvailable() && (
                     <>
-                        <SuccessImg model={device.features.major_version || 2} />
+                        <SuccessImg model={device.features.major_version || 1} />
                         <H2>
                             <Translation id="TR_CREATE_WALLET" />
                         </H2>

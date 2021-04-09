@@ -7,9 +7,10 @@ import InitialLoading from './components/InitialLoading';
 import DiscoveryLoader from '@suite-components/DiscoveryLoader';
 import Modals from '@suite-components/modals';
 import * as routerActions from '@suite-actions/routerActions';
+import DatabaseUpgradeModal from './components/DatabaseUpgradeModal';
 import { AppState } from '@suite-types';
 import { useDiscovery, useSelector, useActions } from '@suite-hooks';
-
+import { isNewer } from '@firmware-utils';
 import Firmware from '@firmware-views';
 import Onboarding from '@onboarding-views';
 import Recovery from '@suite/views/recovery';
@@ -91,8 +92,21 @@ const getSuiteApplicationState = ({
         return DeviceUpdateRequired;
     }
 
-    // TODO: 蓝牙更新判断
-    if (window.$BLE_DATA?.required && device?.features?.ble_ver !== window.$BLE_DATA?.version) {
+    if (
+        window.$BLE_DATA?.required &&
+        isNewer(
+            (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+            (device?.features?.ble_ver?.split('.').map(Number) as [number, number, number]) ?? [
+                1,
+                0,
+                0,
+            ],
+        )
+    ) {
         if (typeof window !== 'undefined') {
             // @ts-ignore
             window.$BLE_MODE = true;
@@ -153,17 +167,18 @@ interface Props {
 
 const Preloader = ({ children, hideModals = false }: Props) => {
     const actions = useActions({
-        init: () => ({ type: SUITE.INIT } as const),
+        suiteInit: () => ({ type: SUITE.INIT } as const),
         goto: routerActions.goto,
         closeModalApp: routerActions.closeModalApp,
         getBackgroundRoute: routerActions.getBackgroundRoute,
     });
 
-    const { loading, loaded, error, router, transport, actionModalContext } = useSelector(
+    const { loading, loaded, error, dbError, router, transport, actionModalContext } = useSelector(
         state => ({
             loading: state.suite.loading,
             loaded: state.suite.loaded,
             error: state.suite.error,
+            dbError: state.suite.dbError,
             transport: state.suite.transport,
             router: state.router,
             actionModalContext: state.modal.context,
@@ -173,15 +188,17 @@ const Preloader = ({ children, hideModals = false }: Props) => {
     const { device, getDiscoveryStatus } = useDiscovery();
 
     useEffect(() => {
-        if (!loading && !loaded && !error) {
-            actions.init();
+        if (!loading && !loaded && !error && !dbError) {
+            actions.suiteInit();
         }
-    }, [loaded, loading, error, actions]);
+    }, [loaded, loading, error, actions, dbError]);
 
     if (error) {
         // @onekeyhq/connect initialization failed
         // throw error to <ErrorBoundary /> in _app.tsx
         throw new Error(error);
+    } else if (dbError) {
+        return <DatabaseUpgradeModal variant={dbError} />;
     }
 
     const hasActionModal = actionModalContext !== '@modal/context-none';
