@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { CoinInfo } from '@onekeyhq/connect';
@@ -62,23 +62,25 @@ const CustomBlockbookUrls = ({
     addBlockbookUrl,
     removeBlockbookUrl,
 }: Props) => {
-    const { register, getValues, setValue, errors } = useForm<FormInputs>({
+    const { register, getValues, setValue, errors, handleSubmit } = useForm<FormInputs>({
         mode: 'onChange',
     });
-    const { translationString } = useTranslation();
-
+    // const { translationString } = useTranslation();
     const inputName = 'url';
     const inputValue = getValues(inputName) || '';
     const error = errors[inputName];
 
-    const addUrl = () => {
-        addBlockbookUrl({
-            coin,
-            url: inputValue,
-        });
+    const addUrl = useCallback(
+        values => {
+            addBlockbookUrl({
+                coin,
+                url: values.url,
+            });
 
-        setValue(inputName, '');
-    };
+            setValue(inputName, '');
+        },
+        [addBlockbookUrl, setValue, coin],
+    );
 
     const urls = blockbookUrls.filter(b => b.coin === coin);
 
@@ -143,9 +145,9 @@ const CustomBlockbookUrls = ({
             />
 
             <AddButton
-                variant="tertiary"
+                variant="primary"
                 icon="PLUS"
-                onClick={addUrl}
+                onClick={handleSubmit(addUrl)}
                 isDisabled={Boolean(error) || inputValue === ''}
             >
                 <Translation id="TR_ADD_NEW_BLOCKBOOK_BACKEND" />
