@@ -123,29 +123,53 @@ export const prepareEthereumTransaction = (txInfo: EthTransactionData) => {
     return result;
 };
 
+function buildCustomOptions(tx: TxData & EthereumTransaction) {
+    if (tx.chainId === 61) {
+        return {
+            common: Common.forCustomChain(
+                'mainnet',
+                {
+                    name: 'ethereum-classic',
+                    networkId: 1,
+                    chainId: 61,
+                },
+                'petersburg',
+            ),
+        };
+    }
+
+    if (tx.chainId === 56) {
+        return {
+            common: Common.forCustomChain(
+                'mainnet',
+                {
+                    name: 'bnb',
+                    networkId: 56,
+                    chainId: 56,
+                },
+                'petersburg',
+            ),
+        };
+    }
+    return {
+        chain: tx.chainId,
+    };
+}
+
 export const serializeEthereumTx = (tx: TxData & EthereumTransaction) => {
     // ethereumjs-tx doesn't support ETC (chain 61) by default
     // and it needs to be declared as custom chain
     // see: https://github.com/ethereumjs/ethereumjs-tx/blob/master/examples/custom-chain-tx.ts
-    const options =
-        tx.chainId === 61
-            ? {
-                  common: Common.forCustomChain(
-                      'mainnet',
-                      {
-                          name: 'ethereum-classic',
-                          networkId: 1,
-                          chainId: 61,
-                      },
-                      'petersburg',
-                  ),
-              }
-            : {
-                  chain: tx.chainId,
-              };
+    const options = buildCustomOptions(tx);
 
+    const signedTx = new Transaction(tx, options);
+    return `0x${signedTx.serialize().toString('hex')}`;
+};
+
+export const getTransactionInstance = (tx: TxData & EthereumTransaction) => {
+    const options = buildCustomOptions(tx);
     const ethTx = new Transaction(tx, options);
-    return `0x${ethTx.serialize().toString('hex')}`;
+    return ethTx;
 };
 
 export const getFeeLevels = (networkType: Network['networkType'], feeInfo: FeeInfo) => {
