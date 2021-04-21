@@ -74,6 +74,10 @@ const definedMessages = defineMessages({
             'It’s so empty here. Can’t even describe the emptiness I’m feelin’ here… You can either add new account (that will enable selected coin) or enable any coin in Settings.',
         id: 'TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC',
     },
+    TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC_ETH: {
+        defaultMessage: "You must enable ETH account, otherwise you can't use this tab",
+        id: 'TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC_ETH',
+    },
     TR_ACCOUNT_EXCEPTION_DISCOVERY_ERROR: {
         defaultMessage: 'Discovery error.',
         id: 'TR_ACCOUNT_EXCEPTION_DISCOVERY_ERROR',

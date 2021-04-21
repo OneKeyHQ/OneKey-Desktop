@@ -22,7 +22,15 @@ const DiscoveryEmpty: FC<{ symbol: any }> = ({ symbol }) => {
         <AccountExceptionLayout
             title={<Translation id="TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY" />}
             image="EMPTY_WALLET_NEUE"
-            description={<Translation id="TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC" />}
+            description={
+                <Translation
+                    id={
+                        symbol === 'eth'
+                            ? 'TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC_ETH'
+                            : 'TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC'
+                    }
+                />
+            }
             actions={[
                 {
                     key: '1',

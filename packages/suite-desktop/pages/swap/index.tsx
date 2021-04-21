@@ -3,24 +3,22 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sendFormEthereumActions from '@wallet-actions/send/sendFormEthereumActions';
-import { useDiscovery } from '@suite-hooks';
 import { Button } from '@trezor/components';
 import { Translation, Image } from '@suite-components';
-import { AppState, Dispatch, ExtendedMessageDescriptor } from '@suite-types';
+import { ActionSelect as Select } from '@suite-components/Settings';
+import { AppState, Dispatch } from '@suite-types';
 
 import Exception from '@wallet-components/AccountException';
 import AccountMode from '@wallet-components/AccountMode';
 import AccountAnnouncement from '@wallet-components/AccountAnnouncement';
-import AccountTopPanel from '@wallet-components/AccountTopPanel';
 import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
-
-import { useTranslation } from '@suite-hooks/useTranslation';
-import { SkeletonRectangle } from '@suite-components/Skeleton';
-
-import DiscoveryLoader from '@suite/components/suite/DiscoveryLoader';
 
 import type Electron from 'electron';
 import Swap from '@swap-views';
+
+const ActionSelect = styled(Select)`
+    width: 260px;
+`;
 
 const Wrapper = styled.div`
     display: flex;
@@ -47,32 +45,42 @@ const ToastInfo = styled.div`
     justify-content: center;
 `;
 
-const Expanded = styled.div`
-    background-color: ${props => props.theme.BG_WHITE};
-    position: absolute;
-    width: 36px;
-    height: 36px;
-    bottom: 60px;
-    left: 0;
+const Footer = styled.div`
+    height: 60px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    box-shadow: ${props => `2px 2px 3px 0 ${props.theme.BOX_SHADOW_BLACK_5}`};
+    background: #ffffff;
+    border-top: 1px solid #e8e8e8;
+    padding: 0 24px;
 `;
 
 enum CHAIN_SYMBOL_ID {
+    eth = 1,
     kovan = 42,
     bsc = 56,
 }
+const CHAIN_SYMBOL_RPC = {
+    [CHAIN_SYMBOL_ID.eth]: 'https://rpc.blkdb.cn/eth',
+    [CHAIN_SYMBOL_ID.kovan]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+    [CHAIN_SYMBOL_ID.bsc]: 'https://rpc.blkdb.cn/bsc',
+};
 
-enum CHAIN_SYMBOL_RPC {
-    kovan = 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-    eth = 'https://rpc.blkdb.cn/eth',
-    bsc = 'https://rpc.blkdb.cn/bsc',
-}
-
-const DEBUG_CHAIN_ID = 'bsc';
+const CHAIN_OPTIONS = [
+    {
+        label: '以太坊 Ethereum 主网络',
+        value: CHAIN_SYMBOL_ID.eth,
+    },
+    {
+        label: '币安智能链 BSC 主网',
+        value: CHAIN_SYMBOL_ID.bsc,
+    },
+    {
+        label: 'Kovan 测试网络',
+        value: CHAIN_SYMBOL_ID.kovan,
+    },
+];
 
 function getParameterByName(name: string, url = window.location.href) {
     name = name.replace(/[[\]]/g, '\\$&');
@@ -100,15 +108,15 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }) => {
-    const { discovery, getDiscoveryStatus } = useDiscovery();
-    const discoveryStatus = getDiscoveryStatus();
-
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
-    const { account, network } = selectedAccount;
+    const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID>(CHAIN_SYMBOL_ID.eth);
 
+    const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId];
+
+    const { account } = selectedAccount;
     const unused = account?.addresses
         ? account?.addresses.unused
         : [
@@ -156,8 +164,8 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
     const { urlHash, settingsStr } = useMemo(() => {
         const object = {
             address: `${freshAddress.address}`,
-            rpcUrl: CHAIN_SYMBOL_RPC[DEBUG_CHAIN_ID] || CHAIN_SYMBOL_RPC.eth,
-            chainId: CHAIN_SYMBOL_ID[DEBUG_CHAIN_ID] || network?.chainId,
+            rpcUrl: chainRPCUrl,
+            chainId: activeChainId,
             debug: true,
         };
         const settingsStr = JSON.stringify({
@@ -169,7 +177,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             urlHash: JSON.stringify(object),
             settingsStr,
         };
-    }, [freshAddress, network?.chainId, language, theme]);
+    }, [freshAddress, activeChainId, language, theme, chainRPCUrl]);
 
     useEffect(() => {
         if (isLoading) return;
@@ -221,8 +229,8 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                 const { id, transaction } = payload;
                 const params = {
                     ...transaction,
-                    chainId: CHAIN_SYMBOL_ID[DEBUG_CHAIN_ID] || network?.chainId,
-                    rpcUrl: CHAIN_SYMBOL_RPC[DEBUG_CHAIN_ID] || CHAIN_SYMBOL_RPC.eth,
+                    chainId: activeChainId,
+                    rpcUrl: chainRPCUrl,
                 };
                 try {
                     const txid = await signWithPush(params, ({ type: 'final' } as unknown) as any);
@@ -247,12 +255,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             webviewRef.removeEventListener('did-fail-load', didFailLoading);
             webviewRef.removeEventListener('ipc-message', registerEvent);
         };
-    }, [webviewRef, network?.chainId, signWithPush]);
+    }, [webviewRef, chainRPCUrl, activeChainId, signWithPush]);
 
     if (selectedAccount.status === 'loading') {
         return (
             <ToastInfo>
-                <Image width={80} height={80} image="SPINNER" />
+                <Image width={160} height={160} image="SPINNER" />
             </ToastInfo>
         );
     }
@@ -276,10 +284,27 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                     </Button>
                 </ToastInfo>
             )}
-            <Expanded onClick={handleReload}>
-                <Image width={18} height={18} image="RELOAD" />
-            </Expanded>
-            <div style={{ width: '100%', height: '100%' }} ref={handleRef} />
+
+            <div style={{ width: '100%', height: 'calc(100% - 60px)' }} ref={handleRef} />
+            <Footer>
+                <Image onClick={handleReload} width={24} height={24} image="RELOAD" />
+                <ActionSelect
+                    isShowTop
+                    hideTextCursor
+                    useKeyPressScroll
+                    noTopLabel
+                    value={{
+                        value: activeChainId,
+                        label:
+                            CHAIN_OPTIONS.find(item => item.value === activeChainId)?.label ?? '',
+                    }}
+                    options={CHAIN_OPTIONS}
+                    onChange={(option: typeof CHAIN_OPTIONS[0]) => {
+                        setActiveChainId(option.value);
+                    }}
+                    data-test="@swap/settings"
+                />
+            </Footer>
         </OuterContainer>
     );
 };

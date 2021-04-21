@@ -69,7 +69,6 @@ function buildDiscoveryParams(state: ReturnType<GetState>, discovery: any) {
     }
 
     if (state.router.app === 'swap') {
-        console.log(discovery);
         return {
             accountIndex: 0,
             accountType: 'normal' as const,
@@ -115,19 +114,19 @@ const getAccountState = () => (dispatch: Dispatch, getState: GetState) => {
 
     const mode = dispatch(getAccountStateWithMode());
 
+    if (state.router.app === 'swap' && !discovery.networks.includes('eth')) {
+        return {
+            status: 'exception',
+            loader: 'discovery-eth-empty',
+            mode,
+        };
+    }
+
     // account cannot exists since there are no selected networks in settings/wallet
     if (discovery.networks.length === 0) {
         return {
             status: 'exception',
             loader: 'discovery-empty',
-            mode,
-        };
-    }
-
-    if (state.router.app === 'swap' && !discovery.networks.includes('eth')) {
-        return {
-            status: 'exception',
-            loader: 'discovery-eth-empty',
             mode,
         };
     }

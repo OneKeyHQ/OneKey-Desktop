@@ -18,7 +18,8 @@ const selectStyle = (
     hideTextCursor: boolean,
     isClean: boolean,
     minWidth: string,
-    theme: SuiteThemeColors
+    theme: SuiteThemeColors,
+    isShowTop?: boolean
 ) => ({
     singleValue: (base: Record<string, any>) => ({
         ...base,
@@ -85,13 +86,21 @@ const selectStyle = (
             color: isClean ? theme.TYPE_LIGHT_GREY : theme.TYPE_DARK_GREY,
         },
     }),
-    menu: (base: Record<string, any>) => ({
-        ...base,
-        background: theme.BG_WHITE_ALT,
-        margin: '5px 0',
-        boxShadow: `box-shadow: 0 4px 10px 0 ${theme.BOX_SHADOW_BLACK_20}`,
-        zIndex: 9,
-    }),
+    menu: (base: Record<string, any>) => {
+        const menuProps: Record<string, string | number> = {
+            ...base,
+            background: theme.BG_WHITE_ALT,
+            margin: '5px 0',
+            boxShadow: `box-shadow: 0 4px 10px 0 ${theme.BOX_SHADOW_BLACK_20}`,
+            zIndex: 9,
+        };
+        if (isShowTop) {
+            menuProps.position = 'absolute';
+            menuProps.bottom = 48;
+            delete menuProps.top;
+        }
+        return menuProps;
+    },
     menuList: (base: Record<string, any>) => ({
         ...base,
         padding: 0,
@@ -293,9 +302,9 @@ const Select = ({
                 const { options } = selectRef.current.select.props;
 
                 if (options && options.length > 1) {
-                    /* 
-                    First, check if the options are divided into sub-categories. 
-                    For example <NetworkSelect> has options divided into sub-categories "mainnet" and "testnet".  
+                    /*
+                    First, check if the options are divided into sub-categories.
+                    For example <NetworkSelect> has options divided into sub-categories "mainnet" and "testnet".
                     In such scenario I need to loop through all of the sub-categories and try to find appropriate option in them as well.
                     */
 
@@ -326,10 +335,10 @@ const Select = ({
 
                     // Make sure all the necessary options are defined
                     if (optionToFocusOn && lastOption) {
-                        /* 
+                        /*
                         Here we first scroll to the last option in option-list and then we scroll to the focused option.
- 
-                        The reason why I want to scroll to the last option first is, that I want the focused item to 
+
+                        The reason why I want to scroll to the last option first is, that I want the focused item to
                         appear on the top of the list - I achieve that behavior by scrolling "from bottom-to-top".
                         The default scrolling behavior is "from top-to-bottom". In that case the focused option appears at the bottom
                         of options list, which is not a great UX.
@@ -362,7 +371,8 @@ const Select = ({
                     hideTextCursor,
                     isClean,
                     minWidth,
-                    theme
+                    theme,
+                    !!props.isShowTop
                 )}
                 isSearchable={isSearchable}
                 {...props}
