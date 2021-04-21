@@ -19,7 +19,7 @@ export const defaultOptions: Options = {
     colors: true,
     writeToConsole: true,
     writeToDisk: false,
-    outputFile: 'trezor-suite-log-%ts.txt',
+    outputFile: 'onekey-desktop-log-%ts.txt',
     outputPath: app?.getPath('home') ?? process.cwd(),
     logFormat: '%dt - %lvl(%top): %msg',
 } as const;

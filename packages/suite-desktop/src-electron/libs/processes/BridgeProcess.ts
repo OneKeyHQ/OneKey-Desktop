@@ -4,7 +4,7 @@ import BaseProcess, { Status } from './BaseProcess';
 
 class BridgeProcess extends BaseProcess {
     constructor() {
-        super('bridge', 'trezord', {
+        super('bridge', 'onekeyd', {
             startupCooldown: 3,
         });
     }
@@ -12,10 +12,10 @@ class BridgeProcess extends BaseProcess {
     async status(): Promise<Status> {
         // service
         try {
-            const resp = await fetch(`http://127.0.0.1:21325/`, {
+            const resp = await fetch(`http://127.0.0.1:21320/`, {
                 method: 'POST',
                 headers: {
-                    Origin: 'https://electron.trezor.io',
+                    Origin: 'https://electron.onekey.so',
                 },
             });
             this.logger.debug(this.logTopic, `Checking status (${resp.status})`);

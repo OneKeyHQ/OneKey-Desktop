@@ -2218,6 +2218,7 @@
     "eth": [
         {
             "blockbook": [
+                "https://eth1.onekey.so",
                 "https://eth1.trezor.io",
                 "https://eth2.trezor.io"
             ],
