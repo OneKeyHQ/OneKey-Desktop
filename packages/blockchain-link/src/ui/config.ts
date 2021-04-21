@@ -61,7 +61,7 @@ export default [
         blockchain: {
             name: 'Ethereum',
             worker: 'js/blockbook-worker.js',
-            server: ['https://eth1.trezor.io', 'https://eth2.trezor.io'],
+            server: ['https://eth1.onekey.so', 'https://eth1.trezor.io', 'https://eth2.trezor.io'],
             debug: true,
         },
         data: {
