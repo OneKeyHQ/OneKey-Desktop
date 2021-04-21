@@ -4,12 +4,21 @@ export const MAIN_MENU_ITEMS = [
         icon: 'DASHBOARD',
         route: 'suite-index',
         isDisabled: false,
+        isBeta: false,
     },
     {
         translationId: 'TR_WALLET',
         icon: 'WALLET',
         route: 'wallet-index',
         isDisabled: false,
+        isBeta: false,
+    },
+    {
+        translationId: 'TR_DAPP_EXPLORE',
+        icon: 'SWAP',
+        route: 'swap-index',
+        isDisabled: false,
+        isBeta: true,
     },
     // {
     //     translationId: 'TR_PASSWORDS',

@@ -57,14 +57,14 @@ const MaxWidthWrapper = styled.div`
     max-width: ${MAX_WIDTH};
 `;
 
-const DefaultPaddings = styled.div`
+const DefaultPaddings = styled.div<{ ignoreChildren?: boolean }>`
     display: flex;
     justify-content: center;
     width: 100%;
-    padding: 24px 32px 90px 32px;
+    padding: ${({ ignoreChildren }) => (!ignoreChildren ? '24px 32px 90px 32px' : 0)};
 
     @media screen and (max-width: ${variables.SCREEN_SIZE.LG}) {
-        padding: 24px 16px 70px 16px;
+        padding: ${({ ignoreChildren }) => (!ignoreChildren ? '24px 16px 70px 16px' : 0)};
     }
 
     @media screen and (max-width: ${variables.SCREEN_SIZE.SM}) {
@@ -85,13 +85,19 @@ interface BodyProps {
     menu?: React.ReactNode;
     appMenu?: React.ReactNode;
     children?: React.ReactNode;
+    ignoreChildren?: boolean;
 }
 
 interface LayoutContextI {
     title?: string;
     menu?: React.ReactNode;
     appMenu?: React.ReactNode;
-    setLayout?: (title?: string, menu?: React.ReactNode, appMenu?: React.ReactNode) => void;
+    setLayout?: (
+        title?: string,
+        menu?: React.ReactNode,
+        appMenu?: React.ReactNode,
+        status?: boolean,
+    ) => void;
 }
 
 export const LayoutContext = createContext<LayoutContextI>({
@@ -113,13 +119,13 @@ const ScrollAppWrapper = ({ url, children }: ScrollAppWrapperProps) => {
     return <AppWrapper ref={ref}>{children}</AppWrapper>;
 };
 
-const BodyWide = ({ url, menu, appMenu, children }: BodyProps) => (
+const BodyWide = ({ url, menu, appMenu, children, ignoreChildren }: BodyProps) => (
     <Body>
         <Columns>
             {menu && <MenuSecondary>{menu}</MenuSecondary>}
             <ScrollAppWrapper url={url}>
                 {appMenu}
-                <DefaultPaddings>
+                <DefaultPaddings ignoreChildren={ignoreChildren}>
                     <MaxWidthWrapper>{children}</MaxWidthWrapper>
                 </DefaultPaddings>
             </ScrollAppWrapper>
@@ -127,13 +133,13 @@ const BodyWide = ({ url, menu, appMenu, children }: BodyProps) => (
     </Body>
 );
 
-const BodyNarrow = ({ url, menu, appMenu, children }: BodyProps) => (
+const BodyNarrow = ({ url, menu, appMenu, children, ignoreChildren }: BodyProps) => (
     <Body>
         <Columns>
             <ScrollAppWrapper url={url}>
                 {menu}
                 {appMenu}
-                <DefaultPaddings>{children}</DefaultPaddings>
+                <DefaultPaddings ignoreChildren={ignoreChildren}>{children}</DefaultPaddings>
             </ScrollAppWrapper>
         </Columns>
     </Body>
@@ -146,11 +152,13 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
     const [title, setTitle] = useState<string | undefined>(undefined);
     const [menu, setMenu] = useState<any>(undefined);
     const [appMenu, setAppMenu] = useState<any>(undefined);
+    const [ignoreChildren, setIgnoreChildren] = useState(false);
     const setLayout = React.useCallback<NonNullable<LayoutContextI['setLayout']>>(
-        (newTitle, newMenu, newAppMenu) => {
+        (newTitle, newMenu, newAppMenu, childrenStatus) => {
             setTitle(newTitle);
             setMenu(newMenu);
             setAppMenu(newAppMenu);
+            setIgnoreChildren(!!childrenStatus);
         },
         [],
     );
@@ -163,12 +171,22 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
             <NavigationBar />
             <LayoutContext.Provider value={{ title, menu, setLayout }}>
                 {!isMobileLayout && (
-                    <BodyWide menu={menu} appMenu={appMenu} url={props.router.url}>
+                    <BodyWide
+                        menu={menu}
+                        appMenu={appMenu}
+                        url={props.router.url}
+                        ignoreChildren={!!ignoreChildren}
+                    >
                         {props.children}
                     </BodyWide>
                 )}
                 {isMobileLayout && (
-                    <BodyNarrow menu={menu} appMenu={appMenu} url={props.router.url}>
+                    <BodyNarrow
+                        menu={menu}
+                        appMenu={appMenu}
+                        url={props.router.url}
+                        ignoreChildren={!!ignoreChildren}
+                    >
                         {props.children}
                     </BodyNarrow>
                 )}

@@ -40,11 +40,13 @@ export interface DesktopApi {
         | { success: true; payload: { platform: string; release: string } }
         | { success: false; error: string }
     >;
+    openExternal: (url: string) => void;
 }
 
 declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: () => any | null;
+        INJECT_PATH: string;
         desktopApi?: DesktopApi; // Electron API
         $BLE_MODE?: boolean;
         $BLE_DATA?: Record<string, string>;

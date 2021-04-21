@@ -1,4 +1,11 @@
-import { contextBridge, ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
+
+declare global {
+    interface Window {
+        desktopApi: any;
+        INJECT_PATH: string;
+    }
+}
 
 // todo: would be great to have these channels strongly typed. for example this is nice reading: https://blog.logrocket.com/electron-ipc-response-request-architecture-with-typescript/
 const validChannels = [
@@ -34,7 +41,11 @@ const validChannels = [
     'tor/status',
 ];
 
-contextBridge.exposeInMainWorld('desktopApi', {
+ipcRenderer.on('inject/path', (_, path) => {
+    window.INJECT_PATH = path;
+});
+
+window.desktopApi = {
     /**
      * @deprecated Use dedicated methods instead of send
      */
@@ -91,4 +102,9 @@ contextBridge.exposeInMainWorld('desktopApi', {
 
     // Analytics
     getOSVersion: () => ipcRenderer.invoke('analytics/get-os-version'),
-});
+
+    openExternal: (url: string) => ipcRenderer.send('webview/open', url),
+};
+
+// TODO: use context isolation
+// contextBridge.exposeInMainWorld('desktopApi', window.desktopApi);

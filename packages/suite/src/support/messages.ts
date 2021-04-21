@@ -2173,6 +2173,11 @@ const definedMessages = defineMessages({
         description: 'Retry button',
         id: 'TR_RETRY',
     },
+    TR_LOAD_FAILED: {
+        defaultMessage: 'Load Failed. Click to retry.',
+        description: 'load swap webview failed.',
+        id: 'TR_LOAD_FAILED',
+    },
     TR_RETRYING_DOT_DOT: {
         defaultMessage: 'Retrying...',
         id: 'TR_RETRYING_DOT_DOT',
@@ -3652,6 +3657,10 @@ const definedMessages = defineMessages({
     TR_DASHBOARD: {
         id: 'TR_DASHBOARD',
         defaultMessage: 'Dashboard',
+    },
+    TR_DAPP_EXPLORE: {
+        id: 'TR_DAPP_EXPLORE',
+        defaultMessage: 'Explore',
     },
     TR_WALLET: {
         id: 'TR_WALLET',

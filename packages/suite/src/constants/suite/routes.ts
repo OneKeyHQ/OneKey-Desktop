@@ -213,6 +213,11 @@ const routes = [
         app: 'passwords',
     },
     {
+        name: 'swap-index',
+        pattern: '/swap',
+        app: 'swap',
+    },
+    {
         name: 'portfolio-index',
         pattern: '/portfolio',
         app: 'portfolio',

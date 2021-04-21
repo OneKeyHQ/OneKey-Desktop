@@ -133,7 +133,7 @@ const MainNavigation = (props: Props) => {
     return (
         <WrapperComponent>
             {MAIN_MENU_ITEMS.map(item => {
-                const { route, translationId, isDisabled } = item;
+                const { route, translationId, isDisabled, isBeta } = item;
                 const routeObj = findRouteByName(route);
                 const isActive = routeObj ? routeObj.app === activeApp : false;
                 return (
@@ -157,6 +157,7 @@ const MainNavigation = (props: Props) => {
                             </ItemTitle>
                             {/* if the button is disabled, display "SOON" badge */}
                             {isDisabled && <NewBadge>soon</NewBadge>}
+                            {isBeta && <NewBadge>BETA</NewBadge>}
                         </ItemTitleWrapper>
                     </MenuItemComponent>
                 );
