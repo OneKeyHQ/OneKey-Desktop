@@ -172,6 +172,7 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
             <LayoutContext.Provider value={{ title, menu, setLayout }}>
                 {!isMobileLayout && (
                     <BodyWide
+                        key={title}
                         menu={menu}
                         appMenu={appMenu}
                         url={props.router.url}
@@ -182,6 +183,7 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
                 )}
                 {isMobileLayout && (
                     <BodyNarrow
+                        key={title}
                         menu={menu}
                         appMenu={appMenu}
                         url={props.router.url}

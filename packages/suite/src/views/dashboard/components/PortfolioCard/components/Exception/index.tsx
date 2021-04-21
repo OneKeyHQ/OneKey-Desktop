@@ -93,6 +93,7 @@ const Container = ({ title, description, cta }: ContainerProps) => {
 interface Props {
     exception: Extract<DiscoveryStatus, { status: 'exception' }>;
     discovery?: Discovery;
+    symbol?: any;
 }
 
 const discoveryFailedMessage = (discovery?: Discovery) => {
@@ -113,7 +114,7 @@ const discoveryFailedMessage = (discovery?: Discovery) => {
     return <>{details}</>;
 };
 
-const Exception = ({ exception, discovery }: Props) => {
+const Exception = ({ exception, discovery, symbol }: Props) => {
     const dispatch = useDispatch<Dispatch>();
     const { device } = useDevice();
     switch (exception.type) {
@@ -154,6 +155,7 @@ const Exception = ({ exception, discovery }: Props) => {
                                     modalActions.openModal({
                                         type: 'add-account',
                                         device: device!,
+                                        symbol,
                                     }),
                                 ),
                             label: 'TR_ADD_ACCOUNT',

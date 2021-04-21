@@ -34,6 +34,7 @@ export type DiscoveryStatus =
               | 'auth-failed'
               | 'auth-confirm-failed'
               | 'discovery-empty'
+              | 'discovery-eth-empty'
               | 'discovery-failed'
               | 'device-unavailable';
       };

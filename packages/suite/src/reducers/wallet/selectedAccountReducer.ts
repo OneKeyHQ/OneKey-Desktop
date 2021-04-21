@@ -31,7 +31,7 @@ export interface AccountLoading {
 export type AccountException =
     | {
           status: 'exception';
-          loader: 'auth-failed' | 'discovery-error' | 'discovery-empty'; // No network enabled in settings
+          loader: 'auth-failed' | 'discovery-error' | 'discovery-empty' | 'discovery-eth-empty'; // No network enabled in settings
           mode?: AccountWatchOnlyMode[];
           account?: undefined;
           network?: Network;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as modalActions from '@suite-actions/modalActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { useDevice, useActions } from '@suite-hooks';
@@ -9,7 +9,7 @@ import { AccountExceptionLayout } from '@wallet-components';
  * Handler for invalid wallet setting, no coins in discovery
  * see: @wallet-actions/selectedAccountActions
  */
-const DiscoveryEmpty = () => {
+const DiscoveryEmpty: FC<{ symbol: any }> = ({ symbol }) => {
     const { device, isLocked } = useDevice();
     const { openModal, goto } = useActions({
         openModal: modalActions.openModal,
@@ -40,6 +40,7 @@ const DiscoveryEmpty = () => {
                         openModal({
                             type: 'add-account',
                             device: device!,
+                            symbol,
                         }),
                     children: <Translation id="TR_ADD_ACCOUNT" />,
                 },

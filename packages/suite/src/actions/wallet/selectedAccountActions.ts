@@ -63,6 +63,27 @@ const getAccountStateWithMode = (selectedAccount?: State) => (
     return mode.length > 0 ? mode : undefined;
 };
 
+function buildDiscoveryParams(state: ReturnType<GetState>, discovery: any) {
+    if (state.router.app === 'wallet' && state.router.params) {
+        return state.router.params;
+    }
+
+    if (state.router.app === 'swap') {
+        console.log(discovery);
+        return {
+            accountIndex: 0,
+            accountType: 'normal' as const,
+            symbol: 'eth',
+        };
+    }
+
+    return {
+        accountIndex: 0,
+        accountType: 'normal' as const,
+        symbol: discovery.networks[0],
+    };
+}
+
 const getAccountState = () => (dispatch: Dispatch, getState: GetState) => {
     const state = getState();
 
@@ -103,16 +124,17 @@ const getAccountState = () => (dispatch: Dispatch, getState: GetState) => {
         };
     }
 
+    if (state.router.app === 'swap' && !discovery.networks.includes('eth')) {
+        return {
+            status: 'exception',
+            loader: 'discovery-eth-empty',
+            mode,
+        };
+    }
+
     // get params from router
     // or set first default account from discovery list
-    const params =
-        state.router.app === 'wallet' && state.router.params
-            ? state.router.params
-            : {
-                  accountIndex: 0,
-                  accountType: 'normal' as const,
-                  symbol: discovery.networks[0],
-              };
+    const params = buildDiscoveryParams(state, discovery);
 
     const network = NETWORKS.find(c => c.symbol === params.symbol)!;
 
@@ -216,7 +238,7 @@ export const getStateForAction = (action: Action) => (dispatch: Dispatch, getSta
     if (actions.indexOf(action.type) < 0) return;
     const state = getState();
     // ignore if not in wallet
-    if (state.router.app !== 'wallet') return;
+    if (state.router.app !== 'wallet' && state.router.app !== 'swap') return;
 
     // get new state
     const newState = dispatch(getAccountState());

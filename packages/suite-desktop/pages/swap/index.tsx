@@ -3,13 +3,33 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as sendFormEthereumActions from '@wallet-actions/send/sendFormEthereumActions';
-
+import { useDiscovery } from '@suite-hooks';
 import { Button } from '@trezor/components';
-import { Translation, Loading, Image, Modal, ModalProps } from '@suite-components';
-import { AppState, Dispatch } from '@suite-types';
-import type Electron from 'electron';
+import { Translation, Image } from '@suite-components';
+import { AppState, Dispatch, ExtendedMessageDescriptor } from '@suite-types';
 
+import Exception from '@wallet-components/AccountException';
+import AccountMode from '@wallet-components/AccountMode';
+import AccountAnnouncement from '@wallet-components/AccountAnnouncement';
+import AccountTopPanel from '@wallet-components/AccountTopPanel';
+import { MAX_WIDTH_WALLET_CONTENT } from '@suite-constants/layout';
+
+import { useTranslation } from '@suite-hooks/useTranslation';
+import { SkeletonRectangle } from '@suite-components/Skeleton';
+
+import DiscoveryLoader from '@suite/components/suite/DiscoveryLoader';
+
+import type Electron from 'electron';
 import Swap from '@swap-views';
+
+const Wrapper = styled.div`
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    max-width: ${MAX_WIDTH_WALLET_CONTENT};
+    width: 100%;
+    height: 100%;
+`;
 
 const OuterContainer = styled.div`
     width: 100%;
@@ -80,6 +100,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }) => {
+    const { discovery, getDiscoveryStatus } = useDiscovery();
+    const discoveryStatus = getDiscoveryStatus();
+
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
@@ -160,7 +183,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             prevSettings !== settingsStr ||
             prevConfig !== urlHash
         ) {
-            console.log(currentUrl);
+            setIsLoading(true);
             webviewRef?.loadURL(currentUrl);
         }
     }, [urlHash, isLoading, webviewRef, settingsStr]);
@@ -226,27 +249,43 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
         };
     }, [webviewRef, network?.chainId, signWithPush]);
 
+    if (selectedAccount.status === 'loading') {
+        return (
+            <ToastInfo>
+                <Image width={80} height={80} image="SPINNER" />
+            </ToastInfo>
+        );
+    }
+
+    if (selectedAccount.status === 'exception') {
+        return (
+            <Wrapper key="swap-exception">
+                <AccountMode mode={selectedAccount.mode} />
+                <AccountAnnouncement selectedAccount={selectedAccount} />
+                <Exception account={selectedAccount} />
+            </Wrapper>
+        );
+    }
     return (
-        <Swap
-            key="swap"
-            menu={
-                <OuterContainer>
-                    {loadFailed && (
-                        <ToastInfo>
-                            <Translation id="TR_LOAD_FAILED" />
-                            <Button onClick={handleReload} style={{ marginTop: 12 }}>
-                                <Translation id="TR_TRY_AGAIN" />
-                            </Button>
-                        </ToastInfo>
-                    )}
-                    <Expanded onClick={handleReload}>
-                        <Image width={18} height={18} image="RELOAD" />
-                    </Expanded>
-                    <div style={{ width: '100%', height: '100%' }} ref={handleRef} />
-                </OuterContainer>
-            }
-        />
+        <OuterContainer>
+            {loadFailed && (
+                <ToastInfo>
+                    <Translation id="TR_LOAD_FAILED" />
+                    <Button onClick={handleReload} style={{ marginTop: 12 }}>
+                        <Translation id="TR_TRY_AGAIN" />
+                    </Button>
+                </ToastInfo>
+            )}
+            <Expanded onClick={handleReload}>
+                <Image width={18} height={18} image="RELOAD" />
+            </Expanded>
+            <div style={{ width: '100%', height: '100%' }} ref={handleRef} />
+        </OuterContainer>
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+const SwapContainer: FC<Props> = props => {
+    return <Swap key="swap" menu={<Container {...props} />} />;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SwapContainer);

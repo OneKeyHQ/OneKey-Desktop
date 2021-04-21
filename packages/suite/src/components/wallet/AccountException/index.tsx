@@ -34,8 +34,10 @@ const getExceptionPage = ({ account }: Props) => {
             return <AuthFailed />;
         case 'discovery-error':
             return <DiscoveryFailed />;
+        case 'discovery-eth-empty':
+            return <DiscoveryEmpty symbol="eth" />;
         case 'discovery-empty':
-            return <DiscoveryEmpty />;
+            return <DiscoveryEmpty symbol="eth" />;
         case 'account-not-enabled':
             return <AccountNotEnabled network={account.network} />;
         case 'account-not-loaded':
