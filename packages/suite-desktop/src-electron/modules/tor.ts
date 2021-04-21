@@ -10,6 +10,7 @@ import { onionDomain } from '../config';
 
 const torFlag = app.commandLine.hasSwitch('tor');
 
+// disable this process
 const init = async ({ mainWindow, store }: Dependencies) => {
     const { logger } = global;
     const tor = new TorProcess();

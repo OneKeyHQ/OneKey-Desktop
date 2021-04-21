@@ -130,7 +130,11 @@ ipcMain.on('app/restart', () => {
     app.exit();
 });
 
-ipcMain.on('webview/open', async (_, url: string) => {
-    logger.info('main', `open new url in webview ${url}`);
-    await shell.openExternal(url);
+app.on('web-contents-created', (_, contents) => {
+    if (contents.getType() === 'webview') {
+        contents.on('new-window', (newWindowEvent, url) => {
+            newWindowEvent.preventDefault();
+            shell.openExternal(url);
+        });
+    }
 });

@@ -49,10 +49,19 @@ enum CHAIN_SYMBOL_ID {
 enum CHAIN_SYMBOL_RPC {
     kovan = 'https://kovan.infura.io/v3/',
     eth = 'https://rpc.blkdb.cn/eth',
-    bsc = 'https://rpc.blkdb.cn/bsc',
+    bsc = 'https://bsc-dataseed.binance.org',
 }
 
-const DEBUG_CHAIN_ID = 'kovan';
+const DEBUG_CHAIN_ID = 'bsc';
+
+function getParameterByName(name: string, url = window.location.href) {
+    name = name.replace(/[[\]]/g, '\\$&');
+    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
 const mapStateToProps = (state: AppState) => ({
     selectedAccount: state.wallet.selectedAccount,
@@ -71,8 +80,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }) => {
-    const [ref, setRef] = useState<Electron.WebviewTag | undefined>();
+    const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
+    const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
     const { account, network } = selectedAccount;
 
@@ -87,48 +97,92 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
           ];
     const freshAddress = unused[0];
 
+    useEffect(() => {
+        if (!ref) return;
+        // @ts-expect-error
+        const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+
+        const observer = new MutationObserver((mutations: any) => {
+            mutations.forEach((mutation: any) => {
+                if (
+                    Array.prototype.some.call(
+                        mutation.addedNodes,
+                        (node: Electron.WebviewTag) => node.id === 'onekey-swap',
+                    )
+                ) {
+                    setWebviewRef(document.getElementById('onekey-swap') as Electron.WebviewTag);
+                }
+            });
+        });
+        observer.observe(ref, { childList: true });
+    }, [ref]);
+
     const handleRef = useCallback(
-        (node: Electron.WebviewTag) => {
+        node => {
             setRef(node);
         },
         [setRef],
     );
 
     const handleReload = useCallback(() => {
-        if (!ref) return;
+        if (!webviewRef) return;
         setLoadFailed(false);
-        ref?.reloadIgnoringCache?.();
-    }, [ref]);
+        webviewRef?.reloadIgnoringCache?.();
+    }, [webviewRef]);
 
-    const urlHash = useMemo(() => {
+    const { urlHash, settingsStr } = useMemo(() => {
         const object = {
             address: `${freshAddress.address}`,
             rpcUrl: CHAIN_SYMBOL_RPC[DEBUG_CHAIN_ID] || CHAIN_SYMBOL_RPC.eth,
             chainId: CHAIN_SYMBOL_ID[DEBUG_CHAIN_ID] || network?.chainId,
             debug: true,
         };
-        return JSON.stringify(object);
-    }, [freshAddress, network?.chainId]);
-
-    useEffect(() => {
-        if (isLoading) return;
-        const prevUrl = ref?.getURL() ?? '';
-
         const settingsStr = JSON.stringify({
             theme,
             language,
         });
 
+        return {
+            urlHash: JSON.stringify(object),
+            settingsStr,
+        };
+    }, [freshAddress, network?.chainId, language, theme]);
+
+    useEffect(() => {
+        if (isLoading) return;
+        const prevUrl = webviewRef?.getURL() ?? '';
+
+        const prevSettings = getParameterByName('settings', prevUrl);
+        const prevConfig = getParameterByName('config', prevUrl);
         const currentUrl = `https://swap.onekey.so/?config=${urlHash}&settings=${settingsStr}`;
-        if (!/^https:\/\/swap.onekey.so/.test(prevUrl)) {
-            setIsLoading(true);
-            ref?.loadURL(currentUrl);
+        if (
+            !/^https:\/\/swap.onekey.so/.test(prevUrl) ||
+            prevSettings !== settingsStr ||
+            prevConfig !== urlHash
+        ) {
+            console.log(currentUrl);
+            webviewRef?.loadURL(currentUrl);
         }
-    }, [urlHash, isLoading, ref, theme, language]);
+    }, [urlHash, isLoading, webviewRef, settingsStr]);
 
     useEffect(() => {
         if (!ref) return;
+        // React 会删除 allowpopups 属性
+        const currentUrl = `https://swap.onekey.so/?config=${urlHash}&settings=${settingsStr}`;
 
+        ref.innerHTML = `
+            <webview
+                allowpopups
+                id="onekey-swap"
+                src=${currentUrl}
+                preload="file://${window.INJECT_PATH}"
+                style="width: 100%; height: 100%;"
+            />
+        `;
+    }, [ref, settingsStr, urlHash]);
+
+    useEffect(() => {
+        if (!webviewRef) return;
         function didFailLoading() {
             setLoadFailed(true);
         }
@@ -138,7 +192,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
         }
 
         async function registerEvent(event: Electron.IpcMessageEvent) {
-            if (!ref) return;
+            if (!webviewRef) return;
             if (event.channel === 'sign/transaction') {
                 const payload = event.args[0];
                 const { id, transaction } = payload;
@@ -149,12 +203,12 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                 };
                 try {
                     const txid = await signWithPush(params, ({ type: 'final' } as unknown) as any);
-                    ref.send('sign/broadcast', {
+                    webviewRef.send('sign/broadcast', {
                         id,
                         txid,
                     });
                 } catch (e) {
-                    ref.send('sign/broadcast', {
+                    webviewRef.send('sign/broadcast', {
                         id,
                         error: e,
                     });
@@ -162,15 +216,15 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             }
         }
 
-        ref.addEventListener('dom-ready', domReadyEvent);
-        ref.addEventListener('did-fail-load', didFailLoading);
-        ref.addEventListener('ipc-message', registerEvent);
+        webviewRef.addEventListener('dom-ready', domReadyEvent);
+        webviewRef.addEventListener('did-fail-load', didFailLoading);
+        webviewRef.addEventListener('ipc-message', registerEvent);
         return () => {
-            ref.removeEventListener('dom-ready', domReadyEvent);
-            ref.removeEventListener('did-fail-load', didFailLoading);
-            ref.removeEventListener('ipc-message', registerEvent);
+            webviewRef.removeEventListener('dom-ready', domReadyEvent);
+            webviewRef.removeEventListener('did-fail-load', didFailLoading);
+            webviewRef.removeEventListener('ipc-message', registerEvent);
         };
-    }, [ref, network?.chainId, signWithPush]);
+    }, [webviewRef, network?.chainId, signWithPush]);
 
     return (
         <Swap
@@ -188,16 +242,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
                     <Expanded onClick={handleReload}>
                         <Image width={18} height={18} image="RELOAD" />
                     </Expanded>
-                    <webview
-                        id="onekey-swap"
-                        ref={handleRef}
-                        src="about:blank"
-                        nodeintegration
-                        disablewebsecurity
-                        allowpopups
-                        preload={`file://${window.INJECT_PATH}`}
-                        style={{ width: '100%', height: '100%' }}
-                    />
+                    <div style={{ width: '100%', height: '100%' }} ref={handleRef} />
                 </OuterContainer>
             }
         />

@@ -295,8 +295,8 @@ export const signTransaction = (
 type SwapEthSignParams = {
     chainId: number;
     gasLimit: string;
-    gasPrice: string;
-    value: string;
+    gasPrice?: string;
+    value?: string;
     from: string;
     to: string;
     data: string;
@@ -340,19 +340,21 @@ export const signAndPublishTransactionInSwap = (
     //     pendingNonceBig.gt(0) && pendingNonceBig.gt(account.misc.nonce)
     //         ? pendingNonceBig.toString()
     //         : account.misc.nonce;
-
     const web3 = new Web3(values.rpcUrl);
     const count = await web3.eth.getTransactionCount(values.from);
+    const defaultValue = '0x00';
+    const defaultGasPrice = await web3.eth.getGasPrice();
+
     const transaction = {
         to: values.to,
-        value: values.value,
+        value: values.value || defaultValue,
         data: values.data,
         chainId: values.chainId,
         nonce: web3.utils.toHex(count),
         gasLimit: values.gasLimit,
-        gasPrice: values.gasPrice,
+        gasPrice: values.gasPrice || web3.utils.toHex(defaultGasPrice),
     };
-    console.log('---transaction', transaction);
+
     const signedTx = await TrezorConnect.ethereumSignTransaction({
         device: {
             path: device.path,
