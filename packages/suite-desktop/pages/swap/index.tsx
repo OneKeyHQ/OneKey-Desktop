@@ -47,9 +47,9 @@ enum CHAIN_SYMBOL_ID {
 }
 
 enum CHAIN_SYMBOL_RPC {
-    kovan = 'https://kovan.infura.io/v3/',
+    kovan = 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
     eth = 'https://rpc.blkdb.cn/eth',
-    bsc = 'https://bsc-dataseed.binance.org',
+    bsc = 'https://rpc.blkdb.cn/bsc',
 }
 
 const DEBUG_CHAIN_ID = 'bsc';
