@@ -62,6 +62,7 @@ export type ToastPayload = (
               | 'verify-address-empty'
               | 'sign-message-error'
               | 'verify-message-error'
+              | 'verify-address-error'
               | 'sign-tx-error'
               | 'metadata-auth-error'
               | 'metadata-not-found-error'

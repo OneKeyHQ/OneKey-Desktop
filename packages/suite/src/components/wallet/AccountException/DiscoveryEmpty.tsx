@@ -9,7 +9,7 @@ import { AccountExceptionLayout } from '@wallet-components';
  * Handler for invalid wallet setting, no coins in discovery
  * see: @wallet-actions/selectedAccountActions
  */
-const DiscoveryEmpty: FC<{ symbol: any }> = ({ symbol }) => {
+const DiscoveryEmpty: FC<{ symbol?: any }> = ({ symbol }) => {
     const { device, isLocked } = useDevice();
     const { openModal, goto } = useActions({
         openModal: modalActions.openModal,
