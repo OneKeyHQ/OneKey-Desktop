@@ -73,9 +73,9 @@ const init = async () => {
         minHeight: MIN_HEIGHT,
         webPreferences: {
             webviewTag: true,
-            webSecurity: false,
+            webSecurity: !isDev,
             nativeWindowOpen: true,
-            allowRunningInsecureContent: true,
+            allowRunningInsecureContent: isDev,
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: false,
