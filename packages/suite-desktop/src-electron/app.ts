@@ -1,6 +1,8 @@
 import path from 'path';
 import url from 'url';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import fs from 'fs';
+
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import isDev from 'electron-is-dev';
 
 import { PROTOCOL } from '@desktop-electron/libs/constants';
@@ -19,9 +21,6 @@ const src = isDev
           protocol: PROTOCOL,
           slashes: true,
       });
-
-// @ts-expect-error
-app.commandLine.appendSwitch('ignore-certificate-errors', true);
 
 // Logger
 const log = {
@@ -42,6 +41,22 @@ global.resourcesPath = isDev
 
 logger.info('main', 'Application starting');
 
+const preloadCachePath = path.join(app.getPath('appData'), './inject.js');
+function fetchPreload() {
+    try {
+        const content = fs.readFileSync(path.resolve(__dirname, './inject.js'));
+        if (!fs.existsSync(path.dirname(preloadCachePath))) {
+            fs.mkdirSync(path.dirname(preloadCachePath), { recursive: true });
+        }
+        fs.writeFileSync(preloadCachePath, content);
+        console.log('UPDATE INJECT.JS SUCCESS!!', preloadCachePath);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+fetchPreload();
+
 const init = async () => {
     buildInfo();
     await computerInfo();
@@ -57,11 +72,12 @@ const init = async () => {
         minWidth: MIN_WIDTH,
         minHeight: MIN_HEIGHT,
         webPreferences: {
-            webSecurity: !isDev,
+            webviewTag: true,
+            webSecurity: false,
             nativeWindowOpen: true,
-            allowRunningInsecureContent: isDev,
-            nodeIntegration: false,
-            contextIsolation: true,
+            allowRunningInsecureContent: true,
+            nodeIntegration: true,
+            contextIsolation: false,
             enableRemoteModule: false,
             preload: path.join(__dirname, 'preload.js'),
         },
@@ -71,7 +87,9 @@ const init = async () => {
     // Load page
     logger.debug('init', `Load URL (${src})`);
     mainWindow.loadURL(src);
-
+    mainWindow.webContents.on('did-finish-load', () => {
+        mainWindow.webContents.send('inject/path', preloadCachePath);
+    });
     // Modules
     await modules({
         mainWindow,
@@ -110,4 +128,9 @@ ipcMain.on('app/restart', () => {
     logger.info('main', 'App restart requested');
     app.relaunch();
     app.exit();
+});
+
+ipcMain.on('webview/open', async (_, url: string) => {
+    logger.info('main', `open new url in webview ${url}`);
+    await shell.openExternal(url);
 });
