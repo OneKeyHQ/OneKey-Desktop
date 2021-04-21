@@ -158,6 +158,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
     const handleReload = useCallback(() => {
         if (!webviewRef) return;
         setLoadFailed(false);
+        setIsLoading(true);
         webviewRef?.reloadIgnoringCache?.();
     }, [webviewRef]);
 
@@ -216,6 +217,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
         if (!webviewRef) return;
         function didFailLoading() {
             setLoadFailed(true);
+            setIsLoading(false);
         }
 
         function domReadyEvent() {

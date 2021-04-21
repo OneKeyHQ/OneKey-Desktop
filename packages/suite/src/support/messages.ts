@@ -78,6 +78,19 @@ const definedMessages = defineMessages({
         defaultMessage: "You must enable ETH account, otherwise you can't use this tab",
         id: 'TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY_DESC_ETH',
     },
+    TR_SWAP_IN_WEB_BROWSER: {
+        defaultMessage: 'Detect You Are In Browser Environment',
+        id: 'TR_SWAP_IN_WEB_BROWSER',
+    },
+    TR_SWAP_IN_WEB_BROWSER_DESC: {
+        defaultMessage:
+            'We recommand you to use Swap at our site https://swap.onekey.so/ with our onekey-swap browser extension.',
+        id: 'TR_SWAP_IN_WEB_BROWSER_DESC',
+    },
+    TR_SWAP_IN_WEB_GOTO_SWAP_SITE: {
+        defaultMessage: 'Go to OneKey Swap site',
+        id: 'TR_SWAP_IN_WEB_GOTO_SWAP_SITE',
+    },
     TR_ACCOUNT_EXCEPTION_DISCOVERY_ERROR: {
         defaultMessage: 'Discovery error.',
         id: 'TR_ACCOUNT_EXCEPTION_DISCOVERY_ERROR',
