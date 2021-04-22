@@ -21,6 +21,7 @@ declare global {
         webkit: any;
         store: any;
         $ONEKEY_WEB3_INJECTED: boolean;
+        $ONEKEY_WEB3_INJECTED_PLATFORM: 'DESKTOP';
         $ONEKEY_SETTINGS_THEME: 'light' | 'dark';
         $ONEKEY_SETTINGS_LANGUAGE: 'zh' | 'en';
     }
@@ -178,6 +179,7 @@ try {
     );
 
     window.$ONEKEY_WEB3_INJECTED = true;
+    window.$ONEKEY_WEB3_INJECTED_PLATFORM = 'DESKTOP';
     window.$ONEKEY_SETTINGS_THEME = settings.theme || 'light';
     window.$ONEKEY_SETTINGS_LANGUAGE = settings.language || 'zh';
     window.injectWeb3Config = injectWeb3Config;

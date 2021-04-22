@@ -51,8 +51,8 @@ const Footer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: #ffffff;
-    border-top: 1px solid #e8e8e8;
+    background: ${props => props.theme.BG_WHITE};
+    border-top: 1px solid ${props => props.theme.STROKE_GREY};
     padding: 0 24px;
 `;
 
@@ -169,10 +169,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
             chainId: activeChainId,
             debug: true,
         };
-        const settingsStr = JSON.stringify({
-            theme,
-            language,
-        });
+        const settingsStr = `theme=${theme}&language=${language}`;
 
         return {
             urlHash: JSON.stringify(object),
@@ -184,9 +181,11 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
         if (isLoading) return;
         const prevUrl = webviewRef?.getURL() ?? '';
 
-        const prevSettings = getParameterByName('settings', prevUrl);
+        const preTheme = getParameterByName('theme', prevUrl);
+        const preLang = getParameterByName('language', prevUrl);
+        const prevSettings = `theme=${preTheme}&language=${preLang}`;
         const prevConfig = getParameterByName('config', prevUrl);
-        const currentUrl = `https://swap.onekey.so/?config=${urlHash}&settings=${settingsStr}`;
+        const currentUrl = `https://swap.onekey.so/#/swap?config=${urlHash}&${settingsStr}`;
         if (
             !/^https:\/\/swap.onekey.so/.test(prevUrl) ||
             prevSettings !== settingsStr ||
@@ -200,7 +199,7 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
     useEffect(() => {
         if (!ref) return;
         // React 会删除 allowpopups 属性
-        const currentUrl = `https://swap.onekey.so/?config=${urlHash}&settings=${settingsStr}`;
+        const currentUrl = `https://swap.onekey.so/#/swap?config=${urlHash}&${settingsStr}`;
 
         ref.innerHTML = `
             <webview
@@ -289,7 +288,13 @@ const Container: FC<Props> = ({ selectedAccount, signWithPush, language, theme }
 
             <div style={{ width: '100%', height: 'calc(100% - 60px)' }} ref={handleRef} />
             <Footer>
-                <Image onClick={handleReload} width={24} height={24} image="RELOAD" />
+                <Image
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleReload}
+                    width={24}
+                    height={24}
+                    image="RELOAD"
+                />
                 <ActionSelect
                     isShowTop
                     hideTextCursor
