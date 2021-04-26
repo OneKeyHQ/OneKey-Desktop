@@ -48,11 +48,11 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
     }
 
     if (device.mode !== 'bootloader') {
-        dispatch({
-            type: FIRMWARE.SET_ERROR,
-            payload: 'device must be connected in bootloader mode',
-        });
-        return;
+        try {
+            await TrezorConnect.bixinReboot();
+        } catch {
+            return;
+        }
     }
 
     dispatch(setStatus('started'));
