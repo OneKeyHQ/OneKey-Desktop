@@ -25,6 +25,8 @@
         { "origin": "efbfhenfhihgdcmnfdkhaphjdnopihlf", "label": "Trezor Connect Chrome Extension", "icon": "./data/icons/metamask.svg" },
         { "origin": "mnpfhpndmjholfdlhpkjfmjkgppmodaf", "label": "MetaMask", "icon": "./data/icons/metamask.svg" },
         { "origin": "webextension@metamask.io", "label": "MetaMask", "icon": "./data/icons/metamask.svg" },
+        { "origin": "bdd38f5c-f4de-9442-bc19-fc90a3ce0dc6", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
+        { "origin": "ofcedhlmeldgidnpkkkaecfeidflidih", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
         { "origin": "file://", "label": " " }
     ],
     "resources": {
