@@ -1,6 +1,6 @@
-import TrezorConnect, { ERRORS, UI } from '@onekeyhq/connect';
+import TrezorConnect from '@onekeyhq/connect';
 import { FIRMWARE } from '@firmware-actions/constants';
-import { Dispatch, GetState, AppState, AcquiredDevice, TrezorDevice } from '@suite-types';
+import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as buildUtils from '@suite-utils/build';
 import { isDesktop } from '@suite-utils/env';
@@ -38,7 +38,7 @@ export const setTargetRelease = (payload: AcquiredDevice['firmwareRelease']): Fi
     payload,
 });
 
-const waitForReboot = async (device?: TrezorDevice) => {
+const waitForReboot = async (device?: AcquiredDevice) => {
     const param = device
         ? {
               device: {
