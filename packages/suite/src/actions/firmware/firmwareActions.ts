@@ -38,6 +38,21 @@ export const setTargetRelease = (payload: AcquiredDevice['firmwareRelease']): Fi
     payload,
 });
 
+const waitForReboot = async () => {
+    // 最多轮询十次，超过就报错
+    for (let i = 0; i < 10; i++) {
+        // eslint-disable-next-line no-await-in-loop
+        const reacquire = await TrezorConnect.getFeatures();
+        if (reacquire.success && reacquire.payload.bootloader_mode) {
+            return;
+        }
+        // 每次轮询之间隔半秒
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise(r => setTimeout(r, 500));
+    }
+    throw Error;
+};
+
 export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetState) => {
     const { device } = getState().suite;
     const { targetRelease, prevDevice } = getState().firmware;
@@ -50,6 +65,7 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
     if (device.mode !== 'bootloader') {
         try {
             await TrezorConnect.bixinReboot();
+            await waitForReboot();
         } catch {
             return;
         }
