@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import { H2, variables, Button } from '@trezor/components';
 import {
@@ -167,6 +167,8 @@ const Pin = ({
     const pinRequestType = device.buttonRequests[device.buttonRequests.length - 1];
     const invalidCounter = device.buttonRequests.filter(r => r === 'ui-invalid_pin').length || 0;
 
+    const lastButtonRequests = useRef(device.buttonRequests);
+
     useEffect(() => {
         if (
             [
@@ -192,6 +194,18 @@ const Pin = ({
         },
         [onPinSubmit],
     );
+
+    useEffect(() => {
+        if (
+            lastButtonRequests.current.length !== device.buttonRequests.length ||
+            !lastButtonRequests.current.every(
+                (value, index) => value === device.buttonRequests[index],
+            )
+        ) {
+            setSubmitted(false);
+            lastButtonRequests.current = device.buttonRequests;
+        }
+    }, [device.buttonRequests]);
 
     const modeType = settings.unlockPin;
 
