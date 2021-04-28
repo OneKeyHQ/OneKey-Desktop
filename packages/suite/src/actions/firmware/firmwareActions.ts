@@ -149,6 +149,10 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
             }
             await waitForReboot(device);
         } catch {
+            dispatch({
+                type: FIRMWARE.SET_ERROR,
+                payload: 'device must be connected in bootloader mode',
+            });
             return;
         }
     }
