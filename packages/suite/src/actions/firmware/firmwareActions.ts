@@ -1,6 +1,6 @@
 import TrezorConnect from '@onekeyhq/connect';
 import { FIRMWARE } from '@firmware-actions/constants';
-import { Dispatch, GetState, AppState, AcquiredDevice } from '@suite-types';
+import { Dispatch, GetState, AppState, AcquiredDevice, TrezorDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as buildUtils from '@suite-utils/build';
 import { isDesktop } from '@suite-utils/env';
@@ -38,11 +38,18 @@ export const setTargetRelease = (payload: AcquiredDevice['firmwareRelease']): Fi
     payload,
 });
 
-const waitForReboot = async () => {
+const waitForReboot = async (device?: TrezorDevice) => {
+    const param = device
+        ? {
+              device: {
+                  path: device.path,
+              },
+          }
+        : undefined;
     // 最多轮询十次，超过就报错
     for (let i = 0; i < 10; i++) {
         // eslint-disable-next-line no-await-in-loop
-        const reacquire = await TrezorConnect.getFeatures();
+        const reacquire = await TrezorConnect.getFeatures(param);
         if (reacquire.success && reacquire.payload.bootloader_mode) {
             return;
         }
@@ -60,15 +67,6 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
     if (!device || !device.connected || !device.features) {
         dispatch({ type: FIRMWARE.SET_ERROR, payload: 'no device connected' });
         return;
-    }
-
-    if (device.mode !== 'bootloader') {
-        try {
-            await TrezorConnect.bixinReboot();
-            await waitForReboot();
-        } catch {
-            return;
-        }
     }
 
     dispatch(setStatus('started'));
@@ -141,6 +139,15 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         }
     } catch (e) {
         return dispatch({ type: FIRMWARE.SET_ERROR, payload: e.message });
+    }
+
+    if (device.mode !== 'bootloader') {
+        try {
+            await TrezorConnect.bixinReboot();
+            await waitForReboot(device);
+        } catch {
+            return;
+        }
     }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);
