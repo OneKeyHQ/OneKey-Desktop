@@ -1,4 +1,4 @@
-import TrezorConnect from '@onekeyhq/connect';
+import TrezorConnect, { ERRORS, UI } from '@onekeyhq/connect';
 import { FIRMWARE } from '@firmware-actions/constants';
 import { Dispatch, GetState, AppState, AcquiredDevice, TrezorDevice } from '@suite-types';
 import * as analyticsActions from '@suite-actions/analyticsActions';
@@ -143,7 +143,10 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
 
     if (device.mode !== 'bootloader') {
         try {
-            await TrezorConnect.bixinReboot();
+            const result = await TrezorConnect.bixinReboot();
+            if (!result.success) {
+                return dispatch({ type: FIRMWARE.SET_ERROR, payload: result.payload.code });
+            }
             await waitForReboot(device);
         } catch {
             return;
