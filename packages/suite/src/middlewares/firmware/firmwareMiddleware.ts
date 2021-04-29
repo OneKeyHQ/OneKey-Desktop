@@ -8,6 +8,21 @@ import * as suiteActions from '@suite-actions/suiteActions';
 import { AppState, Action, Dispatch } from '@suite-types';
 import { FIRMWARE } from '@suite/actions/firmware/constants';
 
+const waitForReboot = async (api: MiddlewareAPI<Dispatch, AppState>) => {
+    // 最多轮询十次，超过就报错
+    for (let i = 0; i < 10; i++) {
+        const newDevice = api.getState().devices.find(device => device.connected);
+        console.log(api.getState());
+        if (newDevice) {
+            return api.dispatch({ type: SUITE.SELECT_DEVICE, payload: newDevice });
+        }
+        // 每次轮询之间隔半秒
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise(r => setTimeout(r, 500));
+    }
+    return api.dispatch({ type: FIRMWARE.SET_UPDATE_STATUS, payload: 'reconnect-timeout' });
+};
+
 const firmware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => (
     action: Action,
 ): Action => {
@@ -41,6 +56,7 @@ const firmware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) =>
             // !action.payload.connected means that user disconnected device that was force remembered
             if (status === 'unplug' && (!action.payload || !action.payload?.connected)) {
                 api.dispatch(firmwareActions.setStatus('reconnect-in-normal'));
+                waitForReboot(api);
             }
 
             // here user connected device that was force remembered before

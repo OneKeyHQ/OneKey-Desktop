@@ -1183,6 +1183,8 @@
     "TR_WAITING_FOR_CONFIRMATION": "Waiting for confirmation on device\n",
     "TR_WAIT_FOR_FILE_TO_DOWNLOAD": "Wait for file to download",
     "TR_WAIT_FOR_REBOOT": "Restarting OneKey",
+    "TR_RECONNECT_TIMEOUT": "Please manually reboot your device",
+    "TR_NO_NEED_TO_DISCONNECT": "no need to disconnect",
     "TR_WALLET": "Accounts",
     "TR_WALLET_DUPLICATE_DESC": "The Hidden wallet you are trying to add has been already discovered.",
     "TR_WALLET_DUPLICATE_RETRY": "Try different passphrase",

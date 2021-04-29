@@ -1183,6 +1183,8 @@
 	"TR_WAITING_FOR_CONFIRMATION": "正在等待设备的确认\n",
 	"TR_WAIT_FOR_FILE_TO_DOWNLOAD": "等待下载文件",
 	"TR_WAIT_FOR_REBOOT": "重启 OneKey 硬件设备",
+	"TR_RECONNECT_TIMEOUT": "请手动重启 OneKey 硬件设备",
+	"TR_NO_NEED_TO_DISCONNECT": "可以不用断开连接",
 	"TR_WALLET": "账户",
 	"TR_WALLET_DUPLICATE_DESC": "你要添加的隐藏钱包已经被发现了",
 	"TR_WALLET_DUPLICATE_RETRY": "尝试不同的passphrase",

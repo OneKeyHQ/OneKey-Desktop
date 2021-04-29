@@ -20,6 +20,8 @@ export const getTextForStatus = (status: AppState['firmware']['status']) => {
             return 'TR_INSTALLING';
         case 'wait-for-reboot':
             return 'TR_WAIT_FOR_REBOOT';
+        case 'reconnect-timeout':
+            return 'TR_RECONNECT_TIMEOUT';
         case 'unplug':
             return 'TR_DISCONNECT_YOUR_DEVICE';
         default:
@@ -32,6 +34,8 @@ export const getDescriptionForStatus = (status: AppState['firmware']['status']) 
         case 'installing':
         case 'wait-for-reboot':
             return 'TR_DO_NOT_DISCONNECT';
+        case 'reconnect-timeout':
+            return 'TR_NO_NEED_TO_DISCONNECT';
         default:
             return null;
     }

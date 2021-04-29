@@ -224,6 +224,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
             case 'installing':
             case 'started':
             case 'wait-for-reboot':
+            case 'reconnect-timeout':
             case 'unplug':
                 return {
                     Heading: <CommonHeading />,

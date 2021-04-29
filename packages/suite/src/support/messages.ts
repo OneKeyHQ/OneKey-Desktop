@@ -2649,6 +2649,14 @@ const definedMessages = defineMessages({
         description: 'Info what is happening with users device.',
         id: 'TR_WAIT_FOR_REBOOT',
     },
+    TR_RECONNECT_TIMEOUT: {
+        defaultMessage: 'Please manually reboot your device',
+        id: 'TR_RECONNECT_TIMEOUT',
+    },
+    TR_NO_NEED_TO_DISCONNECT: {
+        defaultMessage: 'no need to disconnect',
+        id: 'TR_NO_NEED_TO_DISCONNECT',
+    },
     TR_WALLET_DUPLICATE_DESC: {
         defaultMessage: 'The hidden wallet that you are trying to create already exists',
         id: 'TR_WALLET_DUPLICATE_DESC',

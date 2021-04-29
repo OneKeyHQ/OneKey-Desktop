@@ -23,6 +23,7 @@ export type FirmwareUpdateState =
               | 'installing' // progress - firmware is being installed
               | 'partially-done' // progress - some old t1 firmwares can't update to the latest version
               | 'wait-for-reboot' // progress - model t2 is restarting after firmware update
+              | 'reconnect-timeout' // progress - model t2 is restarting after firmware update
               | 'unplug' // progress - user is asked to reconnect device (t1)
               | 'reconnect-in-normal' // progress - after unplugging device from previous step, user is asked to connect it again
               | 'done'; // firmware successfully installed
