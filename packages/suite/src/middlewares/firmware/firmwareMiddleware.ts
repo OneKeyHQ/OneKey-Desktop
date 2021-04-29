@@ -12,7 +12,6 @@ const waitForReboot = async (api: MiddlewareAPI<Dispatch, AppState>) => {
     // 最多轮询十次，超过就报错
     for (let i = 0; i < 10; i++) {
         const newDevice = api.getState().devices.find(device => device.connected);
-        console.log(api.getState());
         if (newDevice) {
             return api.dispatch({ type: SUITE.SELECT_DEVICE, payload: newDevice });
         }
