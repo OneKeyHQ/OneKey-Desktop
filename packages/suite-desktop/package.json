@@ -145,7 +145,8 @@
             "target": [
                 "AppImage"
             ]
-        }
+        },
+        "afterSign": "scripts/notarize.js"
     },
     "dependencies": {
         "bn.js": "^5.2.0",
