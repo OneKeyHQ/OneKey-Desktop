@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Icon, variables } from '@trezor/components';
 import { Translation, ExternalLink } from '@suite-components';
-import { getFwVersion } from '@suite-utils/device';
+import { getFwVersion, findErrorBatchDevice } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
 import { isNewer, isNewerOrEqual } from '@firmware-utils';
@@ -55,6 +55,17 @@ const StyledExternalLink = styled(ExternalLink)`
 
 const Heading = () => {
     const { device } = useDevice();
+    const { firmwareError } = useFirmware();
+    const isErrorBatchDevice = findErrorBatchDevice(device);
+
+    useEffect(() => {
+        if (isErrorBatchDevice) {
+            firmwareError('error batch device');
+        }
+    }, [isErrorBatchDevice, firmwareError]);
+
+    if (isErrorBatchDevice) return null;
+
     if (device?.mode === 'normal') {
         return (
             <HeadingWrapper>
