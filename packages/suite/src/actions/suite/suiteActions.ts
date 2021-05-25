@@ -285,17 +285,13 @@ export const handleDeviceConnect = (device: Device) => (dispatch: Dispatch, getS
     // todo:
     // We are waiting for device in bootloader mode (only in firmware update)
     if (
-        selectedDevice &&
-        device.features &&
-        device.mode === 'bootloader' &&
-        firmware.status === 'waiting-for-bootloader'
+        (selectedDevice &&
+            device.features &&
+            device.mode === 'bootloader' &&
+            firmware.status === 'waiting-for-bootloader') ||
+        !selectedDevice
     ) {
         dispatch(selectDevice(device));
-    }
-    if (!selectedDevice) {
-        dispatch(selectDevice(device));
-    } else {
-        // TODO: show some nice notification/tooltip in DeviceMenu
     }
 };
 
