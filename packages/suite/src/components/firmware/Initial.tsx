@@ -275,7 +275,7 @@ const BLEBottomBar = () => {
                 0,
                 0,
             ],
-            getBleVerAsArray(device?.features?.ble_ver)
+            getBleVerAsArray(device?.features?.ble_ver),
         )
     ) {
         return (
