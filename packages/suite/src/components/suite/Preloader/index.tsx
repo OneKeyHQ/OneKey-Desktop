@@ -34,7 +34,7 @@ import {
     Welcome,
 } from '@suite-views';
 import { findErrorBatchDevice } from '@suite-utils/device';
-import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
+import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
 
 type SuiteAppStateProps = {
     loaded: boolean;

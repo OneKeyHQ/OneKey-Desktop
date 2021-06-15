@@ -23,7 +23,7 @@ import {
 } from '@firmware-components';
 import { DeviceAcquire, DeviceUnknown, DeviceUnreadable } from '@suite-views';
 import { Translation, Modal } from '@suite-components';
-import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
+import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
 
 const InnerModalWrapper = styled.div`
     display: flex;

@@ -21,7 +21,7 @@ import { UNLOCK_PIN } from '@suite-config';
 import { isNewer, isNewerOrEqual } from '@firmware-utils';
 
 import { Props } from './Container';
-import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
+import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
 
 const RotationButton = styled(ActionButton)`
     min-width: 81px;

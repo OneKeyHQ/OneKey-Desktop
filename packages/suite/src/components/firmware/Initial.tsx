@@ -7,7 +7,7 @@ import { getFwVersion, findErrorBatchDevice } from '@suite-utils/device';
 import { useDevice, useFirmware } from '@suite-hooks';
 import { ReconnectInNormalStep, NoNewFirmware, ContinueButton, P, H2 } from '@firmware-components';
 import { isNewer, isNewerOrEqual } from '@firmware-utils';
-import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
+import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
 
 const { FONT_SIZE, FONT_WEIGHT } = variables;
 
