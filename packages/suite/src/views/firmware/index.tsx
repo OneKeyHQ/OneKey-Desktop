@@ -23,6 +23,7 @@ import {
 } from '@firmware-components';
 import { DeviceAcquire, DeviceUnknown, DeviceUnreadable } from '@suite-views';
 import { Translation, Modal } from '@suite-components';
+import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
 
 const InnerModalWrapper = styled.div`
     display: flex;
@@ -118,12 +119,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
         if (window?.$BLE_MODE) {
             if (
                 isNewerOrEqual(
-                    (device?.features?.ble_ver?.split('.').map(Number) as [
-                        number,
-                        number,
-                        number,
-                    ]) ?? [1, 0, 0],
-
+                    getBleVerAsArray(device?.features?.ble_ver),
                     (window.$BLE_DATA?.version.split('.').map(Number) as [
                         number,
                         number,

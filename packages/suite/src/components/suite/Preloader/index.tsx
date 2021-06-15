@@ -34,6 +34,7 @@ import {
     Welcome,
 } from '@suite-views';
 import { findErrorBatchDevice } from '@suite-utils/device';
+import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
 
 type SuiteAppStateProps = {
     loaded: boolean;
@@ -102,11 +103,7 @@ const getSuiteApplicationState = ({
                 0,
                 0,
             ],
-            (device?.features?.ble_ver?.split('.').map(Number) as [number, number, number]) ?? [
-                1,
-                0,
-                0,
-            ],
+            getBleVerAsArray(device?.features?.ble_ver),
         )
     ) {
         if (typeof window !== 'undefined') {

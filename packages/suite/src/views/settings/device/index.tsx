@@ -21,6 +21,7 @@ import { UNLOCK_PIN } from '@suite-config';
 import { isNewer, isNewerOrEqual } from '@firmware-utils';
 
 import { Props } from './Container';
+import { getBleVerAsArray } from "@suite-utils/getBleVerAsArray";
 
 const RotationButton = styled(ActionButton)`
     min-width: 81px;
@@ -239,20 +240,11 @@ const Settings = ({
                                         number,
                                         number,
                                     ]) ?? [1, 0, 0],
-                                    (device?.features?.ble_ver?.split('.').map(Number) as [
-                                        number,
-                                        number,
-                                        number,
-                                    ]) ?? [1, 0, 0],
+                                    getBleVerAsArray(device?.features?.ble_ver),
                                 ) && <Translation id="TR_UPDATE_AVAILABLE" />}
                             {device &&
                                 isNewerOrEqual(
-                                    (device?.features?.ble_ver?.split('.').map(Number) as [
-                                        number,
-                                        number,
-                                        number,
-                                    ]) ?? [1, 0, 0],
-
+                                    getBleVerAsArray(device?.features?.ble_ver),
                                     (window.$BLE_DATA?.version.split('.').map(Number) as [
                                         number,
                                         number,
