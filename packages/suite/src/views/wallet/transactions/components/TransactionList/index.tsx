@@ -24,6 +24,7 @@ import NoSearchResults from './components/NoSearchResults';
 const StyledCard = styled(Card)<{ isPending: boolean }>`
     flex-direction: column;
     padding: 0px 24px;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
     ${props =>
         props.isPending &&
         css`

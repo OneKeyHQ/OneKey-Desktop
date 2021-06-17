@@ -19,6 +19,7 @@ const StyledCard = styled(Card)`
     flex-direction: column;
     margin-bottom: 25px;
     padding: 0;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 // inner component for selectedAccount.status = "loaded"

@@ -10,8 +10,8 @@ export const THEME = {
         BG_GREEN_HOVER: '#339714',
         BG_LIGHT_GREEN_HOVER: '#e8f3e5',
         BG_GREY: '#f4f4f4',
-        BG_GREY_ALT: '#f4f4f4',
-        BG_LIGHT_GREY: '#fcfcfc',
+        BG_GREY_ALT: '#e7ecf0',
+        BG_LIGHT_GREY: '#fefefe',
         BG_WHITE: '#ffffff',
         BG_WHITE_ALT: '#ffffff', // used for dropdown menus
         BG_WHITE_ALT_HOVER: '#f4f4f4', // used for dropdown menus

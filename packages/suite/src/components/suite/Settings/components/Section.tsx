@@ -26,6 +26,7 @@ const Description = styled(P)`
 const Content = styled(Card)`
     flex-direction: column;
     flex: 1;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 interface Props {

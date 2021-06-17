@@ -15,6 +15,7 @@ const Wrapper = styled(Card)`
     padding: 14px 16px;
     flex: 1;
     min-height: 100px;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const InfoCardContent = styled.div`

@@ -18,6 +18,7 @@ const Wrapper = styled.div<{ isMobileLayout?: boolean }>`
     flex-direction: column;
     z-index: 4; /*  higher than accounts list to prevent box-shadow overflow */
     width: 100%;
+    background: ${props => props.theme.BG_LIGHT_GREY};
 
     ${props =>
         !props.isMobileLayout &&

@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 const StyledCard = styled(Card)`
     width: 100%;
     align-items: center;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const Title = styled(H2)`

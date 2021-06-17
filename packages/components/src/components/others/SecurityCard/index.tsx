@@ -15,6 +15,7 @@ const StyledCard = styled(Card)`
     padding: 10px;
     flex: 1;
     transition: background-color 0.7s ease-out;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const Header = styled.div`

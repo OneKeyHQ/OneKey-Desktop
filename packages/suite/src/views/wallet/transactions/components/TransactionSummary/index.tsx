@@ -27,6 +27,7 @@ const GraphWrapper = styled(Card)`
     display: flex;
     padding: 14px 16px;
     height: 320px;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const Actions = styled.div`

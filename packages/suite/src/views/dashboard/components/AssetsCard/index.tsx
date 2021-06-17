@@ -15,6 +15,7 @@ import { AnimatePresence } from 'framer-motion';
 const StyledCard = styled(Card)`
     flex-direction: column;
     padding: 0px;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const InfoMessage = styled.div`

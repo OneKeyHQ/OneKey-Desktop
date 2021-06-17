@@ -42,7 +42,6 @@ const SecurityFeatures = ({
     const { discreetModeCompleted } = flags;
     let needsBackup;
     let pinEnabled;
-    let hiddenWalletCreated;
     let backupFailed;
 
     if (device && device.features) {
@@ -50,15 +49,11 @@ const SecurityFeatures = ({
         // TODO: add "enable passphrase" instead of hiddenWalletCreated
         needsBackup = device.features.needs_backup || device.features.unfinished_backup;
         pinEnabled = device.features.pin_protection;
-        hiddenWalletCreated = device.features.passphrase_protection;
         backupFailed = device.features.unfinished_backup;
     }
 
     const featuresCompleted =
-        Number(!needsBackup) +
-        Number(!!pinEnabled) +
-        Number(!!discreetModeCompleted) +
-        Number(!!hiddenWalletCreated);
+        Number(!needsBackup) + Number(!!pinEnabled) + Number(!!discreetModeCompleted);
 
     const backupData: SecurityCardProps = needsBackup
         ? {
@@ -128,44 +123,6 @@ const SecurityFeatures = ({
               },
           };
 
-    const hiddenWalletData: SecurityCardProps = !hiddenWalletCreated
-        ? {
-              variant: 'primary',
-              icon: 'WALLET_HIDDEN',
-              heading: <Translation id="TR_PASSPHRASE_PROTECTION" />,
-              description: <Translation id="TR_ENABLE_PASSPHRASE_DESCRIPTION" />,
-              cta: {
-                  label: <Translation id="TR_ENABLE_PASSPHRASE" />,
-                  action: () => {
-                      applySettings({
-                          // eslint-disable-next-line @typescript-eslint/naming-convention
-                          use_passphrase: true,
-                      });
-                      analytics.report({
-                          type: 'dashboard/security-card/enable-passphrase',
-                      });
-                  },
-                  dataTest: 'hidden-wallet',
-                  isDisabled: isDeviceLocked,
-              },
-          }
-        : {
-              variant: 'secondary',
-              icon: 'WALLET_HIDDEN',
-              heading: <Translation id="TR_PASSPHRASE_PROTECTION_ENABLED" />,
-              cta: {
-                  label: <Translation id="TR_CREATE_HIDDEN_WALLET" />,
-                  action: () => {
-                      createDeviceInstance(device as AcquiredDevice);
-                      analytics.report({
-                          type: 'dashboard/security-card/create-hidden-wallet',
-                      });
-                  },
-                  dataTest: 'create-hidden-wallet',
-                  isDisabled: isDeviceLocked,
-              },
-          };
-
     const discreetModeData: SecurityCardProps = !discreetModeCompleted
         ? {
               variant: 'primary',
@@ -206,14 +163,14 @@ const SecurityFeatures = ({
               },
           };
 
-    const cards: SecurityCardProps[] = [backupData, pinData, hiddenWalletData, discreetModeData];
+    const cards: SecurityCardProps[] = [backupData, pinData, discreetModeData];
 
     return (
         <Section
             heading={
                 <Translation
                     id="TR_SECURITY_FEATURES_COMPLETED_N"
-                    values={{ n: featuresCompleted, m: 4 }}
+                    values={{ n: featuresCompleted, m: 3 }}
                 />
             }
             actions={

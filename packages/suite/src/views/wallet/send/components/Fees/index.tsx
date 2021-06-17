@@ -8,6 +8,7 @@ const StyledCard = styled(Card)`
     display: flex;
     margin-bottom: 25px;
     padding: 32px 42px;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.05);
 `;
 
 // wrapper for shareable Fees component
