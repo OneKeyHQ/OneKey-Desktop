@@ -78,6 +78,7 @@ const ChangeGas = (props: Props) => {
                 setGasPrice(fromWei(defaultGasPrice, 'Gwei'));
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.transaction.gasPrice]);
 
     const save = () => {
