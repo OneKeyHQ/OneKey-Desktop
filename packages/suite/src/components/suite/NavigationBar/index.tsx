@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import DeviceSelector from './components/DeviceSelector';
-import MainNavigation from './components/MainNavigation';
 import NavigationActions from './components/NavigationActions';
 import styled from 'styled-components';
 import { Icon, useTheme } from '@trezor/components';
@@ -17,6 +16,25 @@ const StyledNavigationBar = styled.div<{ isMobileLayout: boolean }>`
     padding: ${props => (!props.isMobileLayout ? '6px 32px 6px 8px' : '6px 8px')};
     align-items: center;
     background: ${props => props.theme.BG_WHITE};
+    border-bottom: 1px solid ${props => props.theme.STROKE_GREY};
+
+    &:hover ${StyledDeviceSelector} {
+        /* apply same device selector's hover styles on hover anywhere in navigation panel */
+        border-radius: 4px;
+        box-shadow: 0 1px 2px 0 ${props => props.theme.BOX_SHADOW_BLACK_20};
+    }
+`;
+
+const VerticalNavigationBar = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-width: 281px;
+    height: 100%;
+    flex: 0;
+    z-index: 3;
+    padding: 90px 20px 0 10px;
+    align-items: center;
+    background: ${props => props.theme.BG_NAVBAR};
     border-bottom: 1px solid ${props => props.theme.STROKE_GREY};
 
     &:hover ${StyledDeviceSelector} {
@@ -61,7 +79,7 @@ const NavigationBar = () => {
         return (
             <>
                 <StyledNavigationBar isMobileLayout={isMobileLayout}>
-                    <StyledDeviceSelector />
+                    <StyledDeviceSelector isMobileLayout={isMobileLayout} />
                     <HamburgerWrapper>
                         <Icon
                             onClick={() => setOpened(!opened)}
@@ -74,14 +92,7 @@ const NavigationBar = () => {
                 {opened && (
                     <MobileNavigationWrapper>
                         <ExpandedMobileNavigation>
-                            <MainNavigation
-                                isMobileLayout={isMobileLayout}
-                                closeMainNavigation={closeMainNavigation}
-                            />
-                            <NavigationActions
-                                isMobileLayout={isMobileLayout}
-                                closeMainNavigation={closeMainNavigation}
-                            />
+                            <NavigationActions closeMainNavigation={closeMainNavigation} />
                         </ExpandedMobileNavigation>
                     </MobileNavigationWrapper>
                 )}
@@ -90,11 +101,10 @@ const NavigationBar = () => {
     }
 
     return (
-        <StyledNavigationBar isMobileLayout={isMobileLayout}>
+        <VerticalNavigationBar>
             <StyledDeviceSelector />
-            <MainNavigation />
             <NavigationActions />
-        </StyledNavigationBar>
+        </VerticalNavigationBar>
     );
 };
 

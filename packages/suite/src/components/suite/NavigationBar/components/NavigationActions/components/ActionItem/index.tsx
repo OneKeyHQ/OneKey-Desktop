@@ -1,29 +1,23 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useTheme, Icon, IconProps, variables } from '@trezor/components';
 
-const Wrapper = styled.div<Pick<Props, 'isActive' | 'desktopMarginLeft' | 'desktopMarginRight'>>`
+const Wrapper = styled.div<Pick<Props, 'isActive'>>`
     display: flex;
     position: relative;
     cursor: pointer;
     align-items: center;
-    margin-left: ${props => props.desktopMarginLeft || '0px'};
-    margin-right: ${props => props.desktopMarginRight || '0px'};
+    padding-left: 8px;
+    border-radius: 8px;
+    ${props =>
+        props.isActive &&
+        css`
+            font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
+            background-color: ${props => props.theme.BG_GREY_ALT};
+        `}
 `;
 
-const MobileWrapper = styled.div<Pick<Props, 'isActive'>>`
-    display: flex;
-    position: relative;
-    cursor: pointer;
-    align-items: center;
-    margin-right: 16px;
-
-    & + & {
-        border-top: 1px solid ${props => props.theme.STROKE_GREY};
-    }
-`;
-
-const MobileIconWrapper = styled.div<Pick<Props, 'isActive'>>`
+const IconWrapper = styled.div<Pick<Props, 'isActive'>>`
     display: flex;
     position: relative;
     cursor: pointer;
@@ -40,7 +34,7 @@ const Label = styled.span`
 
 const AlertDotWrapper = styled.div`
     position: absolute;
-    top: 0px;
+    top: 0;
     right: 2px;
     width: 9px;
     height: 9px;
@@ -63,9 +57,6 @@ interface CommonProps extends Pick<React.HTMLAttributes<HTMLDivElement>, 'onClic
     label: React.ReactNode;
     isActive?: boolean;
     withAlertDot?: boolean;
-    isMobileLayout?: boolean;
-    desktopMarginLeft?: string;
-    desktopMarginRight?: string;
 }
 
 interface CustomIconComponentProps extends CommonProps {
@@ -79,13 +70,11 @@ interface IconComponentProps extends CommonProps {
 
 type Props = CustomIconComponentProps | IconComponentProps;
 
-// Reason to use forwardRef: We want the user to be able to close Notifications dropdown by clicking somewhere else.
-// In order to achieve that behavior, we need to pass reference to ActionItem
-const ActionItem = React.forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) => {
+const ActionItem = React.forwardRef((props: Props) => {
     const theme = useTheme();
     const iconComponent = props.icon ? (
         <Icon
-            color={props.isActive ? theme.TYPE_DARK_GREY : theme.TYPE_LIGHT_GREY}
+            color={props.isActive ? theme.TYPE_GREEN : theme.TYPE_LIGHT_GREY}
             size={24}
             icon={props.icon}
         />
@@ -93,30 +82,17 @@ const ActionItem = React.forwardRef((props: Props, ref: React.Ref<HTMLDivElement
         props.iconComponent
     );
 
-    if (props.isMobileLayout) {
-        return (
-            <MobileWrapper {...props}>
-                <MobileIconWrapper isActive={props.isActive}>
-                    {iconComponent}
-                    {props.withAlertDot && (
-                        <AlertDotWrapper>
-                            <AlertDot />
-                        </AlertDotWrapper>
-                    )}
-                </MobileIconWrapper>
-                <Label>{props.label}</Label>
-            </MobileWrapper>
-        );
-    }
-
     return (
-        <Wrapper isActive={props.isActive} {...props} ref={ref}>
-            {iconComponent}
-            {props.withAlertDot && (
-                <AlertDotWrapper>
-                    <AlertDot />
-                </AlertDotWrapper>
-            )}
+        <Wrapper {...props}>
+            <IconWrapper isActive={props.isActive}>
+                {iconComponent}
+                {props.withAlertDot && (
+                    <AlertDotWrapper>
+                        <AlertDot />
+                    </AlertDotWrapper>
+                )}
+            </IconWrapper>
+            <Label>{props.label}</Label>
         </Wrapper>
     );
 });

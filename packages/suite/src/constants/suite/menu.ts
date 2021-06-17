@@ -1,14 +1,14 @@
 export const MAIN_MENU_ITEMS = [
     {
         translationId: 'TR_DASHBOARD',
-        icon: 'DASHBOARD',
+        icon: 'HOME',
         route: 'suite-index',
         isDisabled: false,
         isBeta: false,
     },
     {
         translationId: 'TR_WALLET',
-        icon: 'WALLET',
+        icon: 'ACCOUNT',
         route: 'wallet-index',
         isDisabled: false,
         isBeta: false,
@@ -27,16 +27,4 @@ export const MAIN_MENU_ITEMS = [
         isDisabled: false,
         isBeta: true,
     },
-    // {
-    //     translationId: 'TR_PASSWORDS',
-    //     icon: 'PASSWORDS',
-    //     route: 'passwords-index',
-    //     isDisabled: true,
-    // },
-    // {
-    //     translationId: 'TR_PORTFOLIO',
-    //     icon: 'PORTFOLIO',
-    //     route: 'portfolio-index',
-    //     isDisabled: true,
-    // },
 ] as const;

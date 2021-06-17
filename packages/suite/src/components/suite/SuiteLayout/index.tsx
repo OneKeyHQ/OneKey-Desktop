@@ -12,10 +12,10 @@ import NavigationBar from '../NavigationBar';
 import { useLayoutSize } from '@suite-hooks';
 import { isDesktop } from '@suite-utils/env';
 
-const PageWrapper = styled.div`
+const PageWrapper = styled.div<{ isMobileLayout: boolean }>`
     display: flex;
     flex: 1;
-    flex-direction: column;
+    flex-direction: ${props => (props.isMobileLayout ? 'column' : 'row')};
     height: ${isDesktop() ? `calc(100vh - ${DESKTOP_TITLEBAR_HEIGHT})` : '100vh'};
     overflow-x: hidden;
 `;
@@ -164,7 +164,7 @@ const SuiteLayout = (props: SuiteLayoutProps) => {
     );
 
     return (
-        <PageWrapper>
+        <PageWrapper isMobileLayout={isMobileLayout}>
             <Metadata title={title} />
             <SuiteBanners />
             <DiscoveryProgress />

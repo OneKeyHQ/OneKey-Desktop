@@ -10,15 +10,15 @@ import * as suiteActions from '@suite-actions/suiteActions';
 import * as deviceUtils from '@suite-utils/device';
 import DeviceStatus from './components/DeviceStatus';
 
-const Wrapper = styled.div<{ triggerAnim?: boolean }>`
+const Wrapper = styled.div<{ triggerAnim?: boolean; isMobileLayout?: boolean }>`
     display: flex;
     position: relative;
-    width: 288px;
+    width: ${props => (props.isMobileLayout ? '288px' : '100%')};
     padding: 12px;
     align-items: center;
     background-color: ${props => props.theme.BG_LIGHT_GREY};
     cursor: pointer;
-    margin-right: 24px;
+    margin-right: ${props => (props.isMobileLayout ? '24px' : '0')};
 
     &:hover {
         border-radius: 4px;
@@ -83,7 +83,9 @@ const needsRefresh = (device?: TrezorDevice) => {
     return needsAcquire;
 };
 
-const DeviceSelector = (props: React.HTMLAttributes<HTMLDivElement>) => {
+const DeviceSelector = (
+    props: React.HTMLAttributes<HTMLDivElement> & { isMobileLayout?: boolean },
+) => {
     const { selectedDevice, deviceCount } = useSelector(state => ({
         selectedDevice: state.suite.device,
         deviceCount: state.devices.length,
@@ -151,6 +153,7 @@ const DeviceSelector = (props: React.HTMLAttributes<HTMLDivElement>) => {
                 }) && analytics.report({ type: 'menu/goto/switch-device' })
             }
             triggerAnim={triggerAnim}
+            isMobileLayout={props.isMobileLayout}
             {...props}
         >
             {selectedDevice && (

@@ -100,4 +100,8 @@ export const ICONS = {
     WINDOW_RESTORE: require('../../images/icons/window_restore.svg'),
     WINDOW_RESTORE_MAC: require('../../images/icons/window_restore_mac.svg'),
     TOR: require('../../images/icons/tor.svg'),
+    HOME: require('../../images/icons/home.svg'),
+    ACCOUNT: require('../../images/icons/account.svg'),
+    SWAP: require('../../images/icons/swap.svg'),
+    EXPLORE: require('../../images/icons/dapps.svg'),
 };

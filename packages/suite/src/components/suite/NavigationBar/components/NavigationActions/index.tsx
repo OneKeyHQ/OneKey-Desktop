@@ -1,93 +1,78 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { Translation } from '@suite-components';
-import { Icon, Tooltip, useTheme } from '@trezor/components';
 import { findRouteByName } from '@suite-utils/router';
-import { useActions, useAnalytics, useSelector } from '@suite-hooks';
+import { useAccountSearch, useActions, useAnalytics, useSelector } from '@suite-hooks';
 import ActionItem from './components/ActionItem';
-import TooltipContentTor from './components/TooltipContentTor';
-import { isDesktop } from '@suite-utils/env';
-import NotificationsDropdown from './components/NotificationsDropdown';
+import { MAIN_MENU_ITEMS } from '@suite-constants/menu';
+import { variables } from '@trezor/components';
 
-const DESKTOP_LAYOUT_ICONS_MARGIN = '28px';
+interface ComponentProps {
+    isActive: boolean;
+    isDisabled?: boolean;
+}
 
 const Wrapper = styled.div`
     display: flex;
-    align-items: center;
-    width: 288px; /* same as DeviceSelector because we need menu in the exact center  */
-    justify-content: flex-end;
-`;
-
-const MobileWrapper = styled.div`
-    display: flex;
     flex-direction: column;
-    padding: 0px 16px;
+    width: 100%;
+    margin-top: 31px;
 `;
 
-const ActionsContainer = styled.div<{ desktop: boolean; mobileLayout?: boolean }>`
-    border-top: 1px solid ${props => props.theme.STROKE_GREY};
-    ${props =>
-        !props.mobileLayout &&
-        `display: flex;
-        align-items: center;
-        margin-left: ${DESKTOP_LAYOUT_ICONS_MARGIN};
-        border-top: 0;
-    `}
-    ${props =>
-        props.desktop &&
-        !props.mobileLayout &&
-        `
-        margin-left: 22px;
-        margin-right: -17px;
-        padding: 12px 15px;
-        border: 1px solid ${props.theme.STROKE_GREY};
-        border-radius: 10px;
-    `}
+const ItemTitleWrapper = styled.span`
+    position: relative;
 `;
 
-const ActionItemTor = styled.div<{ mobileLayout?: boolean }>`
+const ItemTitle = styled.span<ComponentProps>`
+    color: ${props => props.theme.TYPE_LIGHT_GREY};
+    font-weight: ${variables.FONT_WEIGHT.MEDIUM};
+
     ${props =>
-        !props.mobileLayout &&
-        `display: flex;
-        position: relative;
-        align-items: center;
-    `}
+        props.isActive &&
+        css`
+            color: ${props => props.theme.TYPE_GREEN};
+        `}
+
     ${props =>
-        props.mobileLayout &&
-        `border-top: 1px solid ${props.theme.STROKE_GREY};
-    `}
+        props.isDisabled &&
+        css`
+            cursor: default;
+        `}
 `;
 
-const ActionItemTorIndicator = styled.div`
-    background: ${props => props.theme.BG_WHITE};
-    display: flex;
-    align-items: center;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
+const NewBadge = styled.span`
     position: absolute;
-    top: 0;
-    right: 0;
+    top: -14px;
+    right: -30px;
+    padding: 3px 3px 2px 3px;
+    background: ${props => props.theme.BG_LIGHT_GREEN};
+    color: ${props => props.theme.TYPE_GREEN};
+    letter-spacing: 0.2px;
+    text-transform: UPPERCASE;
+    font-size: 12px;
+    display: flex;
+    cursor: default;
+    align-items: center;
+    font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
+    border-radius: 4px;
 `;
 
 interface Props {
     closeMainNavigation?: () => void;
-    isMobileLayout?: boolean;
 }
 
-type Route = 'settings-index' | 'notifications-index';
+type Route = typeof MAIN_MENU_ITEMS[number]['route'] | 'settings-index' | 'notifications-index';
 
 const NavigationActions = (props: Props) => {
     const analytics = useAnalytics();
-    const themeColors = useTheme();
-    const { activeApp, notifications, discreetMode, tor } = useSelector(state => ({
+    const { setCoinFilter, setSearchString } = useAccountSearch();
+    const { activeApp, notifications, discreetMode } = useSelector(state => ({
         activeApp: state.router.app,
         notifications: state.notifications,
         discreetMode: state.wallet.settings.discreetMode,
-        tor: state.suite.tor,
         theme: state.suite.settings.theme,
     }));
     const { goto, setDiscreetMode } = useActions({
@@ -96,13 +81,24 @@ const NavigationActions = (props: Props) => {
         setTheme: suiteActions.setTheme,
     });
 
-    const WrapperComponent = props.isMobileLayout ? MobileWrapper : Wrapper;
-
     const gotoWithReport = (routeName: Route) => {
-        if (routeName === 'notifications-index') {
-            analytics.report({ type: 'menu/goto/notifications-index' });
-        } else if (routeName === 'settings-index') {
-            analytics.report({ type: 'menu/goto/settings-index' });
+        switch (routeName) {
+            case 'notifications-index':
+                analytics.report({ type: 'menu/goto/notifications-index' });
+                break;
+            case 'settings-index':
+                analytics.report({ type: 'menu/goto/settings-index' });
+                break;
+            case 'suite-index':
+                analytics.report({ type: 'menu/goto/suite-index' });
+                break;
+            case 'wallet-index':
+                setCoinFilter(undefined);
+                setSearchString(undefined);
+                analytics.report({ type: 'menu/goto/wallet-index' });
+                break;
+            default:
+            // no default
         }
         goto(routeName);
     };
@@ -120,20 +116,39 @@ const NavigationActions = (props: Props) => {
     const unseenNotifications = useMemo(() => notifications.some(n => !n.seen), [notifications]);
 
     return (
-        <WrapperComponent>
-            {props.isMobileLayout ? (
-                <ActionItem
-                    label={<Translation id="TR_NOTIFICATIONS" />}
-                    data-test="@suite/menu/notifications-index"
-                    onClick={() => action('notifications-index')}
-                    isActive={getIfRouteIsActive('notifications-index')}
-                    icon="NOTIFICATION"
-                    withAlertDot={unseenNotifications}
-                    isMobileLayout={props.isMobileLayout}
-                />
-            ) : (
-                <NotificationsDropdown withAlertDot={unseenNotifications} />
-            )}
+        <Wrapper>
+            {MAIN_MENU_ITEMS.map(item => {
+                const { route, translationId, isDisabled, isBeta, icon } = item;
+                const routeObj = findRouteByName(route);
+                const isActive = routeObj ? routeObj.app === activeApp : false;
+                return (
+                    <ActionItem
+                        label={
+                            <ItemTitleWrapper>
+                                <ItemTitle isActive={isActive} isDisabled={isDisabled}>
+                                    <Translation id={translationId} />
+                                </ItemTitle>
+                                {/* if the button is disabled, display "SOON" badge */}
+                                {isDisabled && <NewBadge>soon</NewBadge>}
+                                {isBeta && <NewBadge>BETA</NewBadge>}
+                            </ItemTitleWrapper>
+                        }
+                        key={route}
+                        data-test={`@suite/menu/${route}`}
+                        onClick={() => action(route)}
+                        isActive={isActive}
+                        icon={icon as any}
+                    />
+                );
+            })}
+            <ActionItem
+                label={<Translation id="TR_NOTIFICATIONS" />}
+                data-test="@suite/menu/notifications-index"
+                onClick={() => action('notifications-index')}
+                isActive={getIfRouteIsActive('notifications-index')}
+                icon="NOTIFICATION"
+                withAlertDot={unseenNotifications}
+            />
 
             <ActionItem
                 label={<Translation id="TR_SETTINGS" />}
@@ -141,70 +156,23 @@ const NavigationActions = (props: Props) => {
                 onClick={() => action('settings-index')}
                 isActive={getIfRouteIsActive('settings-index')}
                 icon="SETTINGS"
-                isMobileLayout={props.isMobileLayout}
-                desktopMarginLeft={DESKTOP_LAYOUT_ICONS_MARGIN}
             />
 
-            <ActionsContainer desktop={false} mobileLayout={props.isMobileLayout}>
-                <ActionItem
-                    onClick={() => {
-                        analytics.report({
-                            type: 'menu/toggle-discreet',
-                            payload: {
-                                value: !discreetMode,
-                            },
-                        });
-                        setDiscreetMode(!discreetMode);
-                    }}
-                    isActive={discreetMode}
-                    label={<Translation id="TR_DISCREET" />}
-                    icon={discreetMode ? 'HIDE' : 'SHOW'}
-                    isMobileLayout={props.isMobileLayout}
-                />
-                {/* {isDesktop() && (
-                    <ActionItemTor mobileLayout={props.isMobileLayout}>
-                        <Tooltip
-                            placement="bottom"
-                            content={
-                                <TooltipContentTor
-                                    active={tor}
-                                    action={() => action('settings-index')}
-                                />
-                            }
-                            {...props}
-                        >
-                            <>
-                                <ActionItem
-                                    onClick={() => {
-                                        analytics.report({
-                                            type: 'menu/toggle-tor',
-                                            payload: {
-                                                value: !tor,
-                                            },
-                                        });
-                                        window.desktopApi!.toggleTor(!tor);
-                                    }}
-                                    isActive={tor}
-                                    label={<Translation id="TR_TOR" />}
-                                    icon="TOR"
-                                    isMobileLayout={props.isMobileLayout}
-                                    desktopMarginLeft={DESKTOP_LAYOUT_ICONS_MARGIN}
-                                />
-                                {tor && (
-                                    <ActionItemTorIndicator>
-                                        <Icon
-                                            icon="CHECK"
-                                            size={10}
-                                            color={themeColors.TYPE_GREEN}
-                                        />
-                                    </ActionItemTorIndicator>
-                                )}
-                            </>
-                        </Tooltip>
-                    </ActionItemTor>
-                )} */}
-            </ActionsContainer>
-        </WrapperComponent>
+            <ActionItem
+                onClick={() => {
+                    analytics.report({
+                        type: 'menu/toggle-discreet',
+                        payload: {
+                            value: !discreetMode,
+                        },
+                    });
+                    setDiscreetMode(!discreetMode);
+                }}
+                isActive={false}
+                label={<Translation id="TR_DISCREET" />}
+                icon={discreetMode ? 'HIDE' : 'SHOW'}
+            />
+        </Wrapper>
     );
 };
 
