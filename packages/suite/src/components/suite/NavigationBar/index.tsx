@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import DeviceSelector from './components/DeviceSelector';
 import NavigationActions from './components/NavigationActions';
 import styled from 'styled-components';
-import { Icon, useTheme } from '@trezor/components';
+import { Icon, TrezorLogo, useTheme } from '@trezor/components';
 import { useLayoutSize } from '@suite-hooks';
 
 const StyledDeviceSelector = styled(DeviceSelector)``;
+
+const StyledTrezorLogo = styled(TrezorLogo)`
+    margin-bottom: 30px;
+    align-self: flex-start;
+`;
 
 const StyledNavigationBar = styled.div<{ isMobileLayout: boolean }>`
     display: flex;
@@ -32,7 +37,7 @@ const VerticalNavigationBar = styled.div`
     height: 100%;
     flex: 0;
     z-index: 3;
-    padding: 90px 20px 0 10px;
+    padding: 25px 20px 0 10px;
     align-items: center;
     background: ${props => props.theme.BG_NAVBAR};
     border-bottom: 1px solid ${props => props.theme.STROKE_GREY};
@@ -102,6 +107,7 @@ const NavigationBar = () => {
 
     return (
         <VerticalNavigationBar>
+            <StyledTrezorLogo type="horizontal" height={35} />
             <StyledDeviceSelector />
             <NavigationActions />
         </VerticalNavigationBar>
