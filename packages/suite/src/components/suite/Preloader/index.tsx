@@ -86,7 +86,7 @@ const getSuiteApplicationState = ({
         return device.features.firmware_present ? DeviceBootloader : DeviceNoFirmware;
 
     // device firmware update required
-    if (device.firmware === 'required' && !findErrorBatchDevice(device)) {
+    if (device.firmware === 'required') {
         if (typeof window !== 'undefined') {
             // @ts-ignore
             window.$BLE_MODE = false;
@@ -96,7 +96,6 @@ const getSuiteApplicationState = ({
 
     if (
         window.$BLE_DATA?.required &&
-        !findErrorBatchDevice(device) &&
         isNewer(
             (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
                 1,

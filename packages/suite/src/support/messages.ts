@@ -1418,6 +1418,28 @@ const definedMessages = defineMessages({
         defaultMessage: 'Please select',
         id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER',
     },
+    TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION_2: {
+        defaultMessage:
+            'Select to type on the device, or use the keyboard to type directly in the Desktop APP.',
+        id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION_2',
+    },
+    TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESKTOP: {
+        defaultMessage: 'DESKTOP',
+        id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESKTOP',
+    },
+    TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DEVICE: {
+        defaultMessage: 'DEVICE',
+        id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DEVICE',
+    },
+    TR_DEVICE_SETTINGS_INPUT_ON_DEVICE: {
+        defaultMessage: 'Please Input PIN on Device',
+        id: 'TR_DEVICE_SETTINGS_INPUT_ON_DEVICE',
+    },
+    TR_DEVICE_SETTINGS_INPUT_ON_DEVICE_DESC: {
+        defaultMessage:
+            'Unlock the device by entering the PIN code on the device through the physical button.',
+        id: 'TR_DEVICE_SETTINGS_INPUT_ON_DEVICE_DESC',
+    },
     TR_DID_YOU_PURCHASE: {
         defaultMessage:
             'Please note, that device packaging including holograms have changed over time. You can check packaging details {TR_PACKAGING_LINK}. Also be sure you made your purchase from {TR_RESELLERS_LINK}. Otherwise, the device you are holding in your hands might be a counterfeit. Please {TR_CONTACT_OUR_SUPPORT_LINK}',
@@ -2707,7 +2729,7 @@ const definedMessages = defineMessages({
         id: 'TR_WELCOME_MODAL_HEADING',
     },
     TR_WELCOME_MODAL_TEXT: {
-        defaultMessage: 'The one place for all your crypto matters.',
+        defaultMessage: 'The one place for all your crypto assets.',
         id: 'TR_WELCOME_MODAL_TEXT',
     },
     TR_WELCOME_TO_TREZOR: {

@@ -1,7 +1,7 @@
 export const PROTOCOL = 'file';
 
 // TODO: check cdn url
-export const SS_PREFIX = 'https://onekey.243096.com/onekey/desktop/newly/';
+export const SS_PREFIX = 'https://onekey-asset.com/onekey/desktop/newly/';
 
 // General modules (both dev & prod)
 export const MODULES = [

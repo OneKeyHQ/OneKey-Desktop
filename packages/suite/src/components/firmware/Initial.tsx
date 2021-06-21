@@ -56,16 +56,6 @@ const StyledExternalLink = styled(ExternalLink)`
 
 const Heading = () => {
     const { device } = useDevice();
-    const { firmwareError } = useFirmware();
-    const isErrorBatchDevice = findErrorBatchDevice(device);
-
-    useEffect(() => {
-        if (isErrorBatchDevice) {
-            firmwareError('error batch device');
-        }
-    }, [isErrorBatchDevice, firmwareError]);
-
-    if (isErrorBatchDevice) return null;
 
     if (device?.mode === 'normal') {
         return (

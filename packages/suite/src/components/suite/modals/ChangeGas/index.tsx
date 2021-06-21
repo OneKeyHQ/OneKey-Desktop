@@ -121,7 +121,7 @@ const ChangeGas = (props: Props) => {
                 <TransactionFee>
                     <Translation id="TR_BUMP_FEE" />
                 </TransactionFee>
-                <TransactionFeeNum>{getFeeETH()}ETH</TransactionFeeNum>
+                <TransactionFeeNum>{getFeeETH()}</TransactionFeeNum>
             </div>
             <InputWrapper>
                 <InputRow>
@@ -148,19 +148,19 @@ const ChangeGas = (props: Props) => {
                     <div>
                         <Translation id="AMOUNT" />
                     </div>
-                    <div>{getValueETH()} ETH</div>
+                    <div>{getValueETH()}</div>
                 </PreviewRow>
                 <PreviewRow>
                     <div>
                         <Translation id="TR_BUMP_FEE" />
                     </div>
-                    <div>{getFeeETH()} ETH</div>
+                    <div>{getFeeETH()}</div>
                 </PreviewRow>
                 <PreviewRow>
                     <div>
                         <Translation id="AMOUNT" />(<Translation id="INCLUDING_FEE" />)
                     </div>
-                    <div>{parseFloat(getFeeETH()) + parseFloat(getValueETH())} ETH</div>
+                    <div>{parseFloat(getFeeETH()) + parseFloat(getValueETH())}</div>
                 </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>

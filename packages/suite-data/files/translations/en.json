@@ -1206,7 +1206,7 @@
     "TR_WALLET_SELECTION_HIDDEN_WALLET": "Hidden wallet",
     "TR_WAS_USED_IN_ANOTHER_WINDOW": "Reload session",
     "TR_WELCOME_MODAL_HEADING": "Welcome to OneKey Desktop!",
-    "TR_WELCOME_MODAL_TEXT": "The one place for all your crypto matters.",
+    "TR_WELCOME_MODAL_TEXT": "The one place for all your crypto assets.",
     "TR_WELCOME_TO_TREZOR": "Starting up or coming back?",
     "TR_WELCOME_TO_TREZOR_TEXT": "Choose to set up your device or continue to Desktop",
     "TR_WELCOME_TO_TREZOR_TEXT_WALLET_CREATION": "Create a new wallet or restore one from a backup.",
@@ -1260,5 +1260,10 @@
     "TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION": "Choose where to unlock. On Desktop or on Hardware Device",
     "TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_PLACEHOLDER": "Select unlock method",
     "TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_TITLE": "Access hidden wallet at startup",
-    "TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION": "Every time you open OneKey Desktop, ask if the hidden wallet is displayed."
+    "TR_DEVICE_SETTINGS_PASSPHRASE_DEFAULT_SHOW_SWITCH_DESCRIPTION": "Every time you open OneKey Desktop, ask if the hidden wallet is displayed.",
+	"TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION_2": "Select to type on the device, or use the keyboard to type directly in the Desktop APP.",
+	"TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESKTOP": "DESKTOP",
+	"TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DEVICE": "DEVICE",
+	"TR_DEVICE_SETTINGS_INPUT_ON_DEVICE": "Please Input PIN on Device",
+	"TR_DEVICE_SETTINGS_INPUT_ON_DEVICE_DESC": "Unlock the device by entering the PIN code on the device through the physical button."
 }

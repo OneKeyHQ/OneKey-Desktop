@@ -42,13 +42,6 @@ const Body = () => {
     const { prevDevice, firmwareError } = useFirmware();
     const expectedModel = prevDevice?.features?.major_version || 1;
 
-    const isErrorBatchDevice = findErrorBatchDevice(device);
-    useEffect(() => {
-        if (isErrorBatchDevice) {
-            firmwareError('error batch device');
-        }
-    }, [isErrorBatchDevice, firmwareError]);
-
     if (!device?.connected) {
         return (
             <>

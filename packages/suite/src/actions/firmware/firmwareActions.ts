@@ -52,14 +52,6 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         return;
     }
 
-    const isErrorbatchDevice = findErrorBatchDevice(device);
-    if (isErrorbatchDevice) {
-        return dispatch({
-            type: FIRMWARE.SET_ERROR,
-            payload: 'error batch device',
-        });
-    }
-
     if (device.mode !== 'bootloader') {
         dispatch({
             type: FIRMWARE.SET_ERROR,

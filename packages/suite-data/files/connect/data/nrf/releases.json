@@ -1,8 +1,9 @@
 {
-  "required": true,
-  "version": "1.2.0",
-  "url": "https://devs.243096.com/onekey/App_Signed-2021-3-5_1.2.0.zip",
-  "web_update": "https://devs.243096.com/onekey/App_Signed-2021-3-5_1.2.0.bin",
+  "required": false,
+  "version": "1.2.1",
+  "url": "https://onekey-asset.com/onekey/ble/v1.2.1/App_Signed-2021-4-1_1.2.1.zip",
+  "web_update": "https://onekey-asset.com/onekey/ble/v1.2.1/App_Signed-2021-4-1_1.2.1.bin",
+  "changelog": "修复已知问题",
   "changelog_cn": "修复已知问题",
   "changelog_en": "minor fixes"
 }

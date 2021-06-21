@@ -216,8 +216,12 @@ const Pin = ({
             >
                 <Wrapper>
                     <Col noYPadding={noBackground}>
-                        <H2>请在硬件设备上输入 PIN 码</H2>
-                        <How>在设备上通过物理按键输入 PIN 码解锁设备</How>
+                        <H2>
+                            <Translation id="TR_DEVICE_SETTINGS_INPUT_ON_DEVICE" />
+                        </H2>
+                        <How>
+                            <Translation id="TR_DEVICE_SETTINGS_INPUT_ON_DEVICE_DESC" />
+                        </How>
                     </Col>
                 </Wrapper>
             </Modal>
@@ -240,10 +244,14 @@ const Pin = ({
             >
                 <Wrapper>
                     <Col noYPadding={noBackground}>
-                        <H2>请选择解锁方式</H2>
-                        <How>您可以选择两种解锁方式来输入 PIN 码。</How>
+                        <H2>
+                            <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_TITLE" />
+                        </H2>
                         <How>
-                            在设备上通过物理按键输入， 或是直接在应用内通过键盘布局映射点击输入。
+                            <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION" />
+                        </How>
+                        <How>
+                            <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESCRIPTION_2" />
                         </How>
                         <StyledButton
                             onClick={() => {
@@ -252,7 +260,7 @@ const Pin = ({
                             fullWidth
                             data-test="@pin/submit-button"
                         >
-                            在设备上解锁
+                            <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DEVICE" />
                         </StyledButton>
                         <Button
                             variant="secondary"
@@ -260,7 +268,7 @@ const Pin = ({
                             onClick={() => changeUnlockPinMethod('desktop')}
                             data-test="@pin/submit-button"
                         >
-                            通过桌面端解锁
+                            <Translation id="TR_DEVICE_SETTINGS_CHANGE_PIN_METHOD_DESKTOP" />
                         </Button>
                     </Col>
                 </Wrapper>

@@ -3406,10 +3406,10 @@
     "@octokit/openapi-types" "^2.2.0"
     "@types/node" ">= 8"
 
-"@onekeyhq/connect@8.1.33-extended":
-  version "8.1.33-extended"
-  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.1.33-extended/5fddce16f091b6af5bb8d27f25420f34015406ae00e0f4b292f631cb6427465b#7ce29ae8cdd2aa9d4fd30ae2b1f3179b8af3dcc7"
-  integrity sha512-M3n7hbTWpJXUVOSj5DfVMljYA32iIbdQ7s+V/ZAY/+eVbtvbgndiRyk5iigp726nHfLdEOXZYz+oCVV8MOKFfA==
+"@onekeyhq/connect@8.2.1-extended":
+  version "8.2.1-extended"
+  resolved "https://npm.pkg.github.com/download/@onekeyhq/connect/8.2.1-extended/4ab75d54b2b6b830549687d40e8d849f8c254ff8684041a717b23610fc5ffe31#1ecb5746e2e9d1b26b05309e69a2a9e6f02b1479"
+  integrity sha512-pN80xHG69Qm7OsBSZaNkpqunnNb3ukw+NBoidVRMLL3Djzl9JzMryyIIyJN4ZKH02Us64qoJX9EKCOV2iioyZQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@onekeyhq/blockchain-link" "1.0.18"

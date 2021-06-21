@@ -132,7 +132,7 @@ const InstallBridge = (props: Props) => {
         latestVersion: props.transport?.bridge ? props.transport.bridge.version.join('.') : null,
         installers,
         target: preferredTarget || installers[0],
-        uri: 'https://onekey.243096.com/onekey/bridge/',
+        uri: 'https://onekey-asset.com/onekey/bridge/',
     };
 
     const target = selectedTarget || data.target;

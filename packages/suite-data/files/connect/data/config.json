@@ -7,6 +7,7 @@
     "whitelist": [
         { "origin": "chrome-extension://imloifkgjagghnncjkhggdhalmcnfklk", "priority": 1 },
         { "origin": "chrome-extension://niebkpllfhmpfbffbfifagfgoamhpflf", "priority": 1 },
+        { "origin": "chrome-extension://infeboajgfhgbjpjbeppbkgnabfdkdaf", "priority": 1 },
         { "origin": "file://", "priority": 2 },
         { "origin": "onekey.so", "priority": 0 },
         { "origin": "sldev.cz", "priority": 0 },
@@ -15,7 +16,6 @@
     ],
     "management": [
         { "origin": "onekey.so" },
-        { "origin": "sldev.cz" },
         { "origin": "localhost" }
     ],
     "knownHosts": [
@@ -27,6 +27,8 @@
         { "origin": "webextension@metamask.io", "label": "MetaMask", "icon": "./data/icons/metamask.svg" },
         { "origin": "bdd38f5c-f4de-9442-bc19-fc90a3ce0dc6", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
         { "origin": "ofcedhlmeldgidnpkkkaecfeidflidih", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
+        { "origin": "infeboajgfhgbjpjbeppbkgnabfdkdaf", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
+        { "origin": "hi@onekey.so", "label": "OneKey", "icon": "./data/icons/onekey.svg" },
         { "origin": "file://", "label": " " }
     ],
     "resources": {

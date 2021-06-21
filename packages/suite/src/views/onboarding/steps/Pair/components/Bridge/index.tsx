@@ -53,7 +53,7 @@ class InstallBridge extends PureComponent<Props, BridgeState> {
         const installers = this.getInstallers();
         this.state = {
             target: installers.find((i: Installer) => i.preferred === true) || installers[0],
-            uri: 'https://onekey.243096.com/onekey/bridge/', // todo: urls
+            uri: 'https://onekey-asset.com/onekey/bridge/', // todo: urls
             installers,
         };
     }

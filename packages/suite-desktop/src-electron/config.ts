@@ -23,14 +23,15 @@ export const allowedDomains = [
     'swap.onekey.so',
     'dapp.onekey.so',
     '243096.com',
+    'onekey-asset.com',
     onionDomain,
 ];
 
 export const cspRules = [
     // Default to only own resources
-    "default-src 'self' 'unsafe-inline' onekey.243096.com dev.243096.com",
+    "default-src 'self' 'unsafe-inline' onekey.243096.com dev.243096.com onekey-asset.com",
     // Allow all API calls (Can't be restricted bc of custom backends)
     'connect-src *',
     // Allow images from trezor.io
-    "img-src 'self' onekey.243096.com devs.243096.com onekey.so *.onekey.so",
+    "img-src 'self' onekey.243096.com devs.243096.com onekey.so *.onekey.so onekey-asset.com",
 ];
