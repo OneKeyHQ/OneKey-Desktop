@@ -12,7 +12,11 @@ import FailedBackup from './FailedBackup';
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    z-index: 3;
+    z-index: 5;
+    position: absolute;
+    top: 28px;
+    right: 0;
+    left: 0;
 `;
 
 const Banners = () => {
