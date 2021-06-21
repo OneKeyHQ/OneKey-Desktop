@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
-import { fromWei, hexToNumberString, numberToHex, toWei } from 'web3-utils';
+import { fromWei, hexToNumber, hexToNumberString, numberToHex, toBN, toWei } from 'web3-utils';
 import styled from 'styled-components';
 import { Button, Input, Modal } from '@trezor/components';
 import Web3 from 'web3';
@@ -22,6 +22,7 @@ const TransactionFeeNum = styled.div`
 `;
 
 const InputWrapper = styled.div`
+    position: relative;
     border: ${props => props.theme.TYPE_DARK_GREY};
     font-size: 1rem;
     margin-top: 8px;
@@ -59,18 +60,75 @@ const ButtonWrapper = styled.div`
     place-items: center;
 `;
 
+const PreDefinedPriceButton = styled(Button)`
+    display: flex;
+    flex-direction: column;
+    margin: 8px auto;
+`;
+
+const ToggleCustomPriceButton = styled(Button)`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+`;
+
+interface GasNowData {
+    code: number;
+    data: {
+        rapid: number;
+        fast: number;
+        standard: number;
+        slow: number;
+        timestamp: number;
+    };
+}
+
+type GasNowTypes = 'standard' | 'fast' | 'rapid';
+
 interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
     onCancel: () => void;
 }
+
 // wrapper for shareable Fees component
 const ChangeGas = (props: Props) => {
     const web3 = new Web3(props.transaction.rpcUrl);
+    const [isCustomPrice, toggleCustomPrice] = useReducer(a => !a, false);
+    const [gasNowData, setGasNowData] = useState<GasNowData>();
     const [gasPrice, setGasPrice] = useState(
         props.transaction.gasPrice
             ? fromWei(hexToNumberString(props.transaction.gasPrice), 'Gwei')
             : '',
     );
-    const [gasLimit, setGasLimit] = useState(hexToNumberString(props.transaction.gasLimit));
+    const [customGasLimit, setCustomGasLimit] = useState(
+        hexToNumberString(props.transaction.gasLimit),
+    );
+
+    // gas now page doesn't show the actually gasLimit number, so no need to rerender, no need to use state.
+    const gasLimitRef = useRef(21000);
+    const [selectedType, setSelectedType] = useState<GasNowTypes>();
+
+    useEffect(() => {
+        fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey')
+            .then(response => response.json())
+            .then(data => setGasNowData(data));
+    }, []);
+
+    useEffect(() => {
+        const getGasLimit = async () => {
+            const resp = await web3.eth.getCode(props.transaction.to);
+            if (hexToNumberString(resp) === '0') {
+                gasLimitRef.current = 21000;
+            } else {
+                const { chainId, gasLimit, rpcUrl, ...rest } = props.transaction;
+                const estimateGas = await web3.eth.estimateGas({
+                    ...rest,
+                    nonce: hexToNumber(rest.nonce),
+                });
+                gasLimitRef.current = Math.round(estimateGas * 1.2);
+            }
+        };
+        getGasLimit();
+    }, [props.transaction, web3.eth]);
 
     useEffect(() => {
         if (!props.transaction.gasPrice) {
@@ -81,12 +139,25 @@ const ChangeGas = (props: Props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.transaction.gasPrice]);
 
+    const setGasPriceWithGasNowData = (price?: number) => {
+        if (!price) return;
+        props.decision.resolve({
+            ...props.transaction,
+            gasPrice: numberToHex(price),
+            gasLimit: numberToHex(gasLimitRef.current),
+        });
+        props.onCancel();
+    };
+
     const save = () => {
-        if (gasLimit && gasPrice) {
+        if (!isCustomPrice && selectedType) {
+            return setGasPriceWithGasNowData(gasNowData?.data[selectedType]);
+        }
+        if (isCustomPrice && customGasLimit && gasPrice) {
             props.decision.resolve({
                 ...props.transaction,
                 gasPrice: numberToHex(toWei(gasPrice, 'Gwei')),
-                gasLimit: numberToHex(gasLimit),
+                gasLimit: numberToHex(customGasLimit),
             });
             props.onCancel();
         }
@@ -95,9 +166,12 @@ const ChangeGas = (props: Props) => {
         props.decision.reject(Error('user canceled'));
         props.onCancel();
     };
-    const getFeeETH = () => {
+
+    const getFeeETHFromGasPriceInput = () => {
         try {
-            return fromWei(String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(gasLimit)));
+            return fromWei(
+                String(parseFloat(toWei(gasPrice, 'Gwei')) * parseFloat(customGasLimit)),
+            );
         } catch {
             return '0';
         }
@@ -105,6 +179,15 @@ const ChangeGas = (props: Props) => {
     const getValueETH = () => {
         try {
             return fromWei(hexToNumberString(props.transaction.value!));
+        } catch {
+            return '0';
+        }
+    };
+
+    const getFeeETH = (price?: number) => {
+        if (!price) return '0';
+        try {
+            return fromWei(String(price * parseFloat(customGasLimit)));
         } catch {
             return '0';
         }
@@ -121,28 +204,49 @@ const ChangeGas = (props: Props) => {
                 <TransactionFee>
                     <Translation id="TR_BUMP_FEE" />
                 </TransactionFee>
-                <TransactionFeeNum>{getFeeETH()}</TransactionFeeNum>
+                <TransactionFeeNum>{getFeeETHFromGasPriceInput()}</TransactionFeeNum>
             </div>
-            <InputWrapper>
-                <InputRow>
-                    <Input
-                        label={
-                            <div>
-                                <Translation id="TR_GAS_PRICE" /> (GWEI)
-                            </div>
-                        }
-                        value={gasPrice}
-                        onChange={e => setGasPrice(e.target.value)}
-                    />
-                </InputRow>
-                <InputRow>
-                    <Input
-                        label={<Translation id="TR_GAS_LIMIT" />}
-                        value={gasLimit}
-                        onChange={e => setGasLimit(e.target.value)}
-                    />
-                </InputRow>
-            </InputWrapper>
+            {!isCustomPrice && (
+                <InputWrapper>
+                    {(['standard', 'fast', 'rapid'] as Array<GasNowTypes>).map(type => (
+                        <PreDefinedPriceButton
+                            variant={type === selectedType ? 'primary' : 'secondary'}
+                            onClick={() => setSelectedType(type)}
+                        >
+                            <Translation id={`TR_GAS_PRICE_TYPE_${type.toUpperCase()}` as any} />
+                            <div>{getFeeETH(gasNowData?.data[type])}</div>
+                        </PreDefinedPriceButton>
+                    ))}
+                    <ToggleCustomPriceButton variant="tertiary" onClick={toggleCustomPrice}>
+                        <Translation id="TR_GAS_PRICE_CUSTOM" />
+                    </ToggleCustomPriceButton>
+                </InputWrapper>
+            )}
+            {isCustomPrice && (
+                <InputWrapper>
+                    <InputRow>
+                        <Input
+                            label={
+                                <div>
+                                    <Translation id="TR_GAS_PRICE" /> (GWEI)
+                                </div>
+                            }
+                            value={gasPrice}
+                            onChange={e => setGasPrice(e.target.value)}
+                        />
+                    </InputRow>
+                    <InputRow>
+                        <Input
+                            label={<Translation id="TR_GAS_LIMIT" />}
+                            value={customGasLimit}
+                            onChange={e => setCustomGasLimit(e.target.value)}
+                        />
+                    </InputRow>
+                    <ToggleCustomPriceButton variant="tertiary" onClick={toggleCustomPrice}>
+                        <Translation id="TR_GAS_PRICE_DEFAULT" />
+                    </ToggleCustomPriceButton>
+                </InputWrapper>
+            )}
             <PreviewWrapper>
                 <PreviewRow>
                     <div>
@@ -154,13 +258,15 @@ const ChangeGas = (props: Props) => {
                     <div>
                         <Translation id="TR_BUMP_FEE" />
                     </div>
-                    <div>{getFeeETH()}</div>
+                    <div>{getFeeETHFromGasPriceInput()}</div>
                 </PreviewRow>
                 <PreviewRow>
                     <div>
                         <Translation id="AMOUNT" />(<Translation id="INCLUDING_FEE" />)
                     </div>
-                    <div>{parseFloat(getFeeETH()) + parseFloat(getValueETH())}</div>
+                    <div>
+                        {parseFloat(getFeeETHFromGasPriceInput()) + parseFloat(getValueETH())}
+                    </div>
                 </PreviewRow>
             </PreviewWrapper>
             <ButtonWrapper>

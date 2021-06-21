@@ -2839,6 +2839,26 @@ const definedMessages = defineMessages({
         id: 'TR_GAS_LIMIT',
         defaultMessage: 'Gas limit',
     },
+    TR_GAS_PRICE_TYPE_STANDARD: {
+        id: 'TR_GAS_PRICE_TYPE_STANDARD',
+        defaultMessage: 'Normal',
+    },
+    TR_GAS_PRICE_TYPE_FAST: {
+        id: 'TR_GAS_PRICE_TYPE_FAST',
+        defaultMessage: 'Fast',
+    },
+    TR_GAS_PRICE_TYPE_RAPID: {
+        id: 'TR_GAS_PRICE_TYPE_RAPID',
+        defaultMessage: 'Rapid',
+    },
+    TR_GAS_PRICE_CUSTOM: {
+        id: 'TR_GAS_PRICE_CUSTOM',
+        defaultMessage: 'Custom Price',
+    },
+    TR_GAS_PRICE_DEFAULT: {
+        id: 'TR_GAS_PRICE_DEFAULT',
+        defaultMessage: 'Default Price',
+    },
     TR_SEND_GAS_LIMIT_TOOLTIP: {
         id: 'TR_SEND_GAS_LIMIT_TOOLTIP',
         defaultMessage:
