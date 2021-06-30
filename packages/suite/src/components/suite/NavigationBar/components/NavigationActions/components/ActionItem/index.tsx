@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTheme, Icon, IconProps } from '@trezor/components';
+import { useTheme, Icon, IconProps, variables } from '@trezor/components';
 import classNames from 'classnames';
 
 const Wrapper = styled.div<Pick<Props, 'isActive'>>``;

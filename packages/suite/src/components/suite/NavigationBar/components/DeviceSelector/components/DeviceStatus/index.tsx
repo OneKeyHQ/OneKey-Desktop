@@ -101,8 +101,6 @@ const DeviceStatus = ({
             <StatusText className="hidden lg:block" status={status} show={showTextStatus}>
                 {status}
             </StatusText>
-            {/* right: ${props => (props.show ? '12px' : '48px')}; */}
-            {/* opacity: ${props => (props.show ? 1 : 0)}; */}
             <OuterCircle
                 className={classNames(
                     'bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none right-3',
