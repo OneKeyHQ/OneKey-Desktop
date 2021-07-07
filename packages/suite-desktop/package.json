@@ -132,7 +132,11 @@
             "gatekeeperAssess": false,
             "darkModeSupport": false,
             "entitlements": "entitlements.mas.inherit.plist",
-            "entitlementsInherit": "entitlements.mas.inherit.plist"
+            "entitlementsInherit": "entitlements.mas.inherit.plist",
+            "category": "public.app-category.utilities",
+            "extendInfo": {
+                "ElectronTeamID": "28327Z8LS2"
+            }
         },
         "win": {
             "extraResources": [
