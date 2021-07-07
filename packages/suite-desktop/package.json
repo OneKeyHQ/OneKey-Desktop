@@ -20,6 +20,7 @@
         "build:app:win": "yarn build:app && electron-builder --win --x64 -p never",
         "build:linux": "yarn clean && yarn build:ui && yarn build:app:linux",
         "build:mac": "yarn clean && yarn build:ui && yarn build:app:mac",
+        "build:mas": "yarn clean && cross-env IS_MAS=true yarn build:ui && yarn build:app:mac",
         "build:win": "yarn clean && yarn build:ui && yarn build:app:win && node scripts/archieve.js",
         "build:dev:mac": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:mac",
         "build:dev:win": "CSC_IDENTITY_AUTO_DISCOVERY=false yarn build:win",
@@ -28,6 +29,7 @@
         "publish:all": "yarn clean && yarn build:ui && yarn build:app && electron-builder --publish always --mac --linux --win",
         "publish:linux": "yarn build:linux && electron-builder --publish always --linux",
         "publish:mac": "yarn build:mac && electron-builder --publish always --mac",
+        "publish:mas": "yarn build:mas && electron-builder --publish always --mas",
         "publish:win": "yarn build:win && electron-builder --publish always --win",
         "lint": "yarn lint:app && yarn lint:ui",
         "lint:app": "eslint 'src-electron/**/*.ts' --parser-options=project:./src-electron/tsconfig.json",
@@ -109,6 +111,28 @@
                 "dmg",
                 "zip"
             ]
+        },
+        "mas": {
+            "files": [
+                "entitlements.mas.inherit.plist"
+            ],
+            "extraResources": [
+                {
+                    "from": "build/static/bin/bridge/mac-${arch}",
+                    "to": "bin/bridge"
+                },
+                {
+                    "from": "build/static/bin/tor/mac-${arch}",
+                    "to": "bin/tor"
+                }
+            ],
+            "icon": "build/static/images/icons/512x512.png",
+            "artifactName": "OneKey-Desktop-${version}-mas-${arch}.${ext}",
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "darkModeSupport": false,
+            "entitlements": "entitlements.mas.inherit.plist",
+            "entitlementsInherit": "entitlements.mas.inherit.plist"
         },
         "win": {
             "extraResources": [

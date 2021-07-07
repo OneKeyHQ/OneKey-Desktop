@@ -40,6 +40,7 @@ module.exports = withBundleAnalyzer(
                 webpack: config => {
                     config.plugins.push(
                         new webpack.DefinePlugin({
+                            'process.env.IS_MAS': JSON.stringify(process.env.IS_MAS),
                             'process.env.SUITE_TYPE': JSON.stringify('desktop'),
                             'process.env.VERSION': JSON.stringify(packageJson.version),
                             'process.env.COMMITHASH': JSON.stringify(

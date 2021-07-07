@@ -17,7 +17,7 @@ import Resize from '@suite-support/Resize';
 import ThemeProvider from '@suite-support/ThemeProvider';
 import GlobalStyles from '@suite-support/styles/global';
 import 'tailwindcss/tailwind.css';
-import { isDev } from '@suite-utils/build';
+import { isDev, isMAS } from '@suite-utils/build';
 import DesktopTitlebarWrapper from '@desktop/support/DesktopTitlebar';
 
 // const Tor = dynamic(() => import('@suite-support/Tor'), { ssr: false });
@@ -58,7 +58,9 @@ class TrezorSuiteApp extends App<Props> {
                             {/* <Tor /> */}
                             <OnlineStatus />
                             <IntlProvider>
-                                <DesktopUpdater setIsUpdateVisible={this.setIsUpdateVisible} />
+                                {!isMAS() && (
+                                    <DesktopUpdater setIsUpdateVisible={this.setIsUpdateVisible} />
+                                )}
                                 <Router />
                                 <ToastContainer />
                                 <Preloader hideModals={this.state.isUpdateVisible}>

@@ -5,7 +5,6 @@ import { Translation } from '@suite-components';
 import {
     ActionButton,
     ActionColumn,
-    ActionInput,
     ActionSelect,
     // Analytics,
     Theme,
@@ -22,7 +21,7 @@ import * as desktopUpdateActions from '@suite-actions/desktopUpdateActions';
 
 import { Props } from './Container';
 import { getReleaseUrl } from '@suite/services/github';
-import { isDesktop, isWeb } from '@suite-utils/env';
+import { isMAS } from '@suite-utils/build';
 
 const buildCurrencyOption = (currency: string) => ({
     value: currency,
@@ -333,92 +332,96 @@ const Settings = ({
                         </ActionButton>
                     </ActionColumn>
                 </SectionItem>
-                <SectionItem data-test="@settings/version">
-                    <TextColumn
-                        title={<Translation id="TR_SUITE_VERSION" />}
-                        description={
-                            <Version>
-                                <Translation
-                                    id="TR_YOUR_CURRENT_VERSION"
-                                    values={{
-                                        version: (
-                                            <VersionTooltip content={process.env.COMMITHASH || ''}>
-                                                <VersionLink
-                                                    target="_blank"
-                                                    href={`https://github.com/OneKeyHQ/OneKey-Desktop/commit/${process.env.COMMITHASH}`}
+                {!isMAS() && (
+                    <SectionItem data-test="@settings/version">
+                        <TextColumn
+                            title={<Translation id="TR_SUITE_VERSION" />}
+                            description={
+                                <Version>
+                                    <Translation
+                                        id="TR_YOUR_CURRENT_VERSION"
+                                        values={{
+                                            version: (
+                                                <VersionTooltip
+                                                    content={process.env.COMMITHASH || ''}
                                                 >
-                                                    <VersionButton
-                                                        variant="tertiary"
-                                                        icon="EXTERNAL_LINK"
-                                                        alignIcon="right"
+                                                    <VersionLink
+                                                        target="_blank"
+                                                        href={`https://github.com/OneKeyHQ/OneKey-Desktop/commit/${process.env.COMMITHASH}`}
                                                     >
-                                                        {process.env.VERSION}
-                                                    </VersionButton>
-                                                </VersionLink>
-                                            </VersionTooltip>
-                                        ),
-                                    }}
-                                />
-                                {!['checking', 'not-available'].includes(desktopUpdate.state) &&
-                                    desktopUpdate.latest && (
-                                        <>
-                                            &nbsp;
-                                            <Translation
-                                                id="TR_YOUR_NEW_VERSION"
-                                                values={{
-                                                    version: (
-                                                        <VersionLink
-                                                            target="_blank"
-                                                            href={getReleaseUrl(
-                                                                desktopUpdate.latest.version,
-                                                            )}
+                                                        <VersionButton
+                                                            variant="tertiary"
+                                                            icon="EXTERNAL_LINK"
+                                                            alignIcon="right"
                                                         >
-                                                            <VersionButton
-                                                                variant="tertiary"
-                                                                icon="EXTERNAL_LINK"
-                                                                alignIcon="right"
+                                                            {process.env.VERSION}
+                                                        </VersionButton>
+                                                    </VersionLink>
+                                                </VersionTooltip>
+                                            ),
+                                        }}
+                                    />
+                                    {!['checking', 'not-available'].includes(desktopUpdate.state) &&
+                                        desktopUpdate.latest && (
+                                            <>
+                                                &nbsp;
+                                                <Translation
+                                                    id="TR_YOUR_NEW_VERSION"
+                                                    values={{
+                                                        version: (
+                                                            <VersionLink
+                                                                target="_blank"
+                                                                href={getReleaseUrl(
+                                                                    desktopUpdate.latest.version,
+                                                                )}
                                                             >
-                                                                {desktopUpdate.latest.version}
-                                                            </VersionButton>
-                                                        </VersionLink>
-                                                    ),
-                                                }}
-                                            />
-                                        </>
-                                    )}
-                            </Version>
-                        }
-                    />
-                    {desktopUpdate.enabled && (
-                        <ActionColumn>
-                            {desktopUpdate.state === 'checking' && (
-                                <ActionButton isDisabled variant="secondary">
-                                    <Translation id="SETTINGS_UPDATE_CHECKING" />
-                                </ActionButton>
-                            )}
-                            {desktopUpdate.state === 'not-available' && (
-                                <ActionButton onClick={checkForUpdates} variant="secondary">
-                                    <Translation id="SETTINGS_UPDATE_CHECK" />
-                                </ActionButton>
-                            )}
-                            {desktopUpdate.state === 'available' && (
-                                <ActionButton onClick={maximizeUpdater} variant="secondary">
-                                    <Translation id="SETTINGS_UPDATE_AVAILABLE" />
-                                </ActionButton>
-                            )}
-                            {desktopUpdate.state === 'downloading' && (
-                                <ActionButton onClick={maximizeUpdater} variant="secondary">
-                                    <Translation id="SETTINGS_UPDATE_DOWNLOADING" />
-                                </ActionButton>
-                            )}
-                            {desktopUpdate.state === 'ready' && (
-                                <ActionButton onClick={installRestart} variant="secondary">
-                                    <Translation id="SETTINGS_UPDATE_READY" />
-                                </ActionButton>
-                            )}
-                        </ActionColumn>
-                    )}
-                </SectionItem>
+                                                                <VersionButton
+                                                                    variant="tertiary"
+                                                                    icon="EXTERNAL_LINK"
+                                                                    alignIcon="right"
+                                                                >
+                                                                    {desktopUpdate.latest.version}
+                                                                </VersionButton>
+                                                            </VersionLink>
+                                                        ),
+                                                    }}
+                                                />
+                                            </>
+                                        )}
+                                </Version>
+                            }
+                        />
+                        {desktopUpdate.enabled && (
+                            <ActionColumn>
+                                {desktopUpdate.state === 'checking' && (
+                                    <ActionButton isDisabled variant="secondary">
+                                        <Translation id="SETTINGS_UPDATE_CHECKING" />
+                                    </ActionButton>
+                                )}
+                                {desktopUpdate.state === 'not-available' && (
+                                    <ActionButton onClick={checkForUpdates} variant="secondary">
+                                        <Translation id="SETTINGS_UPDATE_CHECK" />
+                                    </ActionButton>
+                                )}
+                                {desktopUpdate.state === 'available' && (
+                                    <ActionButton onClick={maximizeUpdater} variant="secondary">
+                                        <Translation id="SETTINGS_UPDATE_AVAILABLE" />
+                                    </ActionButton>
+                                )}
+                                {desktopUpdate.state === 'downloading' && (
+                                    <ActionButton onClick={maximizeUpdater} variant="secondary">
+                                        <Translation id="SETTINGS_UPDATE_DOWNLOADING" />
+                                    </ActionButton>
+                                )}
+                                {desktopUpdate.state === 'ready' && (
+                                    <ActionButton onClick={installRestart} variant="secondary">
+                                        <Translation id="SETTINGS_UPDATE_READY" />
+                                    </ActionButton>
+                                )}
+                            </ActionColumn>
+                        )}
+                    </SectionItem>
+                )}
             </Section>
         </SettingsLayout>
     );
