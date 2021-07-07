@@ -18,5 +18,7 @@
     <array>
       <string>28327Z8LS2.io.onekey.OneKeyDesktop</string>
     </array>
+    <key>com.apple.security.network.client</key>
+    <true/>
   </dict>
 </plist>
