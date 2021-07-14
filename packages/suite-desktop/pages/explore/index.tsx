@@ -251,7 +251,7 @@ const Container: FC<Props> = ({
         setActiveChainId(null);
         try {
             // TODO change back before merge
-            webviewRef?.loadURL(`https://discover.test.onekey.so/`);
+            webviewRef?.loadURL(`https://discover.onekey.so/`);
         } catch (e) {
             // ignore
         }
@@ -284,7 +284,7 @@ const Container: FC<Props> = ({
     useEffect(() => {
         if (!ref) return;
         // TODO change back before merge
-        const currentUrl = `https://discover.test.onekey.so/`;
+        const currentUrl = `https://discover.onekey.so/`;
 
         ref.innerHTML = `
             <webview
