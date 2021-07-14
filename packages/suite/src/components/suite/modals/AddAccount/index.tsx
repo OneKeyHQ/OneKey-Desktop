@@ -88,7 +88,7 @@ const AddAccount = (props: Props) => {
         if (accountType) {
             return accountType.accountType ?? 'normal';
         }
-        return network.networkType === 'bitcoin' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
+        return network.symbol === 'btc' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
     };
     const emptyAccounts = props.accounts.filter(
         a =>

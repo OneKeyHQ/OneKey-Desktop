@@ -23,7 +23,7 @@ const AddAccountButton = (props: Props) => {
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }
     if (
-        account.networkType === 'bitcoin' &&
+        account.symbol === 'btc' &&
         account.index === 0 &&
         account.empty &&
         account.accountType === DEFAULT_BTC_ACCOUNT_TYPE
@@ -31,7 +31,7 @@ const AddAccountButton = (props: Props) => {
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }
     if (
-        account.networkType !== 'bitcoin' &&
+        account.symbol === 'btc' &&
         account.index === 0 &&
         account.empty &&
         account.accountType === 'normal'
