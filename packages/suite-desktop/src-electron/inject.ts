@@ -76,7 +76,7 @@ try {
 
         let config = safeTouchJSONStr<Config>(jsonStr);
 
-        const promise = new Promise(resolve => {
+        const promise = new Promise<Config>(resolve => {
             if (config.address) return resolve(config);
 
             ipcRenderer.on('response/config', (event, params) => {
@@ -92,7 +92,7 @@ try {
                 id: timestamp,
             });
         });
-        await promise;
+        config = await promise;
         localStorage.setItem('web3-config', JSON.stringify(config)!);
         window.onekeyConfig = config;
         const provider = new window.trustwallet.Provider(config);

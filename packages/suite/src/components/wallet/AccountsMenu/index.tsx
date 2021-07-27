@@ -182,10 +182,10 @@ const AccountsMenu = ({ device, accounts, selectedAccount }: Props) => {
             : list;
     // always show first "normal" account even if they are empty
     const normalAccounts = filteredAccounts.filter(
-        a => a.accountType === 'normal' && (a.index === 0 || !a.empty || a.visible),
+        a => a.accountType === 'normal' && (!a.empty || a.visible),
     );
     const segwitAccounts = filteredAccounts.filter(
-        a => a.accountType === 'segwit' && (!a.empty || a.visible),
+        a => a.accountType === 'segwit' && (a.index === 0 || !a.empty || a.visible),
     );
     const legacyAccounts = filteredAccounts.filter(
         a => a.accountType === 'legacy' && (!a.empty || a.visible),

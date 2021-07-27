@@ -1095,6 +1095,14 @@ const definedMessages = defineMessages({
         defaultMessage: 'Confirm PIN',
         id: 'TR_CONFIRM_PIN',
     },
+    TR_NEW_PIN_FIRST: {
+        defaultMessage: 'Enter New PIN',
+        id: 'TR_NEW_PIN_FIRST',
+    },
+    TR_NEW_PIN_SECOND: {
+        defaultMessage: 'Enter New PIN Again',
+        id: 'TR_NEW_PIN_SECOND',
+    },
     TR_CONFIRMED_TX: {
         defaultMessage: 'Confirmed',
         id: 'TR_CONFIRMED_TX',

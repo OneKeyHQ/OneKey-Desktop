@@ -135,7 +135,7 @@ const ConfirmOnDevice = ({
     return (
         <Wrapper animated={animated} animation={animation}>
             <Left>
-                <DeviceImage height="34px" trezorModel={trezorModel} />
+                <DeviceImage className="h-[34px]" trezorModel={trezorModel} />
             </Left>
             <Middle>
                 <Title>{title}</Title>

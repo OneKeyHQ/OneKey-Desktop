@@ -111,13 +111,13 @@ const DeviceSelector = (
             }
             triggerAnim={triggerAnim}
             isMobileLayout={props.isMobileLayout}
-            className="relative flex items-center p-2 transition rounded-md cursor-pointer md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 dark:hover:bg-white/10 md:dark:bg-white/5 md:dark:border-white/5"
+            className="relative flex items-center p-2 bg-white rounded-md cursor-pointer md:shadow-sm md:border md:border-gray-200 md:mt-6 hover:bg-gray-50 dark:bg-gray-800 md:dark:bg-gray-700 md:dark:border-gray-600 md:dark:hover:bg-gray-800 md:dark:hover:border-gray-500"
             {...props}
         >
             {selectedDevice && (
                 <>
                     <DeviceImageWrapper
-                        className="w-[22px] bg-my px-px md:translate-x-2 lg:transform-none"
+                        className="w-[22px] bg-my px-px"
                         lowerOpacity={deviceNeedsRefresh}
                     >
                         <DeviceImage
@@ -127,12 +127,16 @@ const DeviceSelector = (
                     </DeviceImageWrapper>
                     {/* Details */}
                     <div className="flex flex-col flex-1 pl-3 overflow-hidden md:hidden lg:flex self-baseline">
-                        {/* Wallet Brand */}
-                        <div className="min-w-0 font-medium text-gray-900 truncate dark:text-white/90">
+                        {/* Wallet Brand 
+                            Future: remove font-sans when redesign whole app
+                        */}
+                        <div className="min-w-0 font-sans font-medium text-gray-700 truncate dark:text-gray-200">
                             {selectedDevice.label}
                         </div>
-                        {/* Wallet Name */}
-                        <div className="min-w-0 text-xs font-medium text-gray-500 truncate mt-0.5 dark:text-white/50">
+                        {/* Wallet Name 
+                            Future: remove font-sans when redesign whole app
+                        */}
+                        <div className="min-w-0 text-xs font-medium text-gray-500 truncate mt-0.5 dark:text-gray-400 font-sans">
                             {selectedDevice.metadata.status === 'enabled' &&
                             selectedDevice.metadata.walletLabel ? (
                                 selectedDevice.metadata.walletLabel

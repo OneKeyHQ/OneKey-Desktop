@@ -1,6 +1,6 @@
 {
     "name": "@onekeyhq/blockchain-link",
-    "version": "1.0.18",
+    "version": "1.0.19",
     "author": "OneKey <hi@onekey.so>",
     "homepage": "https://github.com/OneKeyHQ/OneKey-Desktop/packages/blockchain-link",
     "description": "High-level javascript interface for blockchain communication",

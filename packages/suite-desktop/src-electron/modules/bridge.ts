@@ -6,7 +6,7 @@ import BridgeProcess from '@desktop-electron/libs/processes/BridgeProcess';
 import { b2t } from '@desktop-electron/libs/utils';
 
 const filter = {
-    urls: ['http://127.0.0.1:21320/*'],
+    urls: ['http://127.0.0.1:21320/*', 'http://localhost:21320/*'],
 };
 
 const bridgeDev = app.commandLine.hasSwitch('bridge-dev');

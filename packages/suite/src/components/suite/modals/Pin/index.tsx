@@ -160,9 +160,6 @@ const Pin = ({
 }: Props) => {
     const [submitted, setSubmitted] = useState(false);
     const { onPinSubmit } = useActions({ onPinSubmit: modalActions.onPinSubmit });
-    const { acquireDevice } = useActions({
-        acquireDevice: suiteActions.acquireDevice,
-    });
 
     const pinRequestType = device.buttonRequests[device.buttonRequests.length - 1];
     const invalidCounter = device.buttonRequests.filter(r => r === 'ui-invalid_pin').length || 0;
@@ -203,6 +200,17 @@ const Pin = ({
     }, [modeType, submit, isExtended, submitted, device.features]);
 
     if (!device.features) return null;
+
+    const submitText = () => {
+        switch (pinRequestType) {
+            case 'PinMatrixRequestType_NewSecond':
+                return 'TR_NEW_PIN_SECOND';
+            case 'PinMatrixRequestType_NewFirst':
+                return 'TR_NEW_PIN_FIRST';
+            default:
+                return 'TR_ENTER_PIN';
+        }
+    };
 
     if (!isExtended && modeType === 'device') {
         return (
@@ -306,7 +314,7 @@ const Pin = ({
                 <Col noYPadding={noBackground}>
                     <H2>
                         <Translation
-                            id="TR_ENTER_PIN"
+                            id={submitText()}
                             values={{
                                 deviceLabel: device.label,
                             }}

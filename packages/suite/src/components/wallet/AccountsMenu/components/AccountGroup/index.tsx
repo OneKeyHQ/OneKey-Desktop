@@ -46,7 +46,9 @@ export default forwardRef((props: Props, _ref: React.Ref<HTMLDivElement>) => {
     const theme = useTheme();
     const hasHeader = props.type !== 'normal';
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const [expanded, setExpanded] = useState(props.hasBalance || props.keepOpened || !hasHeader);
+    const [expanded, setExpanded] = useState(
+        props.hasBalance || props.keepOpened || !hasHeader || props.type === 'segwit',
+    );
     const isOpened = expanded || props.keepOpened || !hasHeader;
     const [animatedIcon, setAnimatedIcon] = useState(false); // TODO: move animation to framer
     // React.useEffect(() => {

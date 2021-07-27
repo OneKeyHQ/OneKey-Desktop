@@ -20,7 +20,7 @@ const Hologram = (props: Props) => {
     };
     return (
         <video
-            height="248px"
+            className="h-[248px] mx-auto"
             autoPlay
             loop={videos[props.model].loop}
             data-test={`@onboarding/hologram/model-${props.model}-video`}

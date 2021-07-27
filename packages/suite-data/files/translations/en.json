@@ -435,6 +435,8 @@
     "TR_CONFIRM_PASSPHRASE": "Confirm passphrase",
     "TR_CONFIRM_PASSPHRASE_SOURCE": "Confirm empty Hidden wallet passphrase source on \"{deviceLabel}\" device.",
     "TR_CONFIRM_PIN": "Confirm PIN",
+    "TR_NEW_PIN_FIRST": "Enter New PIN",
+    "TR_NEW_PIN_SECOND": "Enter New PIN Again",
     "TR_CONNECT": "Connect",
     "TR_CONNECTED": "Connected",
     "TR_CONNECTED_BOOTLOADER": "Connected (bootloader mode)",

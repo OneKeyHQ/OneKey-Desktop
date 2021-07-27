@@ -8,6 +8,7 @@ import NetworkInternal from './components/NetworkInternal';
 import AddAccountButton from './components/AddAccountButton';
 import Wrapper from './components/Wrapper';
 import { Props } from './Container';
+import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
 
 const AddAccount = (props: Props) => {
     // Collect all Networks without "accountType" (normal)
@@ -83,12 +84,17 @@ const AddAccount = (props: Props) => {
     }
 
     // Collect all empty accounts related to selected device and selected accountType
-    const currentType = (accountType ? accountType.accountType : undefined) || 'normal';
+    const currentType = () => {
+        if (accountType) {
+            return accountType.accountType ?? 'normal';
+        }
+        return network.symbol === 'btc' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
+    };
     const emptyAccounts = props.accounts.filter(
         a =>
             a.deviceState === props.device.state &&
             a.symbol === network.symbol &&
-            a.accountType === currentType &&
+            a.accountType === currentType() &&
             a.empty,
     );
 

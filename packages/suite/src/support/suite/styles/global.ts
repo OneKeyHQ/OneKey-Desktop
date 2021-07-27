@@ -39,7 +39,6 @@ const globalStyles = createGlobalStyle<{ theme: SuiteThemeColors }>`
         margin: 0;
         padding: 0;
         outline: none;
-        font-family: "TT Hoves", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
     }
 
     *,

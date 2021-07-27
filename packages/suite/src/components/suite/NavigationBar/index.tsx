@@ -17,7 +17,7 @@ const NavigationBar = () => {
     return (
         <>
             {/* Header for mobile */}
-            <div className="flex justify-between py-1 bg-white border-b border-gray-200 md:hidden dark:bg-black/10 dark:border-white/10">
+            <div className="flex justify-between py-1 bg-white border-b border-gray-100 md:hidden dark:bg-gray-800 dark:border-gray-700">
                 {/* Device Selector */}
                 <div className="pl-2 w-[160px]">
                     <DeviceSelector />
@@ -69,7 +69,7 @@ const NavigationBar = () => {
                         leaveFrom="translate-x-0"
                         leaveTo="-translate-x-full"
                     >
-                        <div className="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4 bg-white dark:bg-[#191919] px-4">
+                        <div className="relative flex flex-col flex-1 w-full max-w-xs px-4 pt-5 pb-4 bg-white dark:bg-gray-800">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-in-out duration-300"
@@ -119,11 +119,11 @@ const NavigationBar = () => {
                 </Dialog>
             </Transition.Root>
             {/* Navigation for desktop */}
-            <div className="flex-col hidden px-3 pt-5 pb-4 overflow-y-auto bg-white border-r border-gray-200 md:flex md:flex-shrink-0 lg:px-4 lg:w-64 dark:bg-black/10 dark:border-white/10">
+            <div className="flex-col hidden px-3 pt-5 pb-4 overflow-y-auto border-r border-gray-100 bg-gray-50 md:flex md:flex-shrink-0 lg:px-4 lg:w-64 dark:bg-gray-800 dark:border-gray-700">
                 {/* Branding */}
-                <div className="flex items-center flex-shrink-0 pl-[14px] lg:pl-[6px]">
+                <div className="flex items-center flex-shrink-0 pl-[6px]">
                     <TrezorLogo
-                        className="self-start w-[27px] overflow-hidden lg:w-auto"
+                        className="self-start w-[27px] overflow-hidden"
                         type={
                             `horizontal_${isDarkModeEnabled ? 'dark' : 'light'}` as ComponentProps<
                                 typeof TrezorLogo

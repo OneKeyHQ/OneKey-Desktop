@@ -103,7 +103,7 @@ const DeviceStatus = ({
             </StatusText>
             <OuterCircle
                 className={classNames(
-                    'bg-brand/10 top-3 md:translate-x-2 md:-translate-y-3 lg:transform-none right-3',
+                    'bg-brand-500/10 top-3 md:translate-x-3 md:-translate-y-3 lg:transform-none right-3',
                     !showIconStatus ? 'lg:right-[48px] lg:opacity-0' : '',
                 )}
                 status={status}

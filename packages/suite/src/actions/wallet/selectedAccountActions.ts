@@ -76,10 +76,12 @@ function buildDiscoveryParams(state: ReturnType<GetState>, discovery: any) {
         };
     }
 
+    const symbol = discovery.networks[0];
+
     return {
         accountIndex: 0,
-        accountType: 'normal' as const,
-        symbol: discovery.networks[0],
+        accountType: symbol === 'btc' ? ('segwit' as const) : ('normal' as const),
+        symbol,
     };
 }
 

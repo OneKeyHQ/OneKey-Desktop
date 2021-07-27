@@ -3,6 +3,7 @@ import { Button, Tooltip } from '@trezor/components';
 import { Account, Network } from '@wallet-types';
 import { Translation } from '@suite-components';
 import { useAnalytics, useAccountSearch } from '@suite-hooks';
+import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
 
 interface Props {
     network: Network;
@@ -21,7 +22,20 @@ const AddAccountButton = (props: Props) => {
         // prev account is empty, do not add another
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }
-    if (account.index === 0 && account.empty && account.accountType === 'normal') {
+    if (
+        account.symbol === 'btc' &&
+        account.index === 0 &&
+        account.empty &&
+        account.accountType === DEFAULT_BTC_ACCOUNT_TYPE
+    ) {
+        tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
+    }
+    if (
+        account.symbol === 'btc' &&
+        account.index === 0 &&
+        account.empty &&
+        account.accountType === 'normal'
+    ) {
         // current (first normal) account is empty, do not add another
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }

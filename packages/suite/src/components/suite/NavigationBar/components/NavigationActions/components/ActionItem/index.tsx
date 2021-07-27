@@ -53,8 +53,8 @@ const ActionItem = React.forwardRef((props: Props) => {
             icon={props.icon}
             className={classNames(
                 props.isActive
-                    ? 'text-gray-500 dark:text-white/80'
-                    : 'text-gray-400 dark:text-white/40',
+                    ? 'text-gray-500 dark:text-gray-400'
+                    : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400',
             )}
         />
     ) : (
@@ -64,14 +64,14 @@ const ActionItem = React.forwardRef((props: Props) => {
     return (
         <Wrapper
             className={classNames(
-                'relative flex items-center p-2 transition rounded-md cursor-pointer',
+                'relative flex items-center p-2 rounded-md cursor-pointer group',
                 props.isActive
-                    ? 'text-gray-900 bg-gray-100 dark:text-white/90 dark:bg-white/10'
-                    : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900 dark:hover:bg-white/5 dark:hover:text-white/90 dark:text-white/50',
+                    ? 'text-gray-900 bg-gray-200 dark:text-gray-50 dark:bg-gray-700'
+                    : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900 dark:hover:bg-gray-700 dark:text-gray-300 dark:hover:text-white',
             )}
             {...props}
         >
-            <IconWrapper className="relative md:p-2 lg:p-0" isActive={props.isActive}>
+            <IconWrapper className="relative" isActive={props.isActive}>
                 {iconComponent}
                 {props.withAlertDot && (
                     <AlertDotWrapper>
@@ -79,7 +79,7 @@ const ActionItem = React.forwardRef((props: Props) => {
                     </AlertDotWrapper>
                 )}
             </IconWrapper>
-            <div className="flex items-center flex-1 ml-3 font-medium translate-y-px md:hidden lg:flex lg:text-sm">
+            <div className="flex items-center flex-1 ml-3 font-medium md:hidden lg:flex lg:text-sm">
                 {props.label}
             </div>
         </Wrapper>

@@ -1,0 +1,27 @@
+name: package-publish
+
+on: workflow_dispatch
+
+jobs:
+  package-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Environment
+        uses: actions/setup-node@v1
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+          scope: '@onekeyhq'
+          node-version: '14.x'
+      - name: Install Dependiences
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          yarn && yarn build:libs
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd packages/blockchain-link && yarn build:lib && yarn publish && cd ../..
+          cd packages/rollout && yarn build:lib && yarn publish && cd ../..

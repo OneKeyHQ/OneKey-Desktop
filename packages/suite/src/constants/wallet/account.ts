@@ -9,3 +9,5 @@ export const ACCOUNT_TYPE = {
     LEGACY: 'legacy',
     SEGWIT: 'segwit',
 };
+
+export const DEFAULT_BTC_ACCOUNT_TYPE = 'segwit';

@@ -23,18 +23,7 @@ const ItemTitle = styled.span<ComponentProps>`
         `}
 `;
 
-const NewBadge = styled.span`
-    padding: 1px 4px 0px 4px;
-    background: ${props => props.theme.BG_LIGHT_GREEN};
-    color: ${props => props.theme.TYPE_GREEN};
-    letter-spacing: 0.2px;
-    text-transform: UPPERCASE;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    font-weight: ${variables.FONT_WEIGHT.DEMI_BOLD};
-    border-radius: 4px;
-`;
+const badgeClass = `flex items-center uppercase py-0.5 px-1.5 text-xs font-medium rounded text-brand-600 bg-brand-100 dark:bg-brand-800 dark:text-brand-200`;
 
 interface Props {
     closeMainNavigation?: () => void;
@@ -92,36 +81,48 @@ const NavigationActions = (props: Props) => {
     const unseenNotifications = useMemo(() => notifications.some(n => !n.seen), [notifications]);
 
     return (
-        <nav className="flex flex-col flex-1 mt-6" aira-label="Sidebar">
-            <div className="space-y-1">
-                {MAIN_MENU_ITEMS.map(item => {
-                    const { route, translationId, isDisabled, isBeta, icon } = item;
-                    const routeObj = findRouteByName(route);
-                    const isActive = routeObj ? routeObj.app === activeApp : false;
-                    return (
-                        <ActionItem
-                            label={
-                                <span className="relative flex justify-between w-full">
-                                    <ItemTitle
-                                        isActive={isActive}
-                                        isDisabled={isDisabled}
-                                        className="inline-flex"
-                                    >
-                                        <Translation id={translationId} />
-                                    </ItemTitle>
-                                    {/* if the button is disabled, display "SOON" badge */}
-                                    {isDisabled && <NewBadge>soon</NewBadge>}
-                                    {isBeta && <NewBadge>BETA</NewBadge>}
-                                </span>
-                            }
-                            key={route}
-                            data-test={`@suite/menu/${route}`}
-                            onClick={() => action(route)}
-                            isActive={isActive}
-                            icon={icon as any}
-                        />
-                    );
-                })}
+        /* Future: remove font-sans when redesign whole app */
+        <nav className="flex flex-col flex-1 font-sans" aira-label="Sidebar">
+            <div className="mt-3 md:divide-y md:divide-gray-200 md:dark:divide-gray-700 lg:divide-none">
+                {/* Item Group */}
+                <div className="py-3">
+                    {/* Group Title */}
+                    <div className="pl-2 mb-2 text-xs font-medium tracking-wider text-gray-500 uppercase md:hidden dark:text-gray-400 lg:block">
+                        Wallet
+                    </div>
+                    <div className="space-y-1">
+                        {MAIN_MENU_ITEMS.map(item => {
+                            const { route, translationId, isDisabled, isBeta, icon } = item;
+                            const routeObj = findRouteByName(route);
+                            const isActive = routeObj ? routeObj.app === activeApp : false;
+                            return (
+                                <ActionItem
+                                    label={
+                                        <span className="relative flex justify-between w-full">
+                                            <ItemTitle
+                                                isActive={isActive}
+                                                isDisabled={isDisabled}
+                                                className="inline-flex"
+                                            >
+                                                <Translation id={translationId} />
+                                            </ItemTitle>
+                                            {/* if the button is disabled, display "SOON" badge */}
+                                            {isDisabled && <span className={badgeClass}>soon</span>}
+                                            {isBeta && <span className={badgeClass}>BETA</span>}
+                                        </span>
+                                    }
+                                    key={route}
+                                    data-test={`@suite/menu/${route}`}
+                                    onClick={() => action(route)}
+                                    isActive={isActive}
+                                    icon={icon as any}
+                                />
+                            );
+                        })}
+                    </div>
+                </div>
+                {/* Item Group End */}
+                {/* Another item group here... */}
             </div>
             <div className="mt-auto space-y-1">
                 <ActionItem
