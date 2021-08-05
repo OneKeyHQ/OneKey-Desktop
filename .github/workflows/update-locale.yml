@@ -1,0 +1,60 @@
+name: update-locale
+
+on:
+    - workflow_dispatch
+    - schedule:
+          # 9:30 UTC
+          - cron: '30 9 * * *'
+jobs:
+    dev-test:
+        environment: daily-build
+        runs-on: ubuntu-latest
+        env:
+            # translation folder host dir
+            TRANSLATION_HOST_DIR: './packages/suite-data/files/'
+            # translation files host dir
+            TRANSLATION_FOLDER_NAME: 'translations'
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Environment
+              run: ｜
+                  curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
+            - name: Install Dependiences
+              env:
+                  LOKALISE_READ_TOKEN: ${{ secrets.LOKALISE_READ_TOKEN }}
+                  LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
+              run: |
+                  lokalise2 \
+                    file download \
+                    --token $LOKALISE_READ_TOKEN \
+                    --project-id $LOKALISE_PROJECT_ID \
+                    --format json \
+                    --directory-prefix=$TRANSLATION_FOLDER_NAME \
+                    --original-filenames=true \
+                    --unzip-to $TRANSLATION_HOST_DIR
+            - name: Check Diff
+              id: git-status-check
+              run: |
+                  something_changed=`git status --porcelain`
+                  if [ -n "$something_changed" ]
+                  then
+                      echo "::set-output name=changed::1"
+                      git commit -m 'tweak: update lokalise formatter local files.'
+                  fi
+            - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v3
+              with:
+                  token: ${{ github.token }}
+                  commit-message: '[AUTO]: update lokalise formatter local files.'
+                  committer: GitHub <noreply@github.com>
+                  author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+                  signoff: false
+                  branch: example-patches
+                  delete-branch: true
+                  title: '[AUTO]: update lokalise formatter local files.'
+                  draft: false
+            - name: Check outputs
+              run: |
+                  echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+                  echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
