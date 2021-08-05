@@ -20,7 +20,7 @@ jobs:
                   LOKALISE_READ_TOKEN: ${{ secrets.LOKALISE_READ_TOKEN }}
                   LOKALISE_PROJECT_ID: ${{ secrets.LOKALISE_PROJECT_ID }}
               run: |
-                  lokalise2 \
+                  ./bin/lokalise2 \
                     file download \
                     --token $LOKALISE_READ_TOKEN \
                     --project-id $LOKALISE_PROJECT_ID \
