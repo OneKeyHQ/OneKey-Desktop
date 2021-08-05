@@ -14,8 +14,7 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Setup Environment
-              run: ｜
-                  curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh
+              run: 'curl -sfL https://raw.githubusercontent.com/lokalise/lokalise-cli-2-go/master/install.sh | sh'
             - name: Install Dependiences
               env:
                   LOKALISE_READ_TOKEN: ${{ secrets.LOKALISE_READ_TOKEN }}
