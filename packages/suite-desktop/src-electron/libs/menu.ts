@@ -89,7 +89,7 @@ const mainMenuTemplate: MenuItem[] = [
             {
                 label: 'Learn More',
                 click: async () => {
-                    await shell.openExternal('https://trezor.io/');
+                    await shell.openExternal('https://www.onekey.so/');
                 },
             },
         ],
