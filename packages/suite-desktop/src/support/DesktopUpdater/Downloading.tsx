@@ -47,22 +47,22 @@ interface Props {
 }
 
 const Downloading = ({ hideWindow, progress }: Props) => {
-    const cancelUpdate = useCallback(() => window.desktopApi!.cancelUpdate(), []);
+    const cancelUpdate = useCallback(() => {
+        window.desktopApi!.cancelUpdate();
+        hideWindow();
+    }, [hideWindow]);
 
     return (
         <Modal
             heading={
                 <ModalHeadingWrapper>
                     <Translation id="TR_UPDATE_MODAL_DOWNLOADING_UPDATE" />
-                    <MinimizeButton onClick={cancelUpdate} variant="tertiary" icon="CROSS">
-                        <Translation id="TR_CANCEL" />
-                    </MinimizeButton>
                 </ModalHeadingWrapper>
             }
             currentProgressBarStep={progress?.percent || 0}
             totalProgressBarSteps={100}
             cancelable
-            onCancel={hideWindow}
+            onCancel={cancelUpdate}
         >
             <DownloadWrapper>
                 <Text>
