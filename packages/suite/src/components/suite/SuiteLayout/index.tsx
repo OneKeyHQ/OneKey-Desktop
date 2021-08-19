@@ -10,7 +10,7 @@ import { MAX_WIDTH, DESKTOP_TITLEBAR_HEIGHT } from '@suite-constants/layout';
 import { DiscoveryProgress } from '@wallet-components';
 import NavigationBar from '../NavigationBar';
 import { useLayoutSize } from '@suite-hooks';
-import { isDesktop } from '@suite-utils/env';
+import { isDesktop, isMac as isMacOS } from '@suite-utils/env';
 
 const PageWrapper = styled.div`
     height: ${isDesktop() ? '100vh' : '100vh'};
@@ -34,7 +34,7 @@ const Columns = styled.div`
     overflow: auto;
 `;
 
-const AppWrapper = styled.div`
+const AppWrapper = styled.div<{ isMac?: boolean }>`
     display: flex;
     color: ${props => props.theme.TYPE_DARK_GREY};
     background: ${props => props.theme.BG_GREY};
@@ -43,6 +43,7 @@ const AppWrapper = styled.div`
     overflow-y: scroll;
     width: 100%;
     align-items: center;
+    padding-top: ${({ isMac }) => !isMac ? '28px' : '0' };
 
     ${scrollbarStyles}
 `;
@@ -109,12 +110,13 @@ type ScrollAppWrapperProps = Pick<BodyProps, 'url' | 'children'>;
 // ScrollAppWrapper is mandatory to reset AppWrapper scroll position on url change, fix: issue #1658
 const ScrollAppWrapper = ({ url, children }: ScrollAppWrapperProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
+    const isMac = isMacOS()
     React.useEffect(() => {
         const { current } = ref;
         if (!current) return;
         current.scrollTop = 0; // reset scroll position on url change
     }, [ref, url]);
-    return <AppWrapper ref={ref}>{children}</AppWrapper>;
+    return <AppWrapper isMac={isMac} ref={ref}>{children}</AppWrapper>;
 };
 
 const BodyWide = ({ url, menu, appMenu, children, ignoreChildren }: BodyProps) => (
