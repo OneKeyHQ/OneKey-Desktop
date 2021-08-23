@@ -109,8 +109,7 @@
             "entitlementsInherit": "entitlements.mac.inherit.plist",
             "target": [
                 "dmg",
-                "zip",
-                "mas"
+                "zip"
             ]
         },
         "mas": {
