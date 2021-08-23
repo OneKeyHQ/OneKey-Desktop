@@ -28,6 +28,7 @@ const Titlebar = styled.div`
     background: transparent; // not using theme on purpose
     color: ${props => props.theme.TYPE_DARK_GREY};
     opacity: 1;
+    pointer-events: none;
 `;
 
 const Drag = styled.div`
@@ -38,6 +39,7 @@ const Drag = styled.div`
     display: block;
     top: ${RESIZE_HANDLER_PADDING}px;
     left: ${RESIZE_HANDLER_PADDING}px;
+    pointer-events: none;
     -webkit-user-select: none;
     -webkit-app-region: drag;
 `;
@@ -55,6 +57,7 @@ const Action = styled.div<{ isMac?: boolean; isDisabled?: boolean; isActive?: bo
     align-content: center;
     align-items: center;
     justify-content: center;
+    pointer-events: none;
     ${props =>
         !props.isMac &&
         `&:hover {
@@ -207,9 +210,8 @@ const DesktopTitlebar = () => {
                     </ActionMaximize>
                 )}
             </Actions>
-            <LogoWrapper>
-                {/* TODO: 替换素材 */}
-                {/* <TrezorLogo
+            {/* <LogoWrapper>
+                <TrezorLogo
                     style={{ marginRight: -24 }}
                     type={`app_icon_${isDarkModeEnabled ? 'light' : 'dark'}` as any}
                     variant="white"
@@ -221,8 +223,8 @@ const DesktopTitlebar = () => {
                     variant="white"
                     height="28px"
                     data-test="trezor-suite-compact-logo-black"
-                /> */}
-            </LogoWrapper>
+                />
+            </LogoWrapper> */}
         </Titlebar>
     );
 };

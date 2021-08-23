@@ -1177,6 +1177,7 @@
     "TR_UPDATE_AVAILABLE": "Update available",
     "TR_BLE_UPDATE_AVAILABLE": "Bluetooth firmware update available",
     "TR_UPDATE_DOWNLOADED": "Update downloaded!",
+    "TR_UPDATE_IN_BACKGROUND": "Hide",
     "TR_UPDATE_MODAL_AVAILABLE_HEADING": "Update available",
     "TR_UPDATE_MODAL_DOWNLOADING_UPDATE": "Downloading update",
     "TR_UPDATE_MODAL_INSTALL_AND_RESTART": "Restart & Update",
