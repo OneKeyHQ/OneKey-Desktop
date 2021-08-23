@@ -5597,9 +5597,9 @@ const definedMessages = defineMessages({
             'It seems you are running multiple instances of the app. If you are using Suite in other window or tab, close it and refresh the app.',
     },
     TR_UPDATE_IN_BACKGROUND: {
-        id: "TR_UPDATE_IN_BACKGROUND",
-        defaultMessage: "Hide"
-    }
+        id: 'TR_UPDATE_IN_BACKGROUND',
+        defaultMessage: 'Hide',
+    },
 } as const);
 
 export default definedMessages;

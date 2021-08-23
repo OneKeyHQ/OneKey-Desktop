@@ -29,7 +29,7 @@ const CancelButton = styled(Button)`
 const ButtonGroup = styled.div`
     display: flex;
     flex-direction: row;
-`
+`;
 
 const DownloadWrapper = styled(Row)`
     margin-top: 16px;

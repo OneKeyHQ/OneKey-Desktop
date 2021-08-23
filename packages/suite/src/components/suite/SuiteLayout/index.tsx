@@ -43,7 +43,7 @@ const AppWrapper = styled.div<{ isMac?: boolean }>`
     overflow-y: scroll;
     width: 100%;
     align-items: center;
-    padding-top: ${({ isMac }) => !isMac ? '28px' : '0' };
+    padding-top: ${({ isMac }) => (!isMac ? '28px' : '0')};
 
     ${scrollbarStyles}
 `;
@@ -110,13 +110,17 @@ type ScrollAppWrapperProps = Pick<BodyProps, 'url' | 'children'>;
 // ScrollAppWrapper is mandatory to reset AppWrapper scroll position on url change, fix: issue #1658
 const ScrollAppWrapper = ({ url, children }: ScrollAppWrapperProps) => {
     const ref = React.useRef<HTMLDivElement>(null);
-    const isMac = isMacOS()
+    const isMac = isMacOS();
     React.useEffect(() => {
         const { current } = ref;
         if (!current) return;
         current.scrollTop = 0; // reset scroll position on url change
     }, [ref, url]);
-    return <AppWrapper isMac={isMac} ref={ref}>{children}</AppWrapper>;
+    return (
+        <AppWrapper isMac={isMac} ref={ref}>
+            {children}
+        </AppWrapper>
+    );
 };
 
 const BodyWide = ({ url, menu, appMenu, children, ignoreChildren }: BodyProps) => (
