@@ -155,7 +155,7 @@ const DesktopTitlebar = () => {
         });
     }, []);
 
-    let isMac = isMacOS();
+    const isMac = isMacOS();
     const iconSize = isMac ? 10 : 16;
     const iconColor = isMac ? colors.TYPE_DARK_GREY : colors.TYPE_LIGHT_GREY;
     const isMinimizedDisabled = isMac && maximized;

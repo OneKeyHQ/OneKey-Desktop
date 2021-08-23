@@ -12,11 +12,24 @@ const ModalHeadingWrapper = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 `;
 
-const MinimizeButton = styled(Button)`
+const BackgroundUpdateButton = styled(Button)`
     align-self: center;
+    font-size: 14px;
 `;
+
+const CancelButton = styled(Button)`
+    align-self: center;
+    margin-left: 5px;
+    font-size: 14px;
+`;
+
+const ButtonGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 const DownloadWrapper = styled(Row)`
     margin-top: 16px;
@@ -54,15 +67,19 @@ const Downloading = ({ hideWindow, progress }: Props) => {
             heading={
                 <ModalHeadingWrapper>
                     <Translation id="TR_UPDATE_MODAL_DOWNLOADING_UPDATE" />
-                    <MinimizeButton onClick={cancelUpdate} variant="tertiary" icon="CROSS">
-                        <Translation id="TR_CANCEL" />
-                    </MinimizeButton>
+                    <ButtonGroup>
+                        <BackgroundUpdateButton onClick={hideWindow} variant="tertiary">
+                            <Translation id="TR_UPDATE_IN_BACKGROUND" />
+                        </BackgroundUpdateButton>
+                        <CancelButton onClick={cancelUpdate} variant="tertiary">
+                            <Translation id="TR_CANCEL" />
+                        </CancelButton>
+                    </ButtonGroup>
                 </ModalHeadingWrapper>
             }
             currentProgressBarStep={progress?.percent || 0}
             totalProgressBarSteps={100}
-            cancelable
-            onCancel={hideWindow}
+            onCancel={cancelUpdate}
         >
             <DownloadWrapper>
                 <Text>
