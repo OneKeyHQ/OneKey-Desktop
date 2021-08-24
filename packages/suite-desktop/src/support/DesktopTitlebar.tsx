@@ -57,7 +57,7 @@ const Action = styled.div<{ isMac?: boolean; isDisabled?: boolean; isActive?: bo
     align-content: center;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
+    pointer-events: auto;
     ${props =>
         !props.isMac &&
         `&:hover {
