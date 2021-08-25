@@ -101,7 +101,8 @@ const init = async () => {
 
 // https://www.electronjs.org/docs/all#apprequestsingleinstancelock
 const singleInstance = app.requestSingleInstanceLock();
-if (!singleInstance) {
+
+if (!singleInstance && !process.mas) {
     logger.warn('main', 'Second instance detected, quitting...');
     app.quit();
 } else {
