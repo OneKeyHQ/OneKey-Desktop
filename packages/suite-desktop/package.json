@@ -131,10 +131,11 @@
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
             "darkModeSupport": false,
-            "entitlements": "entitlements.mas.inherit.plist",
+            "entitlements": "entitlements.mas.plist",
             "entitlementsInherit": "entitlements.mas.inherit.plist",
             "category": "public.app-category.utilities",
-            "provisioningProfile": "./OneKey_Wallet.provisionprofile",
+            "identity": "3rd Party Mac Developer",
+            "provisioningProfile": "./OneKey_Desktop_PROD.provisionprofile",
             "extendInfo": {
                 "ElectronTeamID": "28327Z8LS2"
             }
