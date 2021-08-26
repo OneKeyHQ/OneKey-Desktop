@@ -11,6 +11,7 @@ export type WalletSettingsAction =
     | { type: typeof WALLET_SETTINGS.CHANGE_NETWORKS; payload: Network['symbol'][] }
     | { type: typeof WALLET_SETTINGS.SET_LOCAL_CURRENCY; localCurrency: string }
     | { type: typeof WALLET_SETTINGS.SET_HIDE_BALANCE; toggled: boolean }
+    | { type: typeof WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET; payload: boolean }
     | {
           type: typeof WALLET_SETTINGS.SET_LAST_USED_FEE_LEVEL;
           symbol: Network['symbol'];
@@ -25,6 +26,13 @@ export const setLocalCurrency = (localCurrency: string) => ({
     type: WALLET_SETTINGS.SET_LOCAL_CURRENCY,
     localCurrency: localCurrency.toLowerCase(),
 });
+
+export const setHide0BalanceWallet = (payload: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+        type: WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET,
+        payload,
+    });
+}
 
 export const setDiscreetMode = (toggled: boolean) => (dispatch: Dispatch, getState: GetState) => {
     dispatch({

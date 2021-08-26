@@ -8,6 +8,7 @@ import { useLoadingSkeleton } from '@suite-hooks';
 import { CoinBalance } from '@wallet-components';
 import { Props } from './Container';
 import { useSelector, useActions } from '@suite-hooks';
+import { BALANCE_TO_HIDE } from '@wallet-constants/account'
 
 import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
 import * as selectedAccountActions from '@explore-actions/SelectedAccountActions';
@@ -131,7 +132,7 @@ const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) =>
         <DefaultLabel />
     );
 
-    if (hide0BalanceWallet && fiatCurrency && +fiatCurrency < 1) {
+    if (hide0BalanceWallet && fiatCurrency && +fiatCurrency < BALANCE_TO_HIDE) {
         return null
     }
 

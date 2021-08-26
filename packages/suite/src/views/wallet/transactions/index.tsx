@@ -26,7 +26,7 @@ const Content = ({ selectedAccount, showSummary, children }: ContentProps) => {
             {account.networkType === 'ethereum' && (
                 <TokenList
                     isTestnet={isTestnet(account.symbol)}
-                    explorerUrl={network.explorer.account}
+                    explorerUrl={network.explorer.account} 
                     tokens={account.tokens}
                 />
             )}
