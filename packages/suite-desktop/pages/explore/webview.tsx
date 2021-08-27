@@ -15,6 +15,14 @@ const ActionSelect = styled(Select)`
     width: 260px;
 `;
 
+const WrapperOuter = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`;
+
 const Wrapper = styled.div`
     display: flex;
     flex: 1;
@@ -156,6 +164,7 @@ interface TabProps {
 
 const Container: FC<Props & TabProps> = ({
     selectedAccount,
+    defaultAccount,
     signWithPush,
     openDeferredModal,
     addFavorite,
@@ -169,24 +178,19 @@ const Container: FC<Props & TabProps> = ({
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
+    const [lastAddress, setLastAddress] = useState("");
+    const [isConnected, setConnected] = useState(false);
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID | null>(
         dapp?.chain ? symbolToChainId[dapp.chain as 'ETH'] : null,
     );
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
     const [input, setInput] = useState(dapp?.url ?? 'home');
+    
+    const { current } = selectedAccount;
+    const { account } = defaultAccount
 
-    const { account } = selectedAccount;
-    const unused = account?.addresses
-        ? account?.addresses.unused
-        : [
-              {
-                  path: account?.path,
-                  address: account?.descriptor,
-                  transfers: account?.history.total,
-              },
-          ];
-    const freshAddress = unused[0];
+    const freshAddress = { address: current || account?.descriptor || "" };
 
     const setIsLoading = useCallback(
         val => {
@@ -211,8 +215,19 @@ const Container: FC<Props & TabProps> = ({
         if (!webviewRef || isLoading) return;
         setLoadFailed(false);
         setIsLoading(true);
+        setConnected(false);
         webviewRef?.reloadIgnoringCache?.();
     }, [webviewRef, isLoading, setIsLoading]);
+
+    useEffect(() => {
+        setLastAddress(freshAddress.address)
+    }, [freshAddress.address])
+
+    useEffect(() => {
+        if (isConnected && lastAddress && freshAddress.address !== lastAddress) {
+            handleReload()
+        }
+    }, [freshAddress.address, lastAddress])
 
     useEffect(() => {
         try {
@@ -302,6 +317,7 @@ const Container: FC<Props & TabProps> = ({
                 }
             } else if (event.channel === 'request/account') {
                 const { id } = arg;
+                setConnected(true);
                 webviewRef.send('response/account', {
                     id,
                     address: freshAddress.address,
@@ -406,7 +422,7 @@ const Container: FC<Props & TabProps> = ({
         }
     }, [webviewRef, isLoading]);
 
-    if (selectedAccount.status === 'loading') {
+    if (defaultAccount.status === 'loading') {
         return (
             <ToastInfo>
                 <Image width={160} height={160} image="SPINNER" />
@@ -414,13 +430,15 @@ const Container: FC<Props & TabProps> = ({
         );
     }
 
-    if (selectedAccount.status === 'exception') {
+    if (defaultAccount.status === 'exception') {
         return (
-            <Wrapper key="explore-exception">
-                <AccountMode mode={selectedAccount.mode} />
-                <AccountAnnouncement selectedAccount={selectedAccount} />
-                <Exception account={selectedAccount} />
-            </Wrapper>
+            <WrapperOuter key="explore-exception">
+                <Wrapper>
+                    <AccountMode mode={defaultAccount.mode} />
+                    <AccountAnnouncement selectedAccount={defaultAccount} />
+                    <Exception account={defaultAccount} />
+                </Wrapper>
+            </WrapperOuter>
         );
     }
 

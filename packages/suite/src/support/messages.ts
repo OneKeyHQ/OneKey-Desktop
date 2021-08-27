@@ -5600,6 +5600,10 @@ const definedMessages = defineMessages({
         id: 'TR_UPDATE_IN_BACKGROUND',
         defaultMessage: 'Hide',
     },
+    TR_SELECT_ACCOUNT: {
+        id: 'TR_SELECT_ACCOUNT',
+        defaultMessage: 'Select Account'
+    }
 } as const);
 
 export default definedMessages;

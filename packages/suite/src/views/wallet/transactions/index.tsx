@@ -38,6 +38,8 @@ const Content = ({ selectedAccount, showSummary, children }: ContentProps) => {
 const Transactions = (props: Props) => {
     const { selectedAccount, transactions } = props;
 
+    console.log("selectedAccount", selectedAccount)
+
     if (selectedAccount.status !== 'loaded') {
         return <WalletLayout title="TR_NAV_TRANSACTIONS" account={props.selectedAccount} />;
     }

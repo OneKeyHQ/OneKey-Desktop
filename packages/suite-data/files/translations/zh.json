@@ -988,6 +988,7 @@
 	"TR_SEED_MANUAL_LINK": "恢复种子",
 	"TR_SEE_DETAILS": "查看详情",
 	"TR_SEGWIT_ACCOUNTS": "隔离见证账户",
+	"TR_SELECT_ACCOUNT": "选择账户",
 	"TR_SELECT_DEVICE": "选择设备",
 	"TR_SELECT_DEVICE_STATUS": "请问你之前是否使用过此 OneKey 硬件设备？",
 	"TR_SELECT_MODEL": "选择 {model}",

@@ -988,6 +988,7 @@
     "TR_SEED_MANUAL_LINK": "recovery seed",
     "TR_SEE_DETAILS": "See details",
     "TR_SEGWIT_ACCOUNTS": "Segwit accounts",
+    "TR_SELECT_ACCOUNT": "Select Account",
     "TR_SELECT_DEVICE": "Select device",
     "TR_SELECT_DEVICE_STATUS": "Have you used this OneKey before?",
     "TR_SELECT_MODEL": "Select {model}",
