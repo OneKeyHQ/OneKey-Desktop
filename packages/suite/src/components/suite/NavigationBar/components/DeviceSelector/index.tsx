@@ -61,8 +61,8 @@ const DeviceSelector = (
     const [showTextStatus, setShowTextStatus] = useState(false);
 
     const countChanged = localCount && localCount !== deviceCount;
-    const shakeAnimationTimerRef = useRef<number | undefined>(undefined);
-    const stateAnimationTimerRef = useRef<number | undefined>(undefined);
+    const shakeAnimationTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const stateAnimationTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
     const analytics = useAnalytics();
 
@@ -137,13 +137,13 @@ const DeviceSelector = (
                             props.isCollapsed ? 'hidden' : 'flex',
                         )}
                     >
-                        {/* Wallet Brand 
+                        {/* Wallet Brand
                             Future: remove font-sans when redesign whole app
                         */}
                         <div className="min-w-0 font-sans font-medium text-gray-700 truncate dark:text-gray-200">
                             {selectedDevice.label}
                         </div>
-                        {/* Wallet Name 
+                        {/* Wallet Name
                             Future: remove font-sans when redesign whole app
                         */}
                         <div className="min-w-0 text-xs font-medium text-gray-500 truncate mt-0.5 dark:text-gray-400 font-sans">
