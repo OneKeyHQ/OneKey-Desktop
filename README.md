@@ -20,7 +20,7 @@ Before you start make sure you have downloaded and installed [Node.js LTS](https
 
 Run a dev build:
 
--   `yarn desktop:dev` (web app)
+-   `yarn desktop:dev` (web app, must also start [OneKey Connect](https://github.com/OneKeyHQ/connect))
 -   `yarn desktop:dev:desktop` (electron app)
 
 ## Contribute

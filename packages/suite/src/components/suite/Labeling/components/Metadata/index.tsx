@@ -220,14 +220,16 @@ const MetadataLabeling = (props: Props) => {
     const dataTestBase = `@metadata/${props.payload.type}/${props.payload.defaultValue}`;
     const actionButtonsDisabled = isDiscoveryRunning || pending;
     const isSubscribedToSubmitResult = useRef(props.payload.defaultValue);
-    let timeout: number | undefined;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
 
     useEffect(() => {
         setPending(false);
         setShowSuccess(false);
         return () => {
             isSubscribedToSubmitResult.current = '';
-            clearTimeout(timeout);
+            if (timeout !== undefined) {
+                clearTimeout(timeout);
+            }
         };
     }, [props.payload.defaultValue, timeout]);
 
