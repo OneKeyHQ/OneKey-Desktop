@@ -1,7 +1,7 @@
 {
     "name": "@onekey/desktop",
     "description": "OneKey Desktop application",
-    "version": "22.5.2",
+    "version": "22.5.5",
     "private": true,
     "author": "OneKey <hi@onekey.so>",
     "homepage": "https://onekey.so/",
