@@ -1,10 +1,12 @@
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, contextBridge } from 'electron';
 
-declare global {
-    interface Window {
-        desktopApi: any;
-        INJECT_PATH: string;
-    }
+function getParameterByName(name: string, url = window.location.href) {
+    name = name.replace(/[[\]]/g, '\\$&');
+    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
 // todo: would be great to have these channels strongly typed. for example this is nice reading: https://blog.logrocket.com/electron-ipc-response-request-architecture-with-typescript/
@@ -41,11 +43,7 @@ const validChannels = [
     'tor/status',
 ];
 
-ipcRenderer.on('inject/path', (_, path) => {
-    window.INJECT_PATH = path;
-});
-
-window.desktopApi = {
+const desktopApi = {
     /**
      * @deprecated Use dedicated methods instead of send
      */
@@ -106,5 +104,5 @@ window.desktopApi = {
     openExternal: (url: string) => ipcRenderer.send('webview/open', url),
 };
 
-// TODO: use context isolation
-// contextBridge.exposeInMainWorld('desktopApi', window.desktopApi);
+contextBridge.exposeInMainWorld('desktopApi', desktopApi);
+contextBridge.exposeInMainWorld('desktopInject', { web3Inject: getParameterByName('inject') });

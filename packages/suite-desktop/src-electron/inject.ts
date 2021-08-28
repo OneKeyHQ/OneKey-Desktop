@@ -2,7 +2,7 @@
 /* eslint-disable no-inner-declarations */
 /* eslint-disable import/extensions */
 import './dist.js';
-import { ipcRenderer, session, app, webFrame, webContents } from 'electron';
+import { ipcRenderer, session, app, webFrame, webContents, contextBridge } from 'electron';
 
 console.log(session, app, webFrame, webContents);
 declare global {
@@ -69,31 +69,31 @@ function safeTouchJSONStr<T = Record<string, unknown>>(str: string | undefined |
 try {
     console.log('Onekey web3 provider init start');
     const timestamp = new Date().getTime();
-    async function injectWeb3Config() {
+    function injectWeb3Config() {
         console.log('Onekey web3 injecter start');
 
-        const jsonStr = getParameterByName('config') || localStorage.getItem('web3-config') || '{}';
+        const jsonStr = getParameterByName('config') || '{}';
 
-        let config = safeTouchJSONStr<Config>(jsonStr);
+        const config = safeTouchJSONStr<Config>(jsonStr);
 
-        const promise = new Promise<Config>(resolve => {
-            if (config.address) return resolve(config);
+        // const promise = new Promise<Config>(resolve => {
+        //     if (config.address) return resolve(config);
 
-            ipcRenderer.on('response/config', (event, params) => {
-                console.log('inject.ts config event', event, params);
-                // if (params.id === timestamp) {
-                config = params.payload;
-                resolve(config);
-                // }
-            });
+        //     ipcRenderer.on('response/config', (event, params) => {
+        //         console.log('inject.ts config event', event, params);
+        //         // if (params.id === timestamp) {
+        //         config = params.payload;
+        //         resolve(config);
+        //         // }
+        //     });
 
-            console.log('send to host', timestamp);
-            ipcRenderer.sendToHost('get/config', {
-                id: timestamp,
-            });
-        });
-        config = await promise;
-        localStorage.setItem('web3-config', JSON.stringify(config)!);
+        //     console.log('send to host', timestamp);
+        //     ipcRenderer.sendToHost('get/config', {
+        //         id: timestamp,
+        //     });
+        // });
+        // config = await promise;
+        // localStorage.setItem('web3-config', JSON.stringify(config)!);
         window.onekeyConfig = config;
         const provider = new window.trustwallet.Provider(config);
         function debugPrint(...args: any[]) {
@@ -125,8 +125,9 @@ try {
 
         provider.isDebug = config.debug === 'false' ? false : !!config.debug;
         window.ethereum = provider;
-        window.web3 = new window.trustwallet.Web3(provider);
-        window.web3.eth.defaultAccount = config.address;
+
+        const web3 = new window.trustwallet.Web3(provider);
+        web3.eth.defaultAccount = config.address;
 
         window.chrome = { webstore: {} };
 
@@ -144,7 +145,7 @@ try {
             }
         }
 
-        window.web3.setProvider = function setProvider() {
+        web3.setProvider = function setProvider() {
             console.debug('Onekey Wallet - overrode web3.setProvider');
         };
 
@@ -204,6 +205,7 @@ try {
             }
         });
         console.log('Onekey web3 injecter done');
+        contextBridge.exposeInMainWorld('web3', web3);
     }
 
     injectWeb3Config();
@@ -214,7 +216,7 @@ try {
     } as { theme: 'light' | 'dark'; language: 'zh' | 'en' };
 
     window.WebViewJavascriptBridge = {
-        init() {},
+        init() { },
         callHandler(funcName, dataJson, callback) {
             console.log('receive funName, dataJson, callback', funcName, dataJson);
             if (funcName === 'callNativeMethod') {
@@ -254,31 +256,36 @@ try {
             }
         },
     };
-    ipcRenderer.on('common', (_event, params) => {
-        if (params.id) {
-            window.callbackMap?.[params.id]?.(
-                JSON.stringify({
-                    result: 'success',
-                    ...params,
-                }),
-            );
-        }
-    });
+    // ipcRenderer.on('common', (_event, params) => {
+    //     if (params.id) {
+    //         window.callbackMap?.[params.id]?.(
+    //             JSON.stringify({
+    //                 result: 'success',
+    //                 ...params,
+    //             }),
+    //         );
+    //     }
+    // });
 
-    window.$ONEKEY_WEB3_INJECTED = true;
-    window.$ONEKEY_WEB3_INJECTED_PLATFORM = 'DESKTOP';
-    window.$ONEKEY_SETTINGS_THEME = settings.theme || 'light';
-    window.$ONEKEY_SETTINGS_LANGUAGE = settings.language || 'zh';
-    window.injectWeb3Config = injectWeb3Config;
+    // window.$ONEKEY_WEB3_INJECTED = true;
+    // window.$ONEKEY_WEB3_INJECTED_PLATFORM = 'DESKTOP';
+    // window.$ONEKEY_SETTINGS_THEME = settings.theme || 'light';
+    // window.$ONEKEY_SETTINGS_LANGUAGE = settings.language || 'zh';
+    // window.injectWeb3Config = injectWeb3Config;
 
     console.log('Onekey web3 provider init done');
 
     // TODO: use context isolation
     // contextBridge.exposeInMainWorld('trustwallet', window.trustwallet);
-    // contextBridge.exposeInMainWorld('config', window.config);
     // contextBridge.exposeInMainWorld('ethereum', window.ethereum);
     // contextBridge.exposeInMainWorld('chrome', window.chrome);
-    // contextBridge.exposeInMainWorld('web3', window.web3);
+
+    contextBridge.exposeInMainWorld('$ONEKEY', {
+        WEB3_INJECTED: true,
+        WEB3_INJECTED_PLATFORM: 'DESKTOP',
+        SETTINGS_THEME: settings.theme || 'light',
+        SETTINGS_LANGUAGE: settings.language || 'zh',
+    });
 } catch (e) {
     console.log('Inject Script Error', e);
 }

@@ -38,7 +38,7 @@ class TrezorSuiteApp extends App<Props> {
                 scope.setTag('version', process.env.VERSION || 'undefined');
             });
         }
-        window.desktopApi!.clientReady();
+        window.desktopApi?.clientReady();
     }
 
     setIsUpdateVisible = (isUpdateVisible: boolean) => {

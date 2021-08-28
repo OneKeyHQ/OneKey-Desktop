@@ -210,16 +210,16 @@ const Container: FC<Props> = ({
         // React 会删除 allowpopups 属性
         const currentUrl = `https://swap.onekey.so/#/swap?config=${urlHash}&${settingsStr}`;
 
-        ref.innerHTML = `
-            <webview
-                allowpopups
-                sandbox
-                id="onekey-swap"
-                src=${currentUrl}
-                preload="file://${window.INJECT_PATH}"
-                style="width: 100%; height: 100%;"
-            />
-        `;
+        // ref.innerHTML = `
+        //     <webview
+        //         allowpopups
+        //         sandbox
+        //         id="onekey-swap"
+        //         src=${currentUrl}
+        //         preload="file://${window.desktopInject.web3Inject}"
+        //         style="width: 100%; height: 100%;"
+        //     />
+        // `;
     }, [ref, settingsStr, urlHash]);
 
     useEffect(() => {
@@ -308,7 +308,19 @@ const Container: FC<Props> = ({
                 </ToastInfo>
             )}
 
-            <div style={{ width: '100%', height: 'calc(100% - 60px)' }} ref={handleRef} />
+            <div style={{ width: '100%', height: 'calc(100% - 60px)' }}>
+                <webview
+                    // @ts-expect-error
+                    allowpopups="true"
+                    id="onekey-swap"
+                    src="https://swap.onekey.so/#/swap"
+                    preload={`file://${window.desktopInject.web3Inject}`}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                    }}
+                />
+            </div>
             <Footer>
                 <Image
                     style={{ cursor: 'pointer' }}

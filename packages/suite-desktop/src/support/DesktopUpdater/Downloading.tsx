@@ -60,7 +60,7 @@ interface Props {
 }
 
 const Downloading = ({ hideWindow, progress }: Props) => {
-    const cancelUpdate = useCallback(() => window.desktopApi!.cancelUpdate(), []);
+    const cancelUpdate = useCallback(() => window.desktopApi?.cancelUpdate(), []);
 
     return (
         <Modal

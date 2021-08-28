@@ -12,7 +12,7 @@ export const getOauthReceiverUrl = () => {
     if (!window.desktopApi) {
         return `${window.location.origin}${getPrefixedURL('/static/oauth/oauth_receiver.html')}`;
     }
-    return window.desktopApi!.getHttpReceiverAddress('/oauth');
+    return window.desktopApi?.getHttpReceiverAddress('/oauth');
 };
 
 type Credentials =
@@ -97,11 +97,11 @@ const getDesktopHandlerInstance = (
             message,
             originalParams,
             credentials => {
-                window.desktopApi!.removeAllListeners('oauth/response');
+                window.desktopApi?.removeAllListeners('oauth/response');
                 dfd.resolve(credentials);
             },
             error => {
-                window.desktopApi!.removeAllListeners('oauth/response');
+                window.desktopApi?.removeAllListeners('oauth/response');
                 dfd.reject(error);
             },
         );

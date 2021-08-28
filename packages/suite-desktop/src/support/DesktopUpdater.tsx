@@ -37,22 +37,22 @@ const DesktopUpdater = ({ setIsUpdateVisible }: Props) => {
 
     useEffect(() => {
         if (!desktopUpdate.enabled) {
-            window.desktopApi!.on('update/enable', enable);
+            window.desktopApi?.on('update/enable', enable);
             return;
         }
 
-        window.desktopApi!.on('update/checking', checking);
-        window.desktopApi!.on('update/available', available);
-        window.desktopApi!.on('update/not-available', notAvailable);
-        window.desktopApi!.on('update/skip', skip);
-        window.desktopApi!.on('update/downloaded', ready);
-        window.desktopApi!.on('update/downloading', downloading);
-        window.desktopApi!.on('update/error', error);
+        window.desktopApi?.on('update/checking', checking);
+        window.desktopApi?.on('update/available', available);
+        window.desktopApi?.on('update/not-available', notAvailable);
+        window.desktopApi?.on('update/skip', skip);
+        window.desktopApi?.on('update/downloaded', ready);
+        window.desktopApi?.on('update/downloading', downloading);
+        window.desktopApi?.on('update/error', error);
 
         // Initial check for updates
-        window.desktopApi!.checkForUpdates();
+        window.desktopApi?.checkForUpdates();
         // Check for updates every hour
-        setInterval(() => window.desktopApi!.checkForUpdates(), 60 * 60 * 1000);
+        setInterval(() => window.desktopApi?.checkForUpdates(), 60 * 60 * 1000);
     }, [
         available,
         checking,

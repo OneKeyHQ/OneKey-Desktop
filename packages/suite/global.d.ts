@@ -47,6 +47,9 @@ declare global {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: () => any | null;
         INJECT_PATH: string;
+        desktopInject: {
+            web3Inject: string;
+        };
         desktopApi?: DesktopApi; // Electron API
         $BLE_MODE?: boolean;
         $BLE_DATA?: Record<string, string>;

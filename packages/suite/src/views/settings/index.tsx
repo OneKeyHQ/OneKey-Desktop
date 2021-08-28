@@ -78,7 +78,7 @@ const Settings = ({
     }, [setTorAddress]);
     const saveTorAddress = useCallback(() => {
         // TODO: Validation
-        window.desktopApi!.setTorAddress(torAddress);
+        window.desktopApi?.setTorAddress(torAddress);
     }, [torAddress]);
 
     // Auto Updater
@@ -253,7 +253,7 @@ const Settings = ({
                                                     value: !tor,
                                                 },
                                             });
-                                            window.desktopApi!.toggleTor(!tor);
+                                            window.desktopApi?.toggleTor(!tor);
                                         }}
                                     />
                                 </ActionColumn>

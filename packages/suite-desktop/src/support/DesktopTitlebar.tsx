@@ -147,10 +147,10 @@ const DesktopTitlebar = () => {
     const isDarkModeEnabled = userThemeSettings.variant !== 'light';
 
     useEffect(() => {
-        window.desktopApi!.on('window/is-maximized', (payload: boolean) => {
+        window.desktopApi?.on('window/is-maximized', (payload: boolean) => {
             setMaximized(payload);
         });
-        window.desktopApi!.on('window/is-active', (payload: boolean) => {
+        window.desktopApi?.on('window/is-active', (payload: boolean) => {
             setActive(payload);
         });
     }, []);
@@ -167,7 +167,7 @@ const DesktopTitlebar = () => {
                 <ActionClose
                     isMac={isMac}
                     isActive={active}
-                    onClick={() => window.desktopApi!.windowClose()}
+                    onClick={() => window.desktopApi?.windowClose()}
                     data-button="close"
                 >
                     <Icon color={iconColor} size={iconSize} icon="WINDOW_CLOSE" />
@@ -176,7 +176,7 @@ const DesktopTitlebar = () => {
                     isMac={isMac}
                     isActive={active}
                     onClick={
-                        isMinimizedDisabled ? undefined : () => window.desktopApi!.windowMinimize()
+                        isMinimizedDisabled ? undefined : () => window.desktopApi?.windowMinimize()
                     }
                     data-button="minimize"
                 >
@@ -186,7 +186,7 @@ const DesktopTitlebar = () => {
                     <ActionMaximize
                         isMac={isMac}
                         isActive={active}
-                        onClick={() => window.desktopApi!.windowUnmaximize()}
+                        onClick={() => window.desktopApi?.windowUnmaximize()}
                         data-button="restore"
                     >
                         <Icon
@@ -199,7 +199,7 @@ const DesktopTitlebar = () => {
                     <ActionMaximize
                         isMac={isMac}
                         isActive={active}
-                        onClick={() => window.desktopApi!.windowMaximize()}
+                        onClick={() => window.desktopApi?.windowMaximize()}
                         data-button="maximize"
                     >
                         <Icon

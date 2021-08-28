@@ -25,7 +25,9 @@ class FileSystemProvider extends AbstractMetadataProvider {
     }
 
     async getFileContent(file: string) {
-        const result = await window.desktopApi!.metadataRead({ file: `${file}.mtdt` });
+        const result = await window.desktopApi?.metadataRead({ file: `${file}.mtdt` });
+        if (!result)
+            return this.error('PROVIDER_ERROR', 'window.desktopApi?.metadataRead no Response!');
         if (!result.success) {
             return this.error('PROVIDER_ERROR', result.error);
         }
@@ -38,10 +40,12 @@ class FileSystemProvider extends AbstractMetadataProvider {
     async setFileContent(file: string, content: Buffer) {
         const hex = content.toString('hex');
 
-        const result = await window.desktopApi!.metadataWrite({
+        const result = await window.desktopApi?.metadataWrite({
             file: `${file}.mtdt`,
             content: hex,
         });
+        if (!result)
+            return this.error('PROVIDER_ERROR', 'window.desktopApi?.metadataRead no Response!');
         if (!result.success) {
             return this.error('PROVIDER_ERROR', result.error);
         }

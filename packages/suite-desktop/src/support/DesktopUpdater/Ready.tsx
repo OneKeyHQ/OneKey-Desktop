@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Ready = ({ hideWindow }: Props) => {
-    const installRestart = useCallback(() => window.desktopApi!.installUpdate(), []);
+    const installRestart = useCallback(() => window.desktopApi?.installUpdate(), []);
 
     return (
         <Modal

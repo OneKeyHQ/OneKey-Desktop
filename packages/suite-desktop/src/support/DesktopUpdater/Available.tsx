@@ -125,9 +125,9 @@ const Available = ({ hideWindow, latest }: Props) => {
         }
     }, [latest, releaseNotes]);
 
-    const downloadUpdate = useCallback(() => window.desktopApi!.downloadUpdate(), []);
+    const downloadUpdate = useCallback(() => window.desktopApi?.downloadUpdate(), []);
     const skipUpdate = useCallback(() => {
-        window.desktopApi!.skipUpdate(latest!.version);
+        window.desktopApi?.skipUpdate(latest!.version);
     }, [latest]);
 
     return (

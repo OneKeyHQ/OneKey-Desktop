@@ -12,8 +12,9 @@ const init = ({ mainWindow }: Dependencies) => {
         logger.info('content', `Navigate to ${url}`);
     });
 
-    mainWindow.webContents.on('render-process-gone', (_, { reason }) => {
-        logger.error('content', `Render process gone (reason: ${reason}`);
+    // @ts-ignore
+    mainWindow.webContents.on('render-process-gone', (_, { reason, exitCode }) => {
+        logger.error('content', `Render process gone (reason: ${reason} ${exitCode}`);
     });
 
     let unresponsiveStart = 0;

@@ -18,10 +18,10 @@ const APP_NAME = 'OneKey Desktop';
 const src = isDev
     ? 'http://localhost:8000/'
     : url.format({
-          pathname: 'index.html',
-          protocol: PROTOCOL,
-          slashes: true,
-      });
+        pathname: 'index.html',
+        protocol: PROTOCOL,
+        slashes: true,
+    });
 
 // Logger
 const log = {
@@ -43,20 +43,20 @@ global.resourcesPath = isDev
 logger.info('main', 'Application starting');
 
 const preloadCachePath = path.join(app.getPath('appData'), `./inject-${packageJson.version}.js`);
-function fetchPreload() {
-    try {
-        const content = fs.readFileSync(path.resolve(__dirname, './inject.js'));
-        if (!fs.existsSync(path.dirname(preloadCachePath))) {
-            fs.mkdirSync(path.dirname(preloadCachePath), { recursive: true });
-        }
-        fs.writeFileSync(preloadCachePath, content);
-        console.log('UPDATE INJECT.JS SUCCESS!!', preloadCachePath);
-    } catch (e) {
-        console.log(e);
-    }
-}
+// function fetchPreload() {
+//     try {
+//         const content = fs.readFileSync(path.resolve(__dirname, './inject.js'));
+//         if (!fs.existsSync(path.dirname(preloadCachePath))) {
+//             fs.mkdirSync(path.dirname(preloadCachePath), { recursive: true });
+//         }
+//         fs.writeFileSync(preloadCachePath, content);
+//         console.log('UPDATE INJECT.JS SUCCESS!!', preloadCachePath);
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
 
-fetchPreload();
+// fetchPreload();
 
 const init = async () => {
     buildInfo();
@@ -77,9 +77,10 @@ const init = async () => {
             webSecurity: !isDev,
             nativeWindowOpen: true,
             allowRunningInsecureContent: isDev,
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: false,
+            contextIsolation: true,
             enableRemoteModule: false,
+            sandbox: true,
             preload: path.join(__dirname, 'preload.js'),
         },
         icon: path.join(global.resourcesPath, 'images', 'icons', '512x512.png'),
@@ -87,10 +88,8 @@ const init = async () => {
 
     // Load page
     logger.debug('init', `Load URL (${src})`);
-    mainWindow.loadURL(src);
-    mainWindow.webContents.on('did-finish-load', () => {
-        mainWindow.webContents.send('inject/path', preloadCachePath);
-    });
+    mainWindow.loadURL(`${src}`);
+
     // Modules
     await modules({
         mainWindow,
