@@ -5602,20 +5602,21 @@ const definedMessages = defineMessages({
     },
     TR_SELECT_ACCOUNT: {
         id: 'TR_SELECT_ACCOUNT',
-        defaultMessage: 'Select Account'
+        defaultMessage: 'Select Account',
     },
     TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS: {
-        id: "TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS",
-        defaultMessage: 'Hide small accounts'
+        id: 'TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS',
+        defaultMessage: 'Hide small accounts',
     },
     TR_ACCOUNTS_HIDE_TIP: {
-        id: "TR_ACCOUNTS_HIDE_TIP",
-        defaultMessage: "New accounts with less than $100 in assets will be hidden"
+        id: 'TR_ACCOUNTS_HIDE_TIP',
+        defaultMessage: 'New accounts with less than $100 in assets will be hidden',
     },
     TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS_DESCRIPTION: {
-        id: "TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS_DESCRIPTION",
-        defaultMessage: "Accounts with less than $100 in assets will be hidden (for new accounts, hide on the next visit to the current page)"
-    }
+        id: 'TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS_DESCRIPTION',
+        defaultMessage:
+            'Accounts with less than $100 in assets will be hidden (for new accounts, hide on the next visit to the current page)',
+    },
 } as const);
 
 export default definedMessages;

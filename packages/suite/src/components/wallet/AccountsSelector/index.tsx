@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import { H2, variables, scrollbarStyles } from '@trezor/components';
 import { Translation, AddAccountButton } from '@suite-components';
-import { useDiscovery, useLayoutSize,  } from '@suite-hooks';
+import { useDiscovery, useLayoutSize } from '@suite-hooks';
 import { sortByCoin, getFailedAccounts } from '@wallet-utils/accountUtils';
 import { AppState } from '@suite-types';
 import { Account } from '@wallet-types';
@@ -85,7 +85,7 @@ const mapStateToProps = (state: AppState) => ({
     device: state.suite.device,
     accounts: state.wallet.accounts,
     defaultAccount: state.wallet.selectedAccount,
-    selectedAccount: state.explore.selectedAccount
+    selectedAccount: state.explore.selectedAccount,
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
@@ -95,9 +95,9 @@ const AccountsSelector = ({ device, accounts, selectedAccount, defaultAccount }:
     const { current } = selectedAccount;
     const { account } = defaultAccount;
 
-    const currentAddress =  current || account?.descriptor;
+    const currentAddress = current || account?.descriptor;
 
-    let { isMobileLayout } = useLayoutSize();
+    const { isMobileLayout } = useLayoutSize();
 
     const discoveryStatus = getDiscoveryStatus();
     const discoveryInProgress = discoveryStatus && discoveryStatus.status === 'loading';
@@ -122,8 +122,7 @@ const AccountsSelector = ({ device, accounts, selectedAccount, defaultAccount }:
         );
     }
 
-    const isSelected = (account: Account) => account.descriptor === currentAddress
-      
+    const isSelected = (account: Account) => account.descriptor === currentAddress;
 
     const failed = getFailedAccounts(discovery);
 
@@ -144,12 +143,7 @@ const AccountsSelector = ({ device, accounts, selectedAccount, defaultAccount }:
         }
 
         return (
-            <AccountGroup
-                key={type}
-                type={type}
-                hasBalance={!!groupHasBalance}
-                keepOpened
-            >
+            <AccountGroup key={type} type={type} hasBalance={!!groupHasBalance} keepOpened>
                 {accounts.map(account => {
                     const selected = !!isSelected(account);
                     const forwardedRef = selected ? selectedItemRef : undefined;
@@ -171,9 +165,7 @@ const AccountsSelector = ({ device, accounts, selectedAccount, defaultAccount }:
 
     const accountsComponent =
         listedAccountsLength > 0 ? (
-            <>
-                {buildGroup('normal', normalAccounts)}
-            </>
+            <>{buildGroup('normal', normalAccounts)}</>
         ) : (
             <NoResults>
                 <Translation id="TR_ACCOUNT_SEARCH_NO_RESULTS" />

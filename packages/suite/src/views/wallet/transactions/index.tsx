@@ -26,7 +26,7 @@ const Content = ({ selectedAccount, showSummary, children }: ContentProps) => {
             {account.networkType === 'ethereum' && (
                 <TokenList
                     isTestnet={isTestnet(account.symbol)}
-                    explorerUrl={network.explorer.account} 
+                    explorerUrl={network.explorer.account}
                     tokens={account.tokens}
                 />
             )}
@@ -38,7 +38,7 @@ const Content = ({ selectedAccount, showSummary, children }: ContentProps) => {
 const Transactions = (props: Props) => {
     const { selectedAccount, transactions } = props;
 
-    console.log("selectedAccount", selectedAccount)
+    console.log('selectedAccount', selectedAccount);
 
     if (selectedAccount.status !== 'loaded') {
         return <WalletLayout title="TR_NAV_TRANSACTIONS" account={props.selectedAccount} />;

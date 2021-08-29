@@ -4,11 +4,11 @@ import styled, { css } from 'styled-components';
 import { getTitleForNetwork } from '@wallet-utils/accountUtils';
 import { Translation, FiatValue } from '@suite-components';
 import { SkeletonCircle, SkeletonRectangle, Stack } from '@suite-components/Skeleton';
-import { useLoadingSkeleton } from '@suite-hooks';
+import { useLoadingSkeleton, useSelector, useActions } from '@suite-hooks';
 import { CoinBalance } from '@wallet-components';
 import { Props } from './Container';
-import { useSelector, useActions } from '@suite-hooks';
-import { BALANCE_TO_HIDE } from '@wallet-constants/account'
+
+import { BALANCE_TO_HIDE } from '@wallet-constants/account';
 
 import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
 import * as selectedAccountActions from '@explore-actions/SelectedAccountActions';
@@ -94,14 +94,14 @@ const AccountAddress = styled.div`
     display: flex;
     color: ${props => props.theme.TYPE_DARK_GREY};
     font-size: ${variables.FONT_SIZE.SMALL};
-`
+`;
 
 // Using `React.forwardRef` to be able to pass `ref` (item) TO parent (Menu/index)
 const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) => {
     const { account, selected } = props;
     const { fiat, hide0BalanceWallet } = useSelector(state => ({
         fiat: state.wallet.fiat,
-        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet
+        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
     }));
 
     const { setSelectedAccoount } = useActions({
@@ -109,11 +109,15 @@ const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) =>
     });
 
     const currentFiatRates = fiat.coins.find(
-        f => f.symbol.toLowerCase() === account.symbol.toLowerCase()
+        f => f.symbol.toLowerCase() === account.symbol.toLowerCase(),
     )?.current;
 
     const targetCurrency = 'usd';
-    const fiatCurrency = toFiatCurrency(account.formattedBalance, targetCurrency, currentFiatRates?.rates);
+    const fiatCurrency = toFiatCurrency(
+        account.formattedBalance,
+        targetCurrency,
+        currentFiatRates?.rates,
+    );
 
     const dataTestKey = `@account-menu/${account.symbol}/${account.accountType}/${account.index}`;
 
@@ -133,17 +137,17 @@ const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) =>
     );
 
     if (hide0BalanceWallet && fiatCurrency && +fiatCurrency < BALANCE_TO_HIDE) {
-        return null
+        return null;
     }
 
-    const shorten = (address: string) => `${address.slice(0,6)}...${address.slice(-4)}`
+    const shorten = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`;
 
     return (
         <Wrapper selected={selected} type={account.accountType} ref={ref}>
             <AccountHeader
                 onClick={() => {
-                    if (selected) return
-                    setSelectedAccoount(account.descriptor)
+                    if (selected) return;
+                    setSelectedAccoount(account.descriptor);
                 }}
                 data-test={dataTestKey}
             >

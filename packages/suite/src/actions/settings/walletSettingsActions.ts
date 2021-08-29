@@ -32,7 +32,7 @@ export const setHide0BalanceWallet = (payload: boolean) => (dispatch: Dispatch) 
         type: WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET,
         payload,
     });
-}
+};
 
 export const setDiscreetMode = (toggled: boolean) => (dispatch: Dispatch, getState: GetState) => {
     dispatch({

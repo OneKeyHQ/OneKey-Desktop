@@ -13,7 +13,7 @@ import AccountGroup from './components/AccountGroup';
 import AccountItem from './components/AccountItem/Container';
 import { SkeletonAccountItem } from './components/AccountItem';
 import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
-import { BALANCE_TO_HIDE } from '@wallet-constants/account'
+import { BALANCE_TO_HIDE } from '@wallet-constants/account';
 
 const Wrapper = styled.div<{ isMobileLayout?: boolean }>`
     display: flex;
@@ -130,7 +130,7 @@ const mapStateToProps = (state: AppState) => ({
     accounts: state.wallet.accounts,
     selectedAccount: state.wallet.selectedAccount,
     fiat: state.wallet.fiat,
-    hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet
+    hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
@@ -198,20 +198,24 @@ const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWal
 
     const fiatMaps = fiat.coins.reduce((res: any, item) => {
         res[item.symbol] = item;
-        return res
+        return res;
     }, {});
 
     if (hide0BalanceWallet) {
-        const filterAccounts = (accArr:  Account[]) => {
-            return accArr.filter((acc) => {
-                const fiatCurrency = toFiatCurrency(acc.formattedBalance, targetCurrency, fiatMaps[acc.symbol].current?.rates)
-                if (!fiatCurrency) return true
-                return fiatCurrency && +fiatCurrency > BALANCE_TO_HIDE
-            })
-        }
-        normalAccounts = filterAccounts(normalAccounts)
-        segwitAccounts = filterAccounts(segwitAccounts)
-        legacyAccounts = filterAccounts(legacyAccounts)
+        const filterAccounts = (accArr: Account[]) => {
+            return accArr.filter(acc => {
+                const fiatCurrency = toFiatCurrency(
+                    acc.formattedBalance,
+                    targetCurrency,
+                    fiatMaps[acc.symbol].current?.rates,
+                );
+                if (!fiatCurrency) return true;
+                return fiatCurrency && +fiatCurrency > BALANCE_TO_HIDE;
+            });
+        };
+        normalAccounts = filterAccounts(normalAccounts);
+        segwitAccounts = filterAccounts(segwitAccounts);
+        legacyAccounts = filterAccounts(legacyAccounts);
     }
 
     const buildGroup = (type: Account['accountType'], accounts: Account[]) => {
@@ -253,9 +257,9 @@ const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWal
     const accountsComponent =
         listedAccountsLength > 0 || !searchString ? (
             <>
-                { normalAccounts.length ? buildGroup('normal', normalAccounts) : null }
-                { segwitAccounts.length ? buildGroup('segwit', segwitAccounts) : null }
-                { legacyAccounts.length ? buildGroup('legacy', legacyAccounts) : null }
+                {normalAccounts.length ? buildGroup('normal', normalAccounts) : null}
+                {segwitAccounts.length ? buildGroup('segwit', segwitAccounts) : null}
+                {legacyAccounts.length ? buildGroup('legacy', legacyAccounts) : null}
             </>
         ) : (
             <NoResults>

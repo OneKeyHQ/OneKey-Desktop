@@ -4,14 +4,17 @@ import { Action } from '@suite-types';
 import { STORAGE } from '@suite-actions/constants';
 
 type SelectedAccountState = {
-    current: string
-}
+    current: string;
+};
 
 const initialState = {
-    current: ""
-}
+    current: '',
+};
 
-const SelectedAccountReducer = (state: SelectedAccountState = initialState, action: Action): SelectedAccountState => {
+const SelectedAccountReducer = (
+    state: SelectedAccountState = initialState,
+    action: Action,
+): SelectedAccountState => {
     return produce(state, draft => {
         switch (action.type) {
             case SelectedAccount.SET:

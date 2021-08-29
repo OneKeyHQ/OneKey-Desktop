@@ -7,10 +7,10 @@ export type SelectedAccountActions =
           type: typeof SelectedAccount.SET;
           payload: string;
       }
-      | {
-        type: typeof SelectedAccount.GET;
-        payload: string;
-    } ;
+    | {
+          type: typeof SelectedAccount.GET;
+          payload: string;
+      };
 
 export const setSelectedAccoount = (payload: string) => (dispatch: Dispatch) => {
     dispatch({ type: SelectedAccount.SET, payload });

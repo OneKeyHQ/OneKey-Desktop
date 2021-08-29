@@ -8,11 +8,10 @@ import NetworkInternal from './components/NetworkInternal';
 import AddAccountButton from './components/AddAccountButton';
 import Wrapper from './components/Wrapper';
 import { Props } from './Container';
-import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
+import { DEFAULT_BTC_ACCOUNT_TYPE, BALANCE_TO_HIDE } from '@wallet-constants/account';
 import { useSelector } from '@suite-hooks';
 import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
 import styled from 'styled-components';
-import { BALANCE_TO_HIDE } from '@wallet-constants/account'
 
 const HiddenTip = styled(P)`
     color: ${props => props.theme.TYPE_LIGHT_GREY};
@@ -41,19 +40,22 @@ const AddAccount = (props: Props) => {
 
     const { fiat, hide0BalanceWallet } = useSelector(state => ({
         fiat: state.wallet.fiat,
-        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet
+        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
     }));
 
-    const currentFiatRates = fiat.coins.find(
-        f => f.symbol.toLowerCase() === symbol?.toLowerCase()
-    )?.current;
+    const currentFiatRates = fiat.coins.find(f => f.symbol.toLowerCase() === symbol?.toLowerCase())
+        ?.current;
 
     const targetCurrency = 'usd';
-    const { account } = props.selectedAccount
+    const { account } = props.selectedAccount;
 
     let fiatCurrency;
     if (account) {
-        fiatCurrency = toFiatCurrency(account.formattedBalance, targetCurrency, currentFiatRates?.rates);
+        fiatCurrency = toFiatCurrency(
+            account.formattedBalance,
+            targetCurrency,
+            currentFiatRates?.rates,
+        );
     }
 
     const hideNewAccount = hide0BalanceWallet && fiatCurrency && +fiatCurrency < BALANCE_TO_HIDE;
@@ -163,11 +165,11 @@ const AddAccount = (props: Props) => {
         >
             <>
                 <NetworkInternal network={accountType || network} accountTypes={accountTypes} />
-                { 
-                    hideNewAccount && <HiddenTip>
+                {hideNewAccount && (
+                    <HiddenTip>
                         <Translation id="TR_ACCOUNTS_HIDE_TIP" />
                     </HiddenTip>
-                }
+                )}
             </>
         </Wrapper>
     );

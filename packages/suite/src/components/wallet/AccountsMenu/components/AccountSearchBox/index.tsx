@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { useTheme, Icon, Input, CoinLogo, variables } from '@trezor/components';
 import { useSelector, useAccountSearch, useActions } from '@suite-hooks';
 
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
-import { useCallback } from 'react';
+
 import { Translation } from '@suite-components';
 
 const Wrapper = styled.div`
@@ -74,18 +74,18 @@ const CheckboxContainer = styled.div`
     align-items: center;
 `;
 
- const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
     display: inline-block;
     width: 12px;
     height: 12px;
-    background: ${props => props.checked ? 'salmon' : 'papayawhip'};
+    background: ${props => (props.checked ? 'salmon' : 'papayawhip')};
     border-radius: 3px;
     transition: all 150ms;
- `
+`;
 
- const StyledLabel = styled.label`
-    margin-left: 5px
- `
+const StyledLabel = styled.label`
+    margin-left: 5px;
+`;
 
 interface Props {
     isMobile?: boolean;
@@ -97,15 +97,18 @@ const AccountSearchBox = (props: Props) => {
     const { enabledNetworks, device, hide0BalanceWallet } = useSelector(state => ({
         enabledNetworks: state.wallet.settings.enabledNetworks,
         device: state.suite.device,
-        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet
+        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
     }));
     const { setHide0BalanceWallet } = useActions({
         setHide0BalanceWallet: walletSettingsActions.setHide0BalanceWallet,
     });
 
-    const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setHide0BalanceWallet(e.target.checked)
-    }, [])
+    const onChange = useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setHide0BalanceWallet(e.target.checked);
+        },
+        [setHide0BalanceWallet],
+    );
 
     const unavailableCapabilities = device?.unavailableCapabilities ?? {};
     const supportedNetworks = enabledNetworks.filter(symbol => !unavailableCapabilities[symbol]);
@@ -169,7 +172,7 @@ const AccountSearchBox = (props: Props) => {
                 </CoinsFilter>
             )}
             <CheckboxContainer>
-                <StyledCheckbox checked={hide0BalanceWallet} onChange={onChange}></StyledCheckbox>
+                <StyledCheckbox checked={hide0BalanceWallet} onChange={onChange} />
                 <StyledLabel>
                     <Translation id="TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS" />
                 </StyledLabel>
