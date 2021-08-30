@@ -11,3 +11,5 @@ export const ACCOUNT_TYPE = {
 };
 
 export const DEFAULT_BTC_ACCOUNT_TYPE = 'segwit';
+
+export const BALANCE_TO_HIDE = 100;

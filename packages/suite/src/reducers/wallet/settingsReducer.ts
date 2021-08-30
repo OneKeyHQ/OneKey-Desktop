@@ -9,6 +9,7 @@ import { BlockbookUrl } from '@wallet-types/blockbook';
 export interface State {
     localCurrency: string;
     discreetMode: boolean;
+    hide0BalanceWallet: boolean;
     enabledNetworks: Network['symbol'][];
     lastUsedFeeLevel: {
         [key: string]: Omit<FeeLevel, 'blocks'>; // Key: Network['symbol']
@@ -19,6 +20,7 @@ export interface State {
 export const initialState: State = {
     localCurrency: 'usd',
     discreetMode: false,
+    hide0BalanceWallet: false,
     enabledNetworks: ['btc'],
     lastUsedFeeLevel: {},
     blockbookUrls: [],
@@ -36,6 +38,10 @@ const settingsReducer = (state: State = initialState, action: Action): State => 
 
             case WALLET_SETTINGS.SET_HIDE_BALANCE:
                 draft.discreetMode = action.toggled;
+                break;
+
+            case WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET:
+                draft.hide0BalanceWallet = action.payload;
                 break;
 
             case WALLET_SETTINGS.CHANGE_NETWORKS:

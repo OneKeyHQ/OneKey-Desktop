@@ -12,6 +12,8 @@ import AccountSearchBox from './components/AccountSearchBox';
 import AccountGroup from './components/AccountGroup';
 import AccountItem from './components/AccountItem/Container';
 import { SkeletonAccountItem } from './components/AccountItem';
+import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
+import { BALANCE_TO_HIDE } from '@wallet-constants/account';
 
 const Wrapper = styled.div<{ isMobileLayout?: boolean }>`
     display: flex;
@@ -127,11 +129,13 @@ const mapStateToProps = (state: AppState) => ({
     device: state.suite.device,
     accounts: state.wallet.accounts,
     selectedAccount: state.wallet.selectedAccount,
+    fiat: state.wallet.fiat,
+    hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
 
-const AccountsMenu = ({ device, accounts, selectedAccount }: Props) => {
+const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWallet }: Props) => {
     const theme = useTheme();
     const { discovery, getDiscoveryStatus } = useDiscovery();
     const { params } = selectedAccount;
@@ -174,6 +178,7 @@ const AccountsMenu = ({ device, accounts, selectedAccount }: Props) => {
         account.index === params.accountIndex;
 
     const failed = getFailedAccounts(discovery);
+    const targetCurrency = 'usd';
 
     const list = sortByCoin(accounts.filter(a => a.deviceState === device.state).concat(failed));
     const filteredAccounts =
@@ -181,16 +186,37 @@ const AccountsMenu = ({ device, accounts, selectedAccount }: Props) => {
             ? list.filter(a => accountSearchFn(a, searchString, coinFilter))
             : list;
     // always show first "normal" account even if they are empty
-    const normalAccounts = filteredAccounts.filter(
+    let normalAccounts = filteredAccounts.filter(
         a => a.accountType === 'normal' && (!a.empty || a.visible),
     );
-    const segwitAccounts = filteredAccounts.filter(
+    let segwitAccounts = filteredAccounts.filter(
         a => a.accountType === 'segwit' && (a.index === 0 || !a.empty || a.visible),
     );
-    const legacyAccounts = filteredAccounts.filter(
+    let legacyAccounts = filteredAccounts.filter(
         a => a.accountType === 'legacy' && (!a.empty || a.visible),
     );
-    // const uniqueNetworks = [...new Set(filteredAccounts.map(item => item.symbol))];
+
+    const fiatMaps = fiat.coins.reduce((res: any, item) => {
+        res[item.symbol] = item;
+        return res;
+    }, {});
+
+    if (hide0BalanceWallet) {
+        const filterAccounts = (accArr: Account[]) => {
+            return accArr.filter(acc => {
+                const fiatCurrency = toFiatCurrency(
+                    acc.formattedBalance,
+                    targetCurrency,
+                    fiatMaps[acc.symbol].current?.rates,
+                );
+                if (!fiatCurrency) return true;
+                return fiatCurrency && +fiatCurrency > BALANCE_TO_HIDE;
+            });
+        };
+        normalAccounts = filterAccounts(normalAccounts);
+        segwitAccounts = filterAccounts(segwitAccounts);
+        legacyAccounts = filterAccounts(legacyAccounts);
+    }
 
     const buildGroup = (type: Account['accountType'], accounts: Account[]) => {
         const groupHasBalance = accounts.find(a => a.availableBalance !== '0');
@@ -231,9 +257,9 @@ const AccountsMenu = ({ device, accounts, selectedAccount }: Props) => {
     const accountsComponent =
         listedAccountsLength > 0 || !searchString ? (
             <>
-                {buildGroup('normal', normalAccounts)}
-                {buildGroup('segwit', segwitAccounts)}
-                {buildGroup('legacy', legacyAccounts)}
+                {normalAccounts.length ? buildGroup('normal', normalAccounts) : null}
+                {segwitAccounts.length ? buildGroup('segwit', segwitAccounts) : null}
+                {legacyAccounts.length ? buildGroup('legacy', legacyAccounts) : null}
             </>
         ) : (
             <NoResults>

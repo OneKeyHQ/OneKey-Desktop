@@ -12,7 +12,8 @@ import { RenderTabBar } from 'rc-tabs/lib/interface';
 import Container from './webview';
 
 const mapStateToProps = (state: AppState) => ({
-    selectedAccount: state.wallet.selectedAccount,
+    defaultAccount: state.wallet.selectedAccount,
+    selectedAccount: state.explore.selectedAccount,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
     favorites: state.explore.favorite,
@@ -153,7 +154,8 @@ class ExploreContainer extends React.Component<Props, { tabs: any[], activeTab: 
     }
 
     render() {
-        const { tabs, activeTab } = this.state
+        const { tabs, activeTab } = this.state;
+        const { defaultAccount } = this.props;
         const tabsMap = tabs.reduce((res, item) => {
             res[item.code] = item
             return res
@@ -200,7 +202,7 @@ class ExploreContainer extends React.Component<Props, { tabs: any[], activeTab: 
             </StyledTabs>
         );
     
-        return <Explore key="explore" menu={body} />;
+        return <Explore key="explore" menu={body} loaded={defaultAccount.status === 'loaded'} />;
     }
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@trezor/components';
+import { Button, P } from '@trezor/components';
 import { Translation } from '@suite-components';
 import { NETWORKS } from '@wallet-config';
 import { Account, Network } from '@wallet-types';
@@ -8,7 +8,16 @@ import NetworkInternal from './components/NetworkInternal';
 import AddAccountButton from './components/AddAccountButton';
 import Wrapper from './components/Wrapper';
 import { Props } from './Container';
-import { DEFAULT_BTC_ACCOUNT_TYPE } from '@wallet-constants/account';
+import { DEFAULT_BTC_ACCOUNT_TYPE, BALANCE_TO_HIDE } from '@wallet-constants/account';
+import { useSelector } from '@suite-hooks';
+import { toFiatCurrency } from '@wallet-utils/fiatConverterUtils';
+import styled from 'styled-components';
+
+const HiddenTip = styled(P)`
+    color: ${props => props.theme.TYPE_LIGHT_GREY};
+    margin: 10px 0 20px;
+    text-align: left;
+`;
 
 const AddAccount = (props: Props) => {
     // Collect all Networks without "accountType" (normal)
@@ -28,6 +37,28 @@ const AddAccount = (props: Props) => {
 
     const [network, setNetwork] = useState<Network>(preselectedNetwork);
     const [accountType, setAccountType] = useState<Network | undefined>(undefined);
+
+    const { fiat, hide0BalanceWallet } = useSelector(state => ({
+        fiat: state.wallet.fiat,
+        hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
+    }));
+
+    const currentFiatRates = fiat.coins.find(f => f.symbol.toLowerCase() === symbol?.toLowerCase())
+        ?.current;
+
+    const targetCurrency = 'usd';
+    const { account } = props.selectedAccount;
+
+    let fiatCurrency;
+    if (account) {
+        fiatCurrency = toFiatCurrency(
+            account.formattedBalance,
+            targetCurrency,
+            currentFiatRates?.rates,
+        );
+    }
+
+    const hideNewAccount = hide0BalanceWallet && fiatCurrency && +fiatCurrency < BALANCE_TO_HIDE;
 
     // Common props for Wrapper
     const wrapperProps = {
@@ -132,7 +163,14 @@ const AddAccount = (props: Props) => {
             }
             pinNetwork={!!props.symbol}
         >
-            <NetworkInternal network={accountType || network} accountTypes={accountTypes} />
+            <>
+                <NetworkInternal network={accountType || network} accountTypes={accountTypes} />
+                {hideNewAccount && (
+                    <HiddenTip>
+                        <Translation id="TR_ACCOUNTS_HIDE_TIP" />
+                    </HiddenTip>
+                )}
+            </>
         </Wrapper>
     );
 };

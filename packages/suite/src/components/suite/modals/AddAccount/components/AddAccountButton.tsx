@@ -18,7 +18,8 @@ const AddAccountButton = (props: Props) => {
     if (props.accounts.length === 0) return null;
     const account = props.accounts[props.accounts.length - 1];
     let tooltip;
-    if (props.accounts.length > 1) {
+
+    if (props.network.symbol !== 'eth' && props.accounts.length > 1) {
         // prev account is empty, do not add another
         tooltip = <Translation id="MODAL_ADD_ACCOUNT_PREVIOUS_EMPTY" />;
     }
