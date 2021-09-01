@@ -87,56 +87,77 @@ const WebviewContainer = styled.div`
 `;
 
 enum CHAIN_SYMBOL_ID {
-    eth = 1,
-    kovan = 42,
-    bsc = 56,
-    okex = 66,
-    heco = 128,
-    okexTest = 65,
+    KOVAN = 42,
+    ETH = 1,
+    BSC = 56,
+    OKEX = 66,
+    POLYGON = 137,
+    HECO = 128,
+    XDAI = 100,
+    AVALANCHE = 43114,
+    FANTOM = 250
 }
 
 const CHAIN_SYMBOL_RPC = {
-    [CHAIN_SYMBOL_ID.eth]: 'https://rpc.blkdb.cn/eth',
-    [CHAIN_SYMBOL_ID.kovan]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-    [CHAIN_SYMBOL_ID.bsc]: 'https://rpc.blkdb.cn/bsc',
-    [CHAIN_SYMBOL_ID.heco]: 'https://rpc.blkdb.cn/heco',
-    [CHAIN_SYMBOL_ID.okex]: 'https://exchainrpc.okex.org',
-    [CHAIN_SYMBOL_ID.okexTest]: 'https://exchaintestrpc.okex.org',
+    [CHAIN_SYMBOL_ID.ETH]: 'https://rpc.blkdb.cn/eth',
+    [CHAIN_SYMBOL_ID.BSC]: 'https://rpc.blkdb.cn/bsc',
+    [CHAIN_SYMBOL_ID.HECO]: 'https://rpc.blkdb.cn/heco',
+    [CHAIN_SYMBOL_ID.OKEX]: 'https://exchainrpc.okex.org',
+    [CHAIN_SYMBOL_ID.POLYGON]: 'https://rpc-mainnet.matic.network',
+    [CHAIN_SYMBOL_ID.XDAI]: 'https://rpc.xdaichain.com',
+    [CHAIN_SYMBOL_ID.FANTOM]: 'https://rpcapi.fantom.network',
+    [CHAIN_SYMBOL_ID.AVALANCHE]: 'https://api.avax.network/ext/bc/C/rpc',
+    [CHAIN_SYMBOL_ID.KOVAN]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
 };
 
 const symbolToChainId = {
-    ETH: CHAIN_SYMBOL_ID.eth,
-    BSC: CHAIN_SYMBOL_ID.bsc,
-    HECO: CHAIN_SYMBOL_ID.heco,
-    OKT: CHAIN_SYMBOL_ID.okex,
-    OKT_TEST: CHAIN_SYMBOL_ID.okexTest,
+    ETH: CHAIN_SYMBOL_ID.ETH,
+    BSC: CHAIN_SYMBOL_ID.BSC,
+    HECO: CHAIN_SYMBOL_ID.HECO,
+    OKT: CHAIN_SYMBOL_ID.OKEX,
+    POLYGON: CHAIN_SYMBOL_ID.POLYGON,
+    XDAI: CHAIN_SYMBOL_ID.XDAI,
+    FTM: CHAIN_SYMBOL_ID.FANTOM,
+    AVALANCHE: CHAIN_SYMBOL_ID.AVALANCHE
 };
 
 const CHAIN_OPTIONS = [
     {
-        label: '以太坊 Ethereum 主网络',
-        value: CHAIN_SYMBOL_ID.eth,
+        label: <Translation id="NETWORK_ETHEREUM"></Translation>,
+        value: CHAIN_SYMBOL_ID.ETH,
     },
     {
-        label: '币安智能链 BSC 主网',
-        value: CHAIN_SYMBOL_ID.bsc,
+        label: <Translation id="NETWORK_BSC"></Translation>,
+        value: CHAIN_SYMBOL_ID.BSC,
     },
     {
-        label: '火币生态链 HECO 主网',
-        value: CHAIN_SYMBOL_ID.heco,
+        label: <Translation id="NETWORK_HECO"></Translation>,
+        value: CHAIN_SYMBOL_ID.HECO,
     },
     {
-        label: '欧易交易链 OKEx 主网',
-        value: CHAIN_SYMBOL_ID.okex,
+        label: <Translation id="NETWORK_HECO"></Translation>,
+        value: CHAIN_SYMBOL_ID.OKEX,
     },
     {
-        label: 'Kovan 测试网络',
-        value: CHAIN_SYMBOL_ID.kovan,
+        label: <Translation id="NETWORK_POLYGON"></Translation>,
+        value: CHAIN_SYMBOL_ID.POLYGON,
     },
     {
-        label: '欧易交易链 OKEx 测试网',
-        value: CHAIN_SYMBOL_ID.okexTest,
+        label: <Translation id="NETWORK_XDAI"></Translation>,
+        value: CHAIN_SYMBOL_ID.XDAI,
     },
+    {
+        label: <Translation id="NETWORK_FANTOM"></Translation>,
+        value: CHAIN_SYMBOL_ID.FANTOM,
+    },
+    {
+        label: <Translation id="NETWORK_AVALANCHE"></Translation>,
+        value: CHAIN_SYMBOL_ID.AVALANCHE,
+    },
+    {
+        label: <Translation id="NETWORK_KOVAN"></Translation>,
+        value: CHAIN_SYMBOL_ID.KOVAN,
+    }
 ];
 
 const DISCOVERY_HOME_URL = `https://discover.onekey.so/`;
