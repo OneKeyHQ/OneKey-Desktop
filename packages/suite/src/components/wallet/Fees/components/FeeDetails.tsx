@@ -42,6 +42,8 @@ interface Props {
 }
 
 const BitcoinDetails = ({ networkType, feeInfo, selectedLevel, transactionInfo }: Props) => {
+    // const feePerUnit = transactionInfo && transactionInfo.type !== 'error' ? transactionInfo.feePerByte: selectedLevel.feePerUnit
+    const { feePerUnit } = selectedLevel;
     return (
         <Wrapper>
             <Item>
@@ -54,11 +56,7 @@ const BitcoinDetails = ({ networkType, feeInfo, selectedLevel, transactionInfo }
                 <Label>
                     <Translation id="TR_FEE_RATE" />
                 </Label>
-                {`${
-                    transactionInfo && transactionInfo.type !== 'error'
-                        ? transactionInfo.feePerByte
-                        : selectedLevel.feePerUnit
-                } ${getFeeUnits(networkType)}`}
+                {`${feePerUnit} ${getFeeUnits(networkType)}`}
             </Item>
             {transactionInfo && transactionInfo.type !== 'error' && (
                 <Item>({transactionInfo.bytes} B)</Item>

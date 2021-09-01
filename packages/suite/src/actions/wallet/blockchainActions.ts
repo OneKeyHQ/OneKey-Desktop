@@ -46,33 +46,69 @@ const sortLevels = (levels: FeeLevel[]) => {
         (levelA, levelB) => order.indexOf(levelA.label) - order.indexOf(levelB.label),
     );
 };
+const noSort = (levels: FeeLevel[]) => levels;
 
 export const preloadFeeInfo = () => async (dispatch: Dispatch) => {
     // Fetch default fee levels
     const networks = NETWORKS.filter(n => !n.isHidden && !n.accountType);
     const promises = networks.map(network => {
-        return TrezorConnect.blockchainEstimateFee({
+        const result = TrezorConnect.blockchainEstimateFee({
             coin: network.symbol,
             request: {
                 feeLevels: 'preloaded',
             },
         });
+        return result;
     });
+
     const levels = await Promise.all(promises);
+
+    let gasnowLevels: any[] = [];
+    try {
+        const response = await fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey');
+        const json = await response.json();
+        const { standard, fast, rapid } = json.data;
+        gasnowLevels = [
+            {
+                feeLimit: '21000',
+                feePerUnit: String(standard),
+                feePerTx: String(21000 * standard),
+                label: 'normal',
+            },
+            {
+                feeLimit: '21000',
+                feePerUnit: String(fast),
+                feePerTx: String(21000 * fast),
+                label: 'fast',
+            },
+            {
+                feeLimit: '21000',
+                feePerUnit: String(rapid),
+                feePerTx: String(21000 * rapid),
+                label: 'rapid',
+            },
+        ];
+    } catch (e) {
+        console.error(e);
+    }
 
     const partial: Partial<FeeState> = {};
     networks.forEach((network, index) => {
         const result = levels[index];
+        const sort = network.symbol === 'eth' ? noSort : sortLevels;
         if (result.success) {
             const { payload } = result;
             partial[network.symbol] = {
                 blockHeight: 0,
                 ...payload,
-                levels: sortLevels(payload.levels).map(l => ({
+                levels: sort(payload.levels).map(l => ({
                     ...l,
                     label: l.label || 'normal',
                 })),
             };
+            if (network.symbol === 'eth' && partial[network.symbol] && gasnowLevels.length > 0) {
+                (partial[network.symbol] as any).levels = gasnowLevels;
+            }
         }
     });
 
@@ -114,13 +150,48 @@ export const updateFeeInfo = (symbol: string) => async (dispatch: Dispatch, getS
 
     const result = await TrezorConnect.blockchainEstimateFee(payload);
 
+    if (network.networkType === 'ethereum' && network.symbol === 'eth') {
+        // try to overwrite eth gas price setting;
+        try {
+            const response = await fetch(
+                'https://www.gasnow.org/api/v3/gas/price?utm_source=onekey',
+            );
+            const json = await response.json();
+            const { standard, fast, rapid } = json.data;
+            const levels = [
+                {
+                    feeLimit: '21000',
+                    feePerUnit: String(standard),
+                    feePerTx: String(21000 * standard),
+                    label: 'normal',
+                },
+                {
+                    feeLimit: '21000',
+                    feePerUnit: String(fast),
+                    feePerTx: String(21000 * fast),
+                    label: 'fast',
+                },
+                {
+                    feeLimit: '21000',
+                    feePerUnit: String(rapid),
+                    feePerTx: String(21000 * rapid),
+                    label: 'rapid',
+                },
+            ];
+            (result.payload as any).levels = levels;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     if (result.success) {
         const { payload } = result;
         const partial: Partial<FeeState> = {};
+        const sort = network.symbol === 'eth' ? noSort : sortLevels;
         partial[network.symbol] = {
             blockHeight: blockchainInfo.blockHeight,
             ...payload,
-            levels: sortLevels(payload.levels).map(l => ({
+            levels: sort(payload.levels).map(l => ({
                 ...l,
                 label: l.label || 'normal',
             })),
