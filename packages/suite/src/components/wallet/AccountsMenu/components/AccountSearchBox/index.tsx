@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
-import { useTheme, Icon, Input, CoinLogo, variables } from '@trezor/components';
+import { useTheme, Icon, Input, CoinLogo, variables, Switch } from '@trezor/components';
 import { useSelector, useAccountSearch, useActions } from '@suite-hooks';
 
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
@@ -71,16 +71,8 @@ const CheckboxContainer = styled.div`
     color: ${props => props.theme.TYPE_DARK_GREY};
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-`;
-
-const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background: ${props => (props.checked ? 'salmon' : 'papayawhip')};
-    border-radius: 3px;
-    transition: all 150ms;
 `;
 
 const StyledLabel = styled.label`
@@ -102,13 +94,6 @@ const AccountSearchBox = (props: Props) => {
     const { setHide0BalanceWallet } = useActions({
         setHide0BalanceWallet: walletSettingsActions.setHide0BalanceWallet,
     });
-
-    const onChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setHide0BalanceWallet(e.target.checked);
-        },
-        [setHide0BalanceWallet],
-    );
 
     const unavailableCapabilities = device?.unavailableCapabilities ?? {};
     const supportedNetworks = enabledNetworks.filter(symbol => !unavailableCapabilities[symbol]);
@@ -172,10 +157,13 @@ const AccountSearchBox = (props: Props) => {
                 </CoinsFilter>
             )}
             <CheckboxContainer>
-                <StyledCheckbox checked={hide0BalanceWallet} onChange={onChange} />
                 <StyledLabel>
                     <Translation id="TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS" />
                 </StyledLabel>
+                <Switch
+                    checked={hide0BalanceWallet}
+                    onChange={checked => setHide0BalanceWallet(checked)}
+                />
             </CheckboxContainer>
         </Wrapper>
     );
