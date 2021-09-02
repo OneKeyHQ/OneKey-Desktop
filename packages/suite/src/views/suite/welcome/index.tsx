@@ -59,7 +59,7 @@ const Index: FC<Props> = ({ language, fetchLocale }) => {
                 <P size="small">
                     <Translation id="TR_WELCOME_MODAL_TEXT" />
                 </P>
-                <StyledImg image="WELCOME" />
+                <StyledImg image="welcome" />
                 <LanguageContainer>
                     <LanguageLabel>语言 / language</LanguageLabel>
                     <ActionSelect

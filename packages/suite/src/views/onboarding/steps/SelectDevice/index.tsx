@@ -1,10 +1,22 @@
 import React from 'react';
 import { Translation } from '@suite-components';
 import { Wrapper, Text, OnboardingButton, Option } from '@onboarding-components';
-
+import { useDeviceType } from '@suite-hooks';
 import { Props } from './Container';
 
 const SelectDeviceStep = ({ onboardingActions }: Props) => {
+    const deviceType = useDeviceType();
+
+    const titleTranslationId = () => {
+        if (deviceType === 'mini') return 'TR_MINI_TITLE';
+        return 'TR_MODEL_ONE';
+    };
+
+    const descTranslationId = () => {
+        if (deviceType === 'mini') return 'TR_MINI_DESCRIPTION';
+        return 'TR_MODEL_ONE_DESC';
+    };
+
     return (
         <Wrapper.Step>
             <Wrapper.StepHeading>
@@ -21,32 +33,16 @@ const SelectDeviceStep = ({ onboardingActions }: Props) => {
                             onboardingActions.selectTrezorModel(1);
                             onboardingActions.goToNextStep();
                         }}
-                        title={<Translation id="TR_MODEL_ONE" />}
-                        text={<Translation id="TR_MODEL_ONE_DESC" />}
+                        title={<Translation id={titleTranslationId()} />}
+                        text={<Translation id={descTranslationId()} />}
                         button={
                             <Translation
                                 id="TR_SELECT_MODEL"
-                                values={{ model: <Translation id="TR_MODEL_ONE" /> }}
+                                values={{ model: <Translation id={titleTranslationId()} /> }}
                             />
                         }
-                        imgSrc="images/svg/model-1.svg"
+                        imgSrc={`images/svg/${deviceType}-model-1.svg`}
                     />
-                    {/* <Option
-                        data-test="@onboarding/option-model-t-path"
-                        action={() => {
-                            onboardingActions.selectTrezorModel(2);
-                            onboardingActions.goToNextStep();
-                        }}
-                        title={<Translation id="TR_MODEL_T" />}
-                        text={<Translation id="TR_MODEL_T_DESC" />}
-                        button={
-                            <Translation
-                                id="TR_SELECT_MODEL"
-                                values={{ model: <Translation id="TR_MODEL_T" /> }}
-                            />
-                        }
-                        imgSrc="images/svg/model-2.svg"
-                    /> */}
                 </Wrapper.Options>
             </Wrapper.StepBody>
             <Wrapper.StepFooter>

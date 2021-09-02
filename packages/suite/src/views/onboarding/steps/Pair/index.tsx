@@ -96,7 +96,7 @@ const PairDeviceStep = (props: Props) => {
                                                 }}
                                             />
                                         </Text>
-                                        <StyledImage image="UNI_WARNING" />
+                                        <StyledImage image="uni-warning" />
                                         <Wrapper.Controls>
                                             <OnboardingButton.Cta
                                                 data-test="@onboarding/button-continue"
@@ -112,7 +112,7 @@ const PairDeviceStep = (props: Props) => {
                                         <Text>
                                             <Translation id="TR_FOUND_OK_DEVICE" />
                                         </Text>
-                                        <StyledImage image="UNI_SUCCESS" />
+                                        <StyledImage image="uni-success" />
                                         <Wrapper.Controls>
                                             <OnboardingButton.Cta
                                                 data-test="@onboarding/button-continue"
@@ -128,7 +128,7 @@ const PairDeviceStep = (props: Props) => {
                                         <Text>
                                             <Translation id="TR_YOUR_DEVICE_IS_CONNECTED_BUT_UNREADABLE" />
                                         </Text>
-                                        <StyledImage image="UNI_WARNING" />
+                                        <StyledImage image="uni-warning" />
                                         <Wrapper.Controls>
                                             <OnboardingButton.Cta
                                                 onClick={() => TrezorConnect.disableWebUSB()}
@@ -143,7 +143,7 @@ const PairDeviceStep = (props: Props) => {
                                         <Text>
                                             <Translation id="TR_CONNECTED_DEVICE_IS_IN_BOOTLOADER" />
                                         </Text>
-                                        <StyledImage image="UNI_WARNING" />
+                                        <StyledImage image="uni-warning" />
                                     </>
                                 )}
                                 {getConnectedDeviceStatus() === 'seedless' && (

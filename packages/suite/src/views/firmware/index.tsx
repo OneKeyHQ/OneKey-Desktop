@@ -25,6 +25,7 @@ import {
 import { DeviceAcquire, DeviceUnknown, DeviceUnreadable } from '@suite-views';
 import { Translation, Modal } from '@suite-components';
 import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
+import { useDeviceType } from '@suite-hooks';
 
 const InnerModalWrapper = styled.div`
     display: flex;
@@ -51,6 +52,7 @@ type Props = ReturnType<typeof mapDispatchToProps> &
     InjectedModalApplicationProps;
 
 const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Props) => {
+    const deviceType = useDeviceType();
     const onClose = () => {
         closeModalApp();
         resetReducer();
@@ -286,7 +288,7 @@ const Firmware = ({ closeModalApp, resetReducer, firmware, device, modal }: Prop
                 firmware.status === 'waiting-for-confirmation' && (
                     <ConfirmOnDevice
                         title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
-                        trezorModel={device?.features?.major_version === 1 ? 1 : 2}
+                        deviceType={deviceType}
                         animated
                     />
                 )

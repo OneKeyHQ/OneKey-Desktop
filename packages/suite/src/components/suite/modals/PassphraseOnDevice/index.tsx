@@ -4,7 +4,7 @@ import { ConfirmOnDevice } from '@trezor/components';
 import { Modal, ModalProps } from '@suite-components';
 import { Translation } from '@suite-components/Translation';
 import * as discoveryActions from '@wallet-actions/discoveryActions';
-import { Dispatch, TrezorDevice } from '@suite-types';
+import { DeviceType, Dispatch, TrezorDevice } from '@suite-types';
 
 import DeviceConfirmImage from '@suite-components/images/DeviceConfirmImage';
 
@@ -57,7 +57,7 @@ const PassphraseOnDevice = ({ device, getDiscoveryAuthConfirmationStatus, ...res
             header={
                 <ConfirmOnDevice
                     title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
-                    trezorModel={device.features?.major_version === 1 ? 1 : 2}
+                    deviceType={device.deviceType}
                 />
             }
             description={<Translation id="TR_PASSPHRASE_CASE_SENSITIVE" />}

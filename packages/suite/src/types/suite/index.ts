@@ -69,7 +69,10 @@ export interface Dispatch extends ThunkDispatch<AppState, any, Action> {
 }
 export type GetState = () => AppState;
 
+export type DeviceType = 'mini' | 'touch' | 'pro' | 'classic';
+
 export interface ExtendedDevice {
+    deviceType?: DeviceType | null;
     useEmptyPassphrase: boolean;
     passphraseOnDevice?: boolean;
     remember?: boolean; // device should be remembered

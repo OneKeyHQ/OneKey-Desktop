@@ -78,7 +78,7 @@ const RecoveryStep = (props: Props) => {
                         <Text>
                             <Translation id="TR_RECOVER_SUBHEADING_MODEL_T" />
                         </Text>
-                        <StyledImage image="RECOVER_FROM_SEED" width="200px" />
+                        <StyledImage image="recover-from-seed" width="200px" />
                         <Wrapper.Controls>
                             <OnboardingButton.Cta
                                 data-test="@onboarding/recovery/start-button"
@@ -106,7 +106,7 @@ const RecoveryStep = (props: Props) => {
 
                 {device && device.mode === 'normal' && (
                     <>
-                        <StyledImage image="UNI_SUCCESS" />
+                        <StyledImage image="uni-success" />
                         <Wrapper.Controls>
                             <OnboardingButton.Cta
                                 data-test="@onboarding/recovery/continue-button"

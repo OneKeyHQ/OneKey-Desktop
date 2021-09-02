@@ -1,4 +1,4 @@
-export { useDevice } from './useDevice';
+export { useDevice, useDeviceType } from './useDevice';
 export { useDiscovery } from './useDiscovery';
 export { useAnalytics } from './useAnalytics';
 export { useActions } from './useActions';

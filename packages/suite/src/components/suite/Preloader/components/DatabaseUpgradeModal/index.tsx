@@ -28,7 +28,7 @@ const DatabaseUpgradeModal = (props: Props) => {
             description={<Translation id="TR_RUNNING_MULTIPLE_INSTANCES" />}
         >
             <ImageWrapper>
-                <Image image="DEVICE_ANOTHER_SESSION" width="250" />
+                <Image image="device-another-session" width="250" />
             </ImageWrapper>
         </Modal>
     );

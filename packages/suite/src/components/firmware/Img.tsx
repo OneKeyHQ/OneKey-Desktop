@@ -15,17 +15,21 @@ const StyledImg = styled.img`
         `}
 `;
 interface Props {
-    model: number;
+    deviceType?: string;
 }
 
-export const InitImg = ({ model, ...props }: Props) => (
-    <StyledImg alt="" src={resolveStaticPath(`images/svg/firmware-init-${model}.svg`)} {...props} />
-);
-
-export const SuccessImg = ({ model, ...props }: Props) => (
+export const InitImg = ({ deviceType, ...props }: Props) => (
     <StyledImg
         alt=""
-        src={resolveStaticPath(`images/svg/firmware-success-${model}.svg`)}
+        src={resolveStaticPath(`images/svg/${deviceType}-firmware-init-1.svg`)}
+        {...props}
+    />
+);
+
+export const SuccessImg = ({ deviceType, ...props }: Props) => (
+    <StyledImg
+        alt=""
+        src={resolveStaticPath(`images/svg/${deviceType}-firmware-success-1.svg`)}
         {...props}
     />
 );
@@ -42,19 +46,19 @@ export const DisconnectImg = () => (
     <StyledImg alt="" src={resolveStaticPath(`images/svg/disconnect-device.svg`)} />
 );
 
-export const ConnectInNormalImg = () => <Image image="CONNECT_DEVICE" />;
+export const ConnectInNormalImg = () => <Image image="connect-device" />;
 
-export const ConnectInBootloaderImg = ({ model }: Props) => (
+export const ConnectInBootloaderImg = ({ deviceType }: Props) => (
     <StyledImg
         alt=""
-        src={resolveStaticPath(`images/svg/how-to-enter-bootloader-model-${model}.svg`)}
+        src={resolveStaticPath(`images/svg/${deviceType}-how-to-enter-bootloader-model-1.svg`)}
     />
 );
 
 // todo: another image (not exportable from zeplin atm)
 // see here:
 // https://github.com/styled-components/styled-components/issues/2473
-export const SeedImg = styled(props => <Image image="RECOVER_FROM_SEED" {...props} />)`
+export const SeedImg = styled(props => <Image image="recover-from-seed" {...props} />)`
     height: 250px;
     padding: 30px;
 `;

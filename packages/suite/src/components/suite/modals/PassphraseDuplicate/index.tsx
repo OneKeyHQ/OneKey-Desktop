@@ -56,7 +56,7 @@ const PassphraseDuplicate = ({ device, duplicate }: Props) => {
                 </Actions>
             }
         >
-            <StyledImage image="UNI_WARNING" />
+            <StyledImage image="uni-warning" />
         </Modal>
     );
 };

@@ -4587,6 +4587,13 @@
                     "type": "string",
                     "name": "ble_ver",
                     "id": 502
+                },
+                {
+                    "rule": "optional",
+                    "options": {},
+                    "type": "string",
+                    "name": "serial_no",
+                    "id": 511
                 }
             ],
             "enums": [

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import { UI } from '@onekeyhq/connect';
 
 import { Translation, Image } from '@suite-components';
 import { Text, OnboardingButton, Wrapper } from '@onboarding-components';
 import { Props } from './Container';
+import { useDeviceType } from '@suite/hooks/suite';
 
 const SetPinStep = (props: Props) => {
     const { device } = props;
-
+    const deviceType = useDeviceType();
     if (!device || !device.features) {
         return null;
     }
@@ -46,7 +47,9 @@ const SetPinStep = (props: Props) => {
                         </Text>
 
                         <Image
-                            image={device.features.major_version === 1 ? 'PIN_ASK_1' : 'PIN_ASK_2'}
+                            image={
+                                `${deviceType}-pin-ask-1` as ComponentProps<typeof Image>['image']
+                            }
                         />
                         <Wrapper.Controls>
                             <OnboardingButton.Cta
@@ -68,9 +71,9 @@ const SetPinStep = (props: Props) => {
                         </Text>
                         <Image
                             image={
-                                device.features.major_version === 1
-                                    ? 'PIN_SUCCESS_1'
-                                    : 'PIN_SUCCESS_2'
+                                `${deviceType}-pin-success-1` as ComponentProps<
+                                    typeof Image
+                                >['image']
                             }
                         />
                         <Wrapper.Controls>

@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { TypedValidationRules } from '@wallet-types/form';
 import addressValidator from 'trezor-address-validator';
 import { isHexValid, isInteger } from '@wallet-utils/validation';
+import { useDeviceType } from '@suite/hooks/suite';
 
 const Wrapper = styled.div`
     display: flex;
@@ -97,7 +98,7 @@ const VerifyAddressComponent = () => {
     const { register, watch, errors, formState, setValue } = useForm<FormState>({
         mode: 'onChange',
     });
-
+    const deviceType = useDeviceType();
     const typedRegister: (rules?: TypedValidationRules) => (ref: any) => void = useCallback(
         <T,>(rules?: T) => register(rules),
         [register],
@@ -164,12 +165,7 @@ const VerifyAddressComponent = () => {
 
                     {addressVerified && addressVerified === address && (
                         <Confirmed>
-                            {device && (
-                                <StyledDeviceImage
-                                    height={25}
-                                    trezorModel={device.features?.major_version === 1 ? 1 : 2}
-                                />
-                            )}
+                            {device && <StyledDeviceImage height={25} deviceType={deviceType} />}
                             <Translation id="TR_EXCHANGE_CONFIRMED_ON_TREZOR" />
                         </Confirmed>
                     )}

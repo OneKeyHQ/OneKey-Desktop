@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import { ConfirmOnDevice } from '@trezor/components';
 import { Translation, Modal } from '@suite-components';
-import { useDevice, useActions, useSelector } from '@suite-hooks';
+import { useDevice, useActions, useSelector, useDeviceType } from '@suite-hooks';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import * as sendFormActions from '@wallet-actions/sendFormActions';
 import { OutputProps } from './components/Output';
@@ -23,6 +23,7 @@ type Props =
 
 const ReviewTransaction = ({ decision }: Props) => {
     const { device } = useDevice();
+    const deviceType = useDeviceType();
     const [detailsOpen, setDetailsOpen] = React.useState(false);
     const { cancelSignTx } = useActions({
         cancelSignTx: sendFormActions.cancelSignTx,
@@ -131,7 +132,7 @@ const ReviewTransaction = ({ decision }: Props) => {
                     title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
                     steps={outputs.length}
                     activeStep={signedTx ? outputs.length + 1 : buttonRequests.length}
-                    trezorModel={device.features?.major_version === 1 ? 1 : 2}
+                    deviceType={deviceType}
                     successText={<Translation id="TR_CONFIRMED_TX" />}
                     animated
                     onCancel={cancelSignTx}

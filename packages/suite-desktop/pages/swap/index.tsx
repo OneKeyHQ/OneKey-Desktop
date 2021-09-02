@@ -283,7 +283,7 @@ const Container: FC<Props> = ({
     if (selectedAccount.status === 'loading') {
         return (
             <ToastInfo>
-                <Image width={160} height={160} image="SPINNER" />
+                <Image width={160} height={160} image="spinner" />
             </ToastInfo>
         );
     }
@@ -315,7 +315,7 @@ const Container: FC<Props> = ({
                     onClick={handleReload}
                     width={24}
                     height={24}
-                    image="RELOAD"
+                    image="reload"
                 />
                 <ActionSelect
                     isShowTop

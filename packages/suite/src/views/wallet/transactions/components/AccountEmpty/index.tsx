@@ -87,7 +87,7 @@ const AccountEmpty = (props: Props) => {
                 />
             )}
             <StyledCard>
-                <StyledImage image="EMPTY_WALLET_NEUE" />
+                <StyledImage image="wallet-empty-neue" />
                 <Title>
                     <Translation id="TR_ACCOUNT_IS_EMPTY_TITLE" />
                 </Title>
@@ -107,20 +107,6 @@ const AccountEmpty = (props: Props) => {
                     >
                         <Translation id="TR_RECEIVE_NETWORK" values={{ network: networkSymbol }} />
                     </ActionButton>
-                    {/* <ActionButton
-                        variant="primary"
-                        onClick={() => {
-                            goto('wallet-coinmarket-buy', undefined, true);
-                            analytics.report({
-                                type: 'accounts/empty-account/buy',
-                                payload: {
-                                    symbol: networkSymbol,
-                                },
-                            });
-                        }}
-                    >
-                        <Translation id="TR_BUY_NETWORK" values={{ network: networkSymbol }} />
-                    </ActionButton> */}
                 </Actions>
             </StyledCard>
         </Wrapper>

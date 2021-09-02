@@ -15,7 +15,7 @@ import { TrezorDevice } from '@suite-types';
 import * as suiteActions from '@suite-actions/suiteActions';
 import { URLS } from '@suite-constants';
 import * as modalActions from '@suite-actions/modalActions';
-import { useActions } from '@suite-hooks';
+import { useActions, useDeviceType } from '@suite-hooks';
 
 import type { Props as ConnectedProps } from '..';
 
@@ -123,21 +123,24 @@ const PinDescription = ({ pinRequestType, invalid }: TextComponentProps) => {
     }
 };
 
-const ExplanationCol = (props: { heading: React.ReactNode; description?: React.ReactNode }) => (
-    <GreyCol>
-        <H2>{props.heading}</H2>
-        {props.description && props.description}
-        <Expand>
-            <StyledImg image="SET_UP_PIN_DIALOG" />
-        </Expand>
-        <How>
-            <Translation id="TR_HOW_PIN_WORKS" />{' '}
-            <TrezorLink href={URLS.PIN_MANUAL_URL}>
-                <Translation id="TR_LEARN_MORE" />
-            </TrezorLink>
-        </How>
-    </GreyCol>
-);
+const ExplanationCol = (props: { heading: React.ReactNode; description?: React.ReactNode }) => {
+    const deviceType = useDeviceType();
+    return (
+        <GreyCol>
+            <H2>{props.heading}</H2>
+            {props.description && props.description}
+            <Expand>
+                <StyledImg image={`${deviceType}-set-up-pin-dialog`} />
+            </Expand>
+            <How>
+                <Translation id="TR_HOW_PIN_WORKS" />{' '}
+                <TrezorLink href={URLS.PIN_MANUAL_URL}>
+                    <Translation id="TR_LEARN_MORE" />
+                </TrezorLink>
+            </How>
+        </GreyCol>
+    );
+};
 
 interface OwnProps extends ModalProps {
     device: TrezorDevice;
@@ -323,7 +326,7 @@ const Pin = ({
                     <How>
                         <Translation id="TR_THE_PIN_LAYOUT_IS_DISPLAYED" />
                     </How>
-                    <PinInput onPinSubmit={submit} />
+                    <PinInput onPinSubmit={submit} pinRequestType={pinRequestType} />
                 </Col>
             </Wrapper>
         </Modal>

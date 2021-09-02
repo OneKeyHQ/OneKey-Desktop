@@ -13,7 +13,7 @@ import {
     ActionSelect,
 } from '@suite-components/Settings';
 import { DRY_RUN_URL, FAILED_BACKUP_URL, SEED_MANUAL_URL } from '@suite-constants/urls';
-import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
+import { getFwVersion, isBitcoinOnly, isNRFNotEnable } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics } from '@suite-hooks';
 import { variables, Switch } from '@trezor/components';
@@ -209,52 +209,53 @@ const Settings = ({
                         </ActionButton>
                     </ActionColumn>
                 </SectionItem>
-                <SectionItem>
-                    <TextColumn
-                        title={<Translation id="TR_BLE_FIRMWARE_VERSION" />}
-                        description={
-                            <>
-                                <Translation
-                                    id="TR_YOUR_CURRENT_BLE_FIRMWARE"
-                                    values={{ version: features.ble_ver ?? '-' }}
-                                />
-                            </>
-                        }
-                    />
-                    <ActionColumn>
-                        <ActionButton
-                            variant="secondary"
-                            onClick={() => {
-                                goto('ble-firmware-index', { cancelable: true });
-                                analytics.report({
-                                    type: 'settings/device/goto/firmware',
-                                });
-                            }}
-                            data-test="@settings/device/update-button"
-                            isDisabled={isDeviceLocked}
-                        >
-                            {device &&
-                                isNewer(
-                                    (window.$BLE_DATA?.version.split('.').map(Number) as [
-                                        number,
-                                        number,
-                                        number,
-                                    ]) ?? [1, 0, 0],
-                                    getBleVerAsArray(device?.features?.ble_ver),
-                                ) && <Translation id="TR_UPDATE_AVAILABLE" />}
-                            {device &&
-                                isNewerOrEqual(
-                                    getBleVerAsArray(device?.features?.ble_ver),
-                                    (window.$BLE_DATA?.version.split('.').map(Number) as [
-                                        number,
-                                        number,
-                                        number,
-                                    ]) ?? [1, 0, 0],
-                                ) && <Translation id="TR_UP_TO_DATE" />}
-                        </ActionButton>
-                    </ActionColumn>
-                </SectionItem>
-
+                {!isNRFNotEnable(device) && (
+                    <SectionItem>
+                        <TextColumn
+                            title={<Translation id="TR_BLE_FIRMWARE_VERSION" />}
+                            description={
+                                <>
+                                    <Translation
+                                        id="TR_YOUR_CURRENT_BLE_FIRMWARE"
+                                        values={{ version: features.ble_ver ?? '-' }}
+                                    />
+                                </>
+                            }
+                        />
+                        <ActionColumn>
+                            <ActionButton
+                                variant="secondary"
+                                onClick={() => {
+                                    goto('ble-firmware-index', { cancelable: true });
+                                    analytics.report({
+                                        type: 'settings/device/goto/firmware',
+                                    });
+                                }}
+                                data-test="@settings/device/update-button"
+                                isDisabled={isDeviceLocked}
+                            >
+                                {device &&
+                                    isNewer(
+                                        (window.$BLE_DATA?.version.split('.').map(Number) as [
+                                            number,
+                                            number,
+                                            number,
+                                        ]) ?? [1, 0, 0],
+                                        getBleVerAsArray(device?.features?.ble_ver),
+                                    ) && <Translation id="TR_UPDATE_AVAILABLE" />}
+                                {device &&
+                                    isNewerOrEqual(
+                                        getBleVerAsArray(device?.features?.ble_ver),
+                                        (window.$BLE_DATA?.version.split('.').map(Number) as [
+                                            number,
+                                            number,
+                                            number,
+                                        ]) ?? [1, 0, 0],
+                                    ) && <Translation id="TR_UP_TO_DATE" />}
+                            </ActionButton>
+                        </ActionColumn>
+                    </SectionItem>
+                )}
                 <SectionItem>
                     <TextColumn
                         title={<Translation id="TR_DEVICE_SETTINGS_PIN_PROTECTION_TITLE" />}

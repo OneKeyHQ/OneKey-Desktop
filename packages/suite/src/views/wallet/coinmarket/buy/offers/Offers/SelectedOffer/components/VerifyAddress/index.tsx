@@ -10,6 +10,7 @@ import {
 } from '@suite-components';
 import { Input, Button, variables, CoinLogo, DeviceImage } from '@trezor/components';
 import { useCoinmarketBuyOffersContext } from '@wallet-hooks/useCoinmarketBuyOffers';
+import { useDeviceType } from '@suite/hooks/suite';
 
 const Wrapper = styled.div`
     display: flex;
@@ -118,6 +119,7 @@ const VerifyAddressComponent = () => {
     } = useCoinmarketBuyOffersContext();
     const { symbol, formattedBalance } = account;
     const { path, address } = getUnusedAddressFromAccount(account);
+    const deviceType = useDeviceType();
 
     if (!path || !address || !selectedQuote) {
         return null;
@@ -161,12 +163,7 @@ const VerifyAddressComponent = () => {
                 />
                 {addressVerified && addressVerified === address && (
                     <Confirmed>
-                        {device && (
-                            <StyledDeviceImage
-                                height={25}
-                                trezorModel={device.features?.major_version === 1 ? 1 : 2}
-                            />
-                        )}
+                        {device && <StyledDeviceImage height={25} deviceType={deviceType} />}
                         <Translation id="TR_BUY_CONFIRMED_ON_TREZOR" />
                     </Confirmed>
                 )}

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { DeviceImage } from '@trezor/components';
+import classNames from 'classnames';
+
 import { SHAKE } from '@suite-support/styles/animations';
 import { WalletLabeling } from '@suite-components';
 import { TrezorDevice } from '@suite-types';
 import * as routerActions from '@suite-actions/routerActions';
-import { useAnalytics, useSelector, useActions } from '@suite-hooks';
+import { useAnalytics, useSelector, useActions, useDeviceType } from '@suite-hooks';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as deviceUtils from '@suite-utils/device';
 import DeviceStatus from './components/DeviceStatus';
-import classNames from 'classnames';
 
 const Wrapper = styled.div<{ triggerAnim?: boolean; isMobileLayout?: boolean }>`
     ${props =>
@@ -70,6 +71,8 @@ const DeviceSelector = (
 
     const connectState = selectedDevice?.connected;
 
+    const deviceType = useDeviceType(false);
+
     useEffect(() => {
         // clear animation timers on unmount
         return () => {
@@ -125,10 +128,7 @@ const DeviceSelector = (
                         className="w-[22px] bg-my px-px"
                         lowerOpacity={deviceNeedsRefresh}
                     >
-                        <DeviceImage
-                            height={36}
-                            trezorModel={selectedDevice.features?.major_version === 1 ? 1 : 2}
-                        />
+                        <DeviceImage height={36} deviceType={deviceType} />
                     </DeviceImageWrapper>
                     {/* Details */}
                     <div

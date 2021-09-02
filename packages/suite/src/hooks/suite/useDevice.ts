@@ -22,3 +22,9 @@ export const useDevice = () => {
         isLocked,
     };
 };
+
+export const useDeviceType = (showDefaultType = true) => {
+    const { device } = useDevice();
+    if (device?.deviceType) return device.deviceType;
+    return showDefaultType ? 'classic' : undefined;
+};

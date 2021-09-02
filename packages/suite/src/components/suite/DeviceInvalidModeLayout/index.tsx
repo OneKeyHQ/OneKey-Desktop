@@ -12,7 +12,7 @@ const Image = styled(Img)`
     margin: 20px 0;
 
     ${props =>
-        props.image === 'UNI_WARNING' &&
+        props.image === 'uni-warning' &&
         css`
             max-height: 160px;
             flex: 0 0 auto;
@@ -61,7 +61,7 @@ const DeviceInvalidModeLayout = (props: Props) => {
     const {
         title,
         text,
-        image = 'UNI_WARNING',
+        image = 'uni-warning',
         allowSwitchDevice,
         devices,
         resolveButton,

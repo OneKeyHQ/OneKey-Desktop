@@ -1,5 +1,6 @@
 import React from 'react';
 
+import * as STEP from '@onboarding-constants/steps';
 import { OnboardingButton, Wrapper } from '@onboarding-components';
 import { Translation } from '@suite-components';
 import {
@@ -15,7 +16,7 @@ import {
     ContinueButton,
     RetryButton,
 } from '@firmware-components';
-
+import { isNRFNotEnable } from '@suite-utils/device';
 import { Props } from './Container';
 
 const FirmwareStep = ({
@@ -26,6 +27,7 @@ const FirmwareStep = ({
     resetReducer,
     firmwareUpdate,
 }: Props) => {
+    const disableNRF = isNRFNotEnable(device);
     const getComponent = () => {
         // edge case 1 - error
         if (firmware.error) {
@@ -39,7 +41,13 @@ const FirmwareStep = ({
         if (firmware.status !== 'done' && device?.firmware === 'valid') {
             return {
                 Body: <NoNewFirmware.Body />,
-                BottomBar: <ContinueButton onClick={() => goToNextStep()} />,
+                BottomBar: (
+                    <ContinueButton
+                        onClick={() =>
+                            goToNextStep(disableNRF ? STEP.ID_RESET_DEVICE_STEP : undefined)
+                        }
+                    />
+                ),
             };
         }
 
@@ -81,7 +89,13 @@ const FirmwareStep = ({
             case 'done':
                 return {
                     Body: <DoneStep.Body />,
-                    BottomBar: <ContinueButton onClick={() => goToNextStep()} />,
+                    BottomBar: (
+                        <ContinueButton
+                            onClick={() =>
+                                goToNextStep(disableNRF ? STEP.ID_RESET_DEVICE_STEP : undefined)
+                            }
+                        />
+                    ),
                 };
 
             default:

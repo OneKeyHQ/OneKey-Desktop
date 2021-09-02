@@ -6,6 +6,7 @@ import { Translation } from '@suite-components/Translation';
 import DeviceConfirmImage from '@suite-components/images/DeviceConfirmImage';
 import * as discoveryActions from '@wallet-actions/discoveryActions';
 import { Dispatch, TrezorDevice } from '@suite-types';
+import { useDeviceType } from '@suite-hooks';
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     getDiscoveryAuthConfirmationStatus: () =>
@@ -23,7 +24,7 @@ type Props = OwnProps & ReturnType<typeof mapDispatchToProps>;
  */
 const PassphraseSource = ({ device, getDiscoveryAuthConfirmationStatus, ...rest }: Props) => {
     const authConfirmation = getDiscoveryAuthConfirmationStatus() || device.authConfirm;
-
+    const deviceType = useDeviceType();
     if (authConfirmation) {
         return (
             <Modal
@@ -53,7 +54,7 @@ const PassphraseSource = ({ device, getDiscoveryAuthConfirmationStatus, ...rest 
             header={
                 <ConfirmOnDevice
                     title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
-                    trezorModel={device.features?.major_version === 1 ? 1 : 2}
+                    deviceType={deviceType}
                     animated
                 />
             }

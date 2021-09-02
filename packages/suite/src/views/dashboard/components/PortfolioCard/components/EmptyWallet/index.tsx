@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { variables } from '@trezor/components';
 import { Translation, Image } from '@suite-components';
+import { useDevice, useFirmware } from '@suite-hooks';
 
 const Wrapper = styled.div`
     display: flex;
@@ -37,10 +38,6 @@ const StyledImage = styled(props => <Image {...props} />)`
     }
 `;
 
-// const InlineButton = styled(Button)`
-//     display: inline-flex;
-// `;
-
 const SecurityItem = styled.div`
     color: ${props => props.theme.TYPE_LIGHT_GREY};
     font-size: ${variables.FONT_SIZE.BUTTON};
@@ -53,41 +50,17 @@ const SecurityItem = styled.div`
 type Props = React.HTMLAttributes<HTMLDivElement>;
 
 const EmptyWallet = (props: Props) => {
+    const { device } = useDevice();
     return (
         <Wrapper {...props} data-test="@dashboard/wallet-ready">
-            <StyledImage image="EMPTY_DASHBOARD" />
+            <StyledImage image={device?.deviceType ? `${device.deviceType}-new-device` : '404'} />
             <Content>
                 <Title>
                     <Translation id="TR_YOUR_WALLET_IS_READY_WHAT" />
                 </Title>
                 <SecurityItem>
                     <Translation id="TR_ADDITIONAL_SECURITY_FEATURES" />
-                    {/* <InlineButton
-                        variant="tertiary"
-                        size="small"
-                        icon="ARROW_RIGHT"
-                        alignIcon="right"
-                        onClick={() => {
-                            console.log('yup it does not do anything. we know!');
-                        }}
-                    >
-                        <Translation id="TR_FINISH_ADVANCED_SECURITY" />
-                    </InlineButton> */}
                 </SecurityItem>
-                {/* <SecurityItem>
-                    <Translation id="TR_LOOKING_FOR_QUICK_EASY" />
-                    <InlineButton
-                        variant="tertiary"
-                        size="small"
-                        icon="ARROW_RIGHT"
-                        alignIcon="right"
-                        onClick={() => {
-                            console.log('do something');
-                        }}
-                    >
-                        Buy BTC
-                    </InlineButton>
-                </SecurityItem> */}
             </Content>
         </Wrapper>
     );

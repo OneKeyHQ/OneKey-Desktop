@@ -119,7 +119,7 @@ const Backup = (props: Props) => {
                 onCancel={props.onCancel}
                 data-test="@backup/no-device"
             >
-                <StyledImage image="CONNECT_DEVICE" />
+                <StyledImage image="connect-device" />
                 <Buttons>
                     <CloseButton onClick={onClose} />
                 </Buttons>
@@ -144,7 +144,7 @@ const Backup = (props: Props) => {
                         <StyledP data-test="@backup/already-finished-message">
                             <Translation id="BACKUP_BACKUP_ALREADY_FINISHED_DESCRIPTION" />
                         </StyledP>
-                        <StyledImage image="UNI_SUCCESS" />
+                        <StyledImage image="uni-success" />
                     </>
                 )}
                 {device.features.unfinished_backup && (
@@ -155,7 +155,7 @@ const Backup = (props: Props) => {
                                 <Translation id="TR_LEARN_MORE" />
                             </ExternalLink>
                         </StyledP>
-                        <StyledImage image="UNI_ERROR" />
+                        <StyledImage image="uni-error" />
                     </>
                 )}
 
@@ -250,7 +250,7 @@ const Backup = (props: Props) => {
             {backup.status === 'finished' && backup.error && (
                 <>
                     <StyledP data-test="@backup/error-message">{backup.error}</StyledP>
-                    <StyledImage image="UNI_ERROR" />
+                    <StyledImage image="uni-error" />
                     <Buttons>
                         <Col>
                             <CloseButton onClick={onClose} />

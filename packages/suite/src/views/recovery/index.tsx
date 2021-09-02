@@ -212,7 +212,7 @@ const Recovery = ({
                 onCancel={closeModalApp}
                 data-test="@recovery/no-device"
             >
-                <StyledImage image="CONNECT_DEVICE" />
+                <StyledImage image="connect-device" />
                 <Buttons>
                     <CloseButton onClick={() => closeModalApp()} />
                 </Buttons>
@@ -404,7 +404,7 @@ const Recovery = ({
                         <StyledP>
                             <Translation id="TR_SEED_CHECK_SUCCESS_DESC" />
                         </StyledP>
-                        <StyledImage image="UNI_SUCCESS" />
+                        <StyledImage image="uni-success" />
                         <Buttons>
                             <CloseButton onClick={() => closeModalApp()} />
                         </Buttons>

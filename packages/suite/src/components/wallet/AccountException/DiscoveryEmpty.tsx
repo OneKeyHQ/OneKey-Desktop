@@ -21,7 +21,7 @@ const DiscoveryEmpty: FC<{ symbol?: any }> = ({ symbol }) => {
     return (
         <AccountExceptionLayout
             title={<Translation id="TR_ACCOUNT_EXCEPTION_DISCOVERY_EMPTY" />}
-            image="EMPTY_WALLET_NEUE"
+            image="wallet-empty-neue"
             description={
                 <Translation
                     id={

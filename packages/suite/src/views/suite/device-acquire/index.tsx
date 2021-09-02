@@ -15,7 +15,7 @@ const Acquire = () => {
         <DeviceInvalidModeLayout
             title={<Translation id="TR_ACQUIRE_DEVICE_TITLE" />}
             text={<Translation id="TR_ACQUIRE_DEVICE_DESCRIPTION" />}
-            image="DEVICE_ANOTHER_SESSION"
+            image="device-another-session"
             resolveButton={
                 <Button isLoading={isLocked()} onClick={() => acquireDevice()}>
                     <Translation id="TR_ACQUIRE_DEVICE" />

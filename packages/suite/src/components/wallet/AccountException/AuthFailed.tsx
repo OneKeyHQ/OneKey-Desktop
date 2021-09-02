@@ -13,7 +13,7 @@ const AuthFailed = () => {
         <AccountExceptionLayout
             title={<Translation id="TR_ACCOUNT_EXCEPTION_AUTH_ERROR" />}
             description={<Translation id="TR_ACCOUNT_EXCEPTION_AUTH_ERROR_DESC" />}
-            image="UNI_ERROR"
+            image="uni-error"
             actions={[
                 {
                     key: '1',

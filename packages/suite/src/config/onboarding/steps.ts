@@ -25,13 +25,6 @@ const steps: Step[] = [
         progress: true,
         disallowedDeviceStates: [STEP.DISALLOWED_DEVICE_IS_IN_RECOVERY_MODE],
     },
-    // {
-    //     id: STEP.ID_NEW_OR_USED,
-    //     path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW, STEP.PATH_USED],
-    //     buy: true,
-    //     help: true,
-    //     progress: true,
-    // },
     {
         id: STEP.ID_SELECT_DEVICE_STEP,
         path: [STEP.PATH_RECOVERY, STEP.PATH_CREATE, STEP.PATH_NEW],

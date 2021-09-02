@@ -10,7 +10,7 @@ const AccountNotExists = () => {
     return (
         <AccountExceptionLayout
             title={<Translation id="TR_ACCOUNT_EXCEPTION_NOT_EXIST" />}
-            image="EMPTY_WALLET_NEUE"
+            image="wallet-empty-neue"
         />
     );
 };

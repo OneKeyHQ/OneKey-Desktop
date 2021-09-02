@@ -178,7 +178,7 @@ const Container: FC<Props & TabProps> = ({
     const [isLoading, setLoadingStatus] = useState(false);
     const [webviewRef, setWebviewRef] = useState<WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
-    const [lastAddress, setLastAddress] = useState("");
+    const [lastAddress, setLastAddress] = useState('');
     const [isConnected, setConnected] = useState(false);
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID | null>(
         dapp?.chain ? symbolToChainId[dapp.chain as 'ETH'] : null,
@@ -186,11 +186,11 @@ const Container: FC<Props & TabProps> = ({
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
     const [input, setInput] = useState(dapp?.url ?? 'home');
-    
-    const { current } = selectedAccount;
-    const { account } = defaultAccount
 
-    const freshAddress = { address: current || account?.descriptor || "" };
+    const { current } = selectedAccount;
+    const { account } = defaultAccount;
+
+    const freshAddress = { address: current || account?.descriptor || '' };
 
     const setIsLoading = useCallback(
         val => {
@@ -220,14 +220,14 @@ const Container: FC<Props & TabProps> = ({
     }, [webviewRef, isLoading, setIsLoading]);
 
     useEffect(() => {
-        setLastAddress(freshAddress.address)
-    }, [freshAddress.address])
+        setLastAddress(freshAddress.address);
+    }, [freshAddress.address]);
 
     useEffect(() => {
         if (isConnected && lastAddress && freshAddress.address !== lastAddress) {
-            handleReload()
+            handleReload();
         }
-    }, [freshAddress.address, lastAddress])
+    }, [freshAddress.address, lastAddress]);
 
     useEffect(() => {
         try {
@@ -425,7 +425,7 @@ const Container: FC<Props & TabProps> = ({
     if (defaultAccount.status === 'loading') {
         return (
             <ToastInfo>
-                <Image width={160} height={160} image="SPINNER" />
+                <Image width={160} height={160} image="spinner" />
             </ToastInfo>
         );
     }
@@ -475,7 +475,7 @@ const Container: FC<Props & TabProps> = ({
                         onClick={handleReload}
                         width={24}
                         height={24}
-                        image="RELOAD"
+                        image="reload"
                     />
                     <AdressBarContainer>
                         <AdressBar
@@ -528,7 +528,7 @@ const Container: FC<Props & TabProps> = ({
             )}
             {dapp?.url && isLoading && (
                 <ToastInfo>
-                    <Image width={160} height={160} image="SPINNER" />
+                    <Image width={160} height={160} image="spinner" />
                 </ToastInfo>
             )}
             <WebviewContainer

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ComponentProps } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import * as routerActions from '@suite-actions/routerActions';
 import { URLS } from '@suite-constants';
 import { AppState, Dispatch } from '@suite-types';
 import { isDesktop, isWeb } from '@suite-utils/env';
-import { useSelector } from '@suite-hooks';
+import { useDeviceType, useSelector } from '@suite-hooks';
 
 const Content = styled.div`
     display: flex;
@@ -138,6 +138,7 @@ const InstallBridge = (props: Props) => {
     const target = selectedTarget || data.target;
     const isLoading = !props.transport;
     const transportAvailable = props.transport && props.transport.type;
+    const deviceType = useDeviceType();
 
     return (
         <Modal
@@ -158,7 +159,9 @@ const InstallBridge = (props: Props) => {
                         </BridgeDesktopNote>
                     )}
                 </Version>
-                <StyledImage image="T_BRIDGE_CHECK" />
+                <StyledImage
+                    image={`${deviceType}-bridge-check` as ComponentProps<typeof Image>['image']}
+                />
                 {isLoading ? (
                     <LoaderWrapper data-test="@bridge/loading">
                         <CenteredLoader size={50} strokeWidth={2} />
@@ -216,20 +219,6 @@ const InstallBridge = (props: Props) => {
                                 </Button>
                             </Link>
                         </Col>
-                        {/* <Col justify="flex-end">
-                            {data && target?.signature && (
-                                <TrezorLink variant="nostyle" href={data.uri + target.signature}>
-                                    <Button
-                                        color={theme.TYPE_LIGHT_GREY}
-                                        icon="SIGNATURE"
-                                        variant="tertiary"
-                                        onClick={() => {}}
-                                    >
-                                        <Translation id="TR_CHECK_PGP_SIGNATURE" />
-                                    </Button>
-                                </TrezorLink>
-                            )}
-                        </Col> */}
                     </>
                 )}
             </Footer>
