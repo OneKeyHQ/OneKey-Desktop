@@ -17,7 +17,7 @@
         "test-health": "jest -c jest.config.health.js"
     },
     "dependencies": {
-        "@onekeyhq/connect": "8.2.4-extended",
+        "@onekeyhq/connect": "8.3.0-extended",
         "@trezor/components": "^1.0.0",
         "@trezor/suite-data": "21.3.0",
         "@trezor/suite-storage": "21.3.0",

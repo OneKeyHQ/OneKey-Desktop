@@ -5,7 +5,11 @@
             "address_type_p2sh": 5,
             "bech32_prefix": "bc",
             "blockbook": [
-                "https://btc1.blkdb.cn"
+                "https://btc1.trezor.io",
+                "https://btc2.trezor.io",
+                "https://btc3.trezor.io",
+                "https://btc4.trezor.io",
+                "https://btc5.trezor.io"
             ],
             "blocktime_seconds": 600,
             "cashaddr_prefix": null,
