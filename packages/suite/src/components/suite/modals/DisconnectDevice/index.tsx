@@ -14,7 +14,7 @@ const DisconnectDevice = () => {
             heading={<Translation id="TR_DISCONNECT_YOUR_DEVICE" />}
             description={<Translation id="DISCONNECT_DEVICE_DESCRIPTION" />}
         >
-            <StyledImage image="UNI_SUCCESS" />
+            <StyledImage image="uni-success" />
         </Modal>
     );
 };

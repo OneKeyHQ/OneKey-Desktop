@@ -91,7 +91,7 @@ const AnalyticsComponent = () => {
             }
         >
             <Body>
-                <Image image="ANALYTICS" />
+                <Image image="analytics" />
 
                 {/* <Analytics /> */}
             </Body>

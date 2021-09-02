@@ -292,7 +292,7 @@ const Container: FC<Props> = ({
     if (selectedAccount.status === 'loading') {
         return (
             <ToastInfo>
-                <Image width={160} height={160} image="SPINNER" />
+                <Image width={160} height={160} image="spinner" />
             </ToastInfo>
         );
     }

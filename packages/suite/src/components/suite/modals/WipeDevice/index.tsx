@@ -60,7 +60,7 @@ const WipeDevice = ({ onCancel }: Props) => {
                 </Buttons>
             }
         >
-            <Image image="UNI_ERROR" />
+            <Image image="uni-error" />
             <CheckItems>
                 <Col>
                     <CheckItem

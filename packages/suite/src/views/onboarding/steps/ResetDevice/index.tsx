@@ -6,10 +6,11 @@ import { Translation } from '@suite-components';
 import { SuccessImg, H2, P } from '@firmware-components';
 import { TOS_URL } from '@suite-constants/urls';
 import { Props } from './Container';
+import { useDeviceType } from '@suite/hooks/suite';
 
 const ResetDeviceStep = (props: Props) => {
     const { device } = props;
-
+    const deviceType = useDeviceType();
     // this step expects device
     if (!device || !device.features) {
         return null;
@@ -27,7 +28,7 @@ const ResetDeviceStep = (props: Props) => {
             <Wrapper.StepBody>
                 {!isShamirBackupAvailable() && (
                     <>
-                        <SuccessImg model={device.features.major_version || 1} />
+                        <SuccessImg deviceType={deviceType} />
                         <H2>
                             <Translation id="TR_CREATE_WALLET" />
                         </H2>

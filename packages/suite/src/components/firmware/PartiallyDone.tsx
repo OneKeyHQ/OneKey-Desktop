@@ -2,10 +2,11 @@ import React from 'react';
 
 import { SuccessImg, P, H2 } from '@firmware-components';
 import { Translation } from '@suite-components';
-import { useDevice } from '@suite-hooks/useDevice';
+import { useDevice, useDeviceType } from '@suite-hooks/useDevice';
 
 const Body = () => {
     const { device } = useDevice();
+    const deviceType = useDeviceType();
     return (
         <>
             <H2>
@@ -14,9 +15,7 @@ const Body = () => {
             <P>
                 <Translation id="TR_BUT_THERE_IS_ANOTHER_UPDATE" />
             </P>
-            {device?.features?.major_version && (
-                <SuccessImg model={device.features.major_version} />
-            )}
+            {device?.features?.major_version && <SuccessImg deviceType={deviceType} />}
         </>
     );
 };

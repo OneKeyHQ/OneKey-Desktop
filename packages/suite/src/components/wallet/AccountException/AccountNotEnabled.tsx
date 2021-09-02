@@ -28,7 +28,7 @@ const AccountNotEnabled = (props: Props) => {
                     values={{ networkName: network.name }}
                 />
             }
-            image="EMPTY_WALLET_NEUE"
+            image="wallet-empty-neue"
             actions={[
                 {
                     icon: 'PLUS',

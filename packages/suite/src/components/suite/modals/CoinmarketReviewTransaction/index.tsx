@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ConfirmOnDevice, variables, Button } from '@trezor/components';
 import { FiatValue, Translation, Modal } from '@suite-components';
-import { useDevice, useActions } from '@suite-hooks';
+import { useDevice, useActions, useDeviceType } from '@suite-hooks';
 import { formatNetworkAmount } from '@wallet-utils/accountUtils';
 import * as sendFormActions from '@wallet-actions/sendFormActions';
 
@@ -59,6 +59,7 @@ const getState = (index: number, buttonRequests: number) => {
 
 const CoinmarketReviewTransaction = ({ selectedAccount, reviewData, decision }: Props) => {
     const { device } = useDevice();
+    const deviceType = useDeviceType();
     const { cancelSignTx } = useActions({
         cancelSignTx: sendFormActions.cancelSignTx,
     });
@@ -126,7 +127,7 @@ const CoinmarketReviewTransaction = ({ selectedAccount, reviewData, decision }: 
                     title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
                     steps={outputs.length}
                     activeStep={signedTx ? outputs.length + 1 : buttonRequests.length}
-                    trezorModel={device.features?.major_version === 1 ? 1 : 2}
+                    deviceType={deviceType}
                     successText={<Translation id="TR_CONFIRMED_TX" />}
                     onCancel={cancelSignTx}
                 />

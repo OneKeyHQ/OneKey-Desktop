@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ComponentProps } from 'react';
 import styled from 'styled-components';
 import { H2, Button } from '@trezor/components';
 import { Loading, Translation, Image, Modal, ModalProps } from '@suite-components';
-import { useDevice } from '@suite-hooks';
+import { useDevice, useDeviceType } from '@suite-hooks';
 
 import { Props } from './Container';
 
@@ -25,6 +25,8 @@ const StyledImage = styled(Image)`
 
 const Index = ({ recovery, rerun, modalProps }: Props & { modalProps?: ModalProps }) => {
     const { isLocked } = useDevice();
+    const deviceType = useDeviceType();
+
     return (
         <Modal {...modalProps}>
             <Wrapper data-test="@device-invalid-mode/recovery">
@@ -38,7 +40,13 @@ const Index = ({ recovery, rerun, modalProps }: Props & { modalProps?: ModalProp
                         <H2>
                             <Translation id="TR_DEVICE_IN_RECOVERY_MODE" />
                         </H2>
-                        <StyledImage image="FIRMWARE_INIT_2" />
+                        <StyledImage
+                            image={
+                                `${deviceType}-firmware-init-1` as ComponentProps<
+                                    typeof Image
+                                >['image']
+                            }
+                        />
                         {!isLocked && (
                             <Buttons>
                                 <Button onClick={rerun}>

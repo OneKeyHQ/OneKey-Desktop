@@ -1,37 +1,26 @@
 /* eslint-disable global-require */
 import React from 'react';
 import styled from 'styled-components';
+import { DefaultType } from '../../utils';
 
 interface Props {
-    trezorModel: 1 | 2;
+    deviceType?: DefaultType;
     height?: string | number;
     className?: string;
 }
 
 const Image = styled.img``;
 
-const DeviceImage = ({ trezorModel, height = '100%', className }: Props) => {
-    switch (trezorModel) {
-        case 1:
-            return (
-                <Image
-                    className={className}
-                    height={height}
-                    alt="trezor T1"
-                    src={require(`../../images/trezor/T1.png`)}
-                />
-            );
-        case 2:
-            return (
-                <Image
-                    className={className}
-                    height={height}
-                    alt="trezor T2"
-                    src={require(`../../images/trezor/T2.png`)}
-                />
-            );
-        // no default
-    }
+const DeviceImage = ({ deviceType, height = '100%', className }: Props) => {
+    return (
+        <Image
+            className={className}
+            height={height}
+            alt="OneKey MINI"
+            // eslint-disable-next-line import/no-dynamic-require
+            src={require(`../../images/device/${deviceType || 'unknown'}.svg`)}
+        />
+    );
 };
 
 export { DeviceImage, Props as DeviceImageProps };

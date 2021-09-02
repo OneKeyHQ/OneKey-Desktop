@@ -1,10 +1,12 @@
 import React from 'react';
 import { Translation } from '@suite-components';
 import { Wrapper, Text, OnboardingButton, Option } from '@onboarding-components';
-
+import { useDeviceType } from '@suite-hooks';
 import { Props } from './Container';
 
 const SelectDeviceStep = ({ onboardingActions }: Props) => {
+    const deviceType = useDeviceType();
+
     return (
         <Wrapper.Step>
             <Wrapper.StepHeading>
@@ -29,24 +31,8 @@ const SelectDeviceStep = ({ onboardingActions }: Props) => {
                                 values={{ model: <Translation id="TR_MODEL_ONE" /> }}
                             />
                         }
-                        imgSrc="images/svg/model-1.svg"
+                        imgSrc={`images/svg/${deviceType}-model-1.svg`}
                     />
-                    {/* <Option
-                        data-test="@onboarding/option-model-t-path"
-                        action={() => {
-                            onboardingActions.selectTrezorModel(2);
-                            onboardingActions.goToNextStep();
-                        }}
-                        title={<Translation id="TR_MODEL_T" />}
-                        text={<Translation id="TR_MODEL_T_DESC" />}
-                        button={
-                            <Translation
-                                id="TR_SELECT_MODEL"
-                                values={{ model: <Translation id="TR_MODEL_T" /> }}
-                            />
-                        }
-                        imgSrc="images/svg/model-2.svg"
-                    /> */}
                 </Wrapper.Options>
             </Wrapper.StepBody>
             <Wrapper.StepFooter>

@@ -5,6 +5,7 @@ import { useTheme, variables, Icon, DeviceImage } from '@trezor/components';
 import { Translation } from '@suite-components';
 import * as deviceUtils from '@suite-utils/device';
 import { ANIMATION } from '@suite-config';
+import { useDeviceType } from '@suite-hooks';
 
 import WalletInstance from '../WalletInstance/Container';
 import { Props } from './Container';
@@ -112,6 +113,7 @@ const DeviceItem = (props: Props) => {
     const [animateArrow, setAnimateArrow] = useState(false);
 
     const { device, selectedDevice, backgroundRoute } = props;
+    const deviceType = useDeviceType();
 
     const deviceStatus = deviceUtils.getStatus(device);
     const needsAttention = deviceUtils.deviceNeedsAttention(deviceStatus);
@@ -163,10 +165,7 @@ const DeviceItem = (props: Props) => {
             <Device>
                 <DeviceHeader>
                     <DeviceImageWrapper>
-                        <DeviceImage
-                            height={36}
-                            trezorModel={device.features?.major_version === 1 ? 1 : 2}
-                        />
+                        <DeviceImage height={36} deviceType={deviceType} />
                     </DeviceImageWrapper>
                     <Col grow={1}>
                         <DeviceStatus color={device.connected ? theme.TYPE_GREEN : theme.TYPE_RED}>

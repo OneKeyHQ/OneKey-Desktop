@@ -26,7 +26,7 @@ const ConfirmNoBackup = ({ onReceiveConfirmation, onCreateBackup, ...rest }: Pro
         {...rest}
     >
         <ImageWrapper>
-            <Image image="UNI_ERROR" />
+            <Image image="uni-error" />
         </ImageWrapper>
         <Actions>
             <Button

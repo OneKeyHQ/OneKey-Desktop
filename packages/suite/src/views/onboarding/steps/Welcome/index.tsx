@@ -2,10 +2,11 @@ import React from 'react';
 
 import { Translation } from '@suite-components';
 import { Text, Option, Wrapper } from '@onboarding-components';
-
+import { useDeviceType } from '@suite-hooks';
 import { Props } from './Container';
 
 const WelcomeStep = (props: Props) => {
+    const deviceType = useDeviceType();
     return (
         <Wrapper.Step data-test="@onboarding/welcome-step">
             <Wrapper.StepBody>
@@ -26,7 +27,7 @@ const WelcomeStep = (props: Props) => {
                         title={<Translation id="TR_IM_NEW_TO_ALL_THIS" />}
                         text={<Translation id="TR_I_WANT_TO_BE_GUIDED_THROUGH" />}
                         button={<Translation id="TR_BEGIN_ONBOARDING" />}
-                        imgSrc="images/svg/new-user.svg"
+                        imgSrc={`images/svg/${deviceType}-new-user.svg`}
                     />
                     <Option
                         data-test="@onboarding/skip-button"
@@ -36,7 +37,7 @@ const WelcomeStep = (props: Props) => {
                         title={<Translation id="TR_I_HAVE_INITIALIZED_DEVICE" />}
                         text={<Translation id="TR_MY_DEVICE_IS_INITIALIZED" />}
                         button={<Translation id="TR_SKIP_ONBOARDING" />}
-                        imgSrc="images/svg/existing-user.svg"
+                        imgSrc={`images/svg/${deviceType}-existing-user.svg`}
                     />
                 </Wrapper.Options>
             </Wrapper.StepBody>

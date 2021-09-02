@@ -87,7 +87,7 @@ const HologramStep = ({ onboardingActions, activeSubStep, model, device }: Props
                                 }}
                             />
                         </Text>
-                        <StyledImage image="UNI_WARNING" />
+                        <StyledImage image="uni-warning" />
 
                         <Wrapper.Controls>
                             <OnboardingButton.Alt

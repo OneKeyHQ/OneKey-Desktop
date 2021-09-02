@@ -22,7 +22,7 @@ const DiscoveryLoader = (props: Props) => {
             data-test="@discovery/loader"
         >
             <Expand>
-                <Image width={80} height={80} image="SPINNER" />
+                <Image width={80} height={80} image="spinner" />
             </Expand>
         </Modal>
     );

@@ -3,7 +3,7 @@ import { Button } from '@trezor/components';
 
 import { Translation } from '@suite-components';
 import { getFwVersion } from '@suite-utils/device';
-import { useDevice, useFirmware, useActions } from '@suite-hooks';
+import { useDevice, useFirmware, useActions, useDeviceType } from '@suite-hooks';
 import {
     P,
     H2,
@@ -16,7 +16,7 @@ import * as onboardingActions from '@onboarding-actions/onboardingActions';
 
 const Body = () => {
     const { device } = useDevice();
-
+    const deviceType = useDeviceType();
     if (!device?.connected || !device?.features)
         return (
             <>
@@ -30,7 +30,7 @@ const Body = () => {
     if (device.firmware === 'none') {
         return (
             <>
-                <InitImg model={device.features.major_version} />
+                <InitImg deviceType={deviceType} />
                 <H2>
                     <Translation id="TR_INSTALL_FIRMWARE" />
                 </H2>
@@ -47,7 +47,7 @@ const Body = () => {
     if (device.firmware === 'required') {
         return (
             <>
-                <InitImg model={device.features.major_version} />
+                <InitImg deviceType={deviceType} />
                 <H2>
                     <Translation id="TR_INSTALL_FIRMWARE" />
                 </H2>
@@ -75,7 +75,7 @@ const Body = () => {
     if (device.firmware === 'outdated') {
         return (
             <>
-                <InitImg model={device.features.major_version} />
+                <InitImg deviceType={deviceType} />
                 {/* TODO: H2 subheading? */}
                 <P>
                     <Translation

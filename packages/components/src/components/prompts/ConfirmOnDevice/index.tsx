@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { DeviceImage } from '../../DeviceImage';
 import { Icon } from '../../Icon';
 import { variables, animations } from '../../../config';
+import { DefaultType } from '../../../utils';
 
 type WrapperProps = Pick<Props, 'animated' | 'animation'>;
 const Wrapper = styled.div<WrapperProps>`
@@ -114,7 +115,7 @@ const isStepActive = (index: number, activeStep?: number) => {
 interface Props {
     title: React.ReactNode;
     successText?: React.ReactNode;
-    trezorModel: 1 | 2;
+    deviceType?: DefaultType;
     steps?: number;
     activeStep?: number;
     animated?: boolean;
@@ -127,7 +128,7 @@ const ConfirmOnDevice = ({
     steps,
     activeStep,
     onCancel,
-    trezorModel,
+    deviceType,
     successText,
     animated,
     animation = 'SLIDE_UP',
@@ -135,7 +136,7 @@ const ConfirmOnDevice = ({
     return (
         <Wrapper animated={animated} animation={animation}>
             <Left>
-                <DeviceImage className="h-[34px]" trezorModel={trezorModel} />
+                <DeviceImage className="h-[34px]" deviceType={deviceType} />
             </Left>
             <Middle>
                 <Title>{title}</Title>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getFwVersion } from '@suite-utils/device';
-import { useDevice } from '@suite-hooks';
+import { useDevice, useDeviceType } from '@suite-hooks';
 import { P, H2, SuccessImg } from '@firmware-components';
 import { Translation } from '@suite-components';
 
@@ -11,12 +11,13 @@ const Heading = () => (
 
 const Body = () => {
     const { device } = useDevice();
+    const deviceType = useDeviceType();
 
     if (!device?.features) return null;
 
     return (
         <>
-            <SuccessImg model={device.features.major_version} />
+            <SuccessImg deviceType={deviceType} />
             <H2>
                 <Translation
                     id={
@@ -38,10 +39,7 @@ const Body = () => {
                                   version: device.features.ble_ver,
                               }
                     }
-                />{' '}
-                {/* <ExternalLink size="small" href={CHANGELOG_URL}>
-                    <Translation id="TR_WHATS_NEW_FIRMWARE" />
-                </ExternalLink> */}
+                />
             </P>
         </>
     );

@@ -11,7 +11,7 @@ import {
     InstallButton,
 } from '@firmware-components';
 import { Translation, WebusbButton } from '@suite-components';
-import { useDevice, useFirmware, useSelector } from '@suite-hooks';
+import { useDevice, useDeviceType, useFirmware, useSelector } from '@suite-hooks';
 import { findErrorBatchDevice } from '@suite-utils/device';
 
 const MessageStepContainer = styled.div`
@@ -40,12 +40,13 @@ const InlineIcon = styled(Icon)`
 const Body = () => {
     const { device } = useDevice();
     const { prevDevice, firmwareError } = useFirmware();
+    const deviceType = useDeviceType();
     const expectedModel = prevDevice?.features?.major_version || 1;
 
     if (!device?.connected) {
         return (
             <>
-                <ConnectInBootloaderImg model={expectedModel} />
+                <ConnectInBootloaderImg deviceType={deviceType} />
                 <H2>
                     <Translation id="TR_RECONNECT_IN_BOOTLOADER" />
                 </H2>
@@ -92,7 +93,7 @@ const Body = () => {
     }
     return (
         <>
-            <InitImg model={expectedModel} />
+            <InitImg deviceType={deviceType} />
             <H2>
                 <Translation id="TR_START_FIRMWARE_UPDATE" />
             </H2>

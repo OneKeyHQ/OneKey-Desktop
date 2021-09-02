@@ -6,7 +6,7 @@ import { copyToClipboard } from '@suite-utils/dom';
 import { TrezorDevice } from '@suite-types';
 import { Translation, QrCode, Modal } from '@suite-components';
 import DeviceDisconnected from './components/DeviceDisconnected';
-import { useActions } from '@suite-hooks';
+import { useActions, useDeviceType } from '@suite-hooks';
 
 const Wrapper = styled.div`
     display: flex;
@@ -55,6 +55,7 @@ const ConfirmAddress = ({ device, address, symbol, cancelable, confirmed, onCanc
 
     const { addNotification } = useActions({ addNotification: notificationActions.addToast });
     const htmlElement = createRef<HTMLDivElement>();
+    const deviceType = useDeviceType();
 
     const copyAddress = () => {
         const result = copyToClipboard(address, htmlElement.current);
@@ -75,7 +76,7 @@ const ConfirmAddress = ({ device, address, symbol, cancelable, confirmed, onCanc
                 device.connected ? (
                     <ConfirmOnDevice
                         title={<Translation id="TR_CONFIRM_ON_TREZOR" />}
-                        trezorModel={device.features?.major_version === 1 ? 1 : 2}
+                        deviceType={deviceType}
                         onCancel={cancelable ? onCancel : undefined}
                         animated
                         animation={confirmed ? 'SLIDE_DOWN' : 'SLIDE_UP'}

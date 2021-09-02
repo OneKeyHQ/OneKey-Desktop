@@ -26,7 +26,7 @@ type Props = ReturnType<typeof mapDispatchToProps>;
 const IsSameDevice = ({ resetOnboarding, enableOnboardingReducer }: Props) => (
     <Wrapper.Step>
         <Wrapper.StepBody>
-            <StyledImage image="UNI_WARNING" />
+            <StyledImage image="uni-warning" />
 
             <Wrapper.StepHeading>
                 <Translation id="ONBOARDING_UNEXPECTED_DEVICE_DIFFERENT_HEADING" />

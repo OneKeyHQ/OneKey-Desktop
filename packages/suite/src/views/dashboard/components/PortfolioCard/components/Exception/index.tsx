@@ -71,7 +71,7 @@ const Container = ({ title, description, cta }: ContainerProps) => {
             <Description>
                 {typeof description === 'string' ? <Translation id={description} /> : description}
             </Description>
-            <StyledImage image="UNI_ERROR" />
+            <StyledImage image="uni-error" />
             <Actions>
                 {actions.map(a => (
                     <Button

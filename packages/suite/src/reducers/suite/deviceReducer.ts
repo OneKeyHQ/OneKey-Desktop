@@ -2,7 +2,7 @@ import produce from 'immer';
 import { Device, DEVICE } from '@onekeyhq/connect';
 import { SUITE, STORAGE, METADATA } from '@suite-actions/constants';
 import * as deviceUtils from '@suite-utils/device';
-import { TrezorDevice, AcquiredDevice, Action } from '@suite-types';
+import { TrezorDevice, AcquiredDevice, Action, DeviceType } from '@suite-types';
 
 type State = TrezorDevice[];
 const initialState: State = [];
@@ -22,11 +22,24 @@ const merge = (device: AcquiredDevice, upcoming: Partial<AcquiredDevice>): Trezo
     };
 };
 
+const getDeviceType = (features: Device['features']): DeviceType => {
+    // @ts-expect-error
+    if (!features || typeof features !== 'object' || !features.serial_no) {
+        return 'classic';
+    }
+
+    // @ts-expect-error
+    const serialNo = features.serial_no;
+    const miniFlag = serialNo.slice(0, 2);
+    if (miniFlag.toLowerCase() === 'mi') return 'mini';
+    return 'classic';
+};
+
 /**
  * Action handler: DEVICE.CONNECT + DEVICE.CONNECT_UNACQUIRED
  * @param {State} draft
  * @param {Device} device
- * @returns
+ * @returns··
  */
 const connectDevice = (draft: State, device: Device) => {
     // connected device is unacquired/unreadable
@@ -85,6 +98,7 @@ const connectDevice = (draft: State, device: Device) => {
         buttonRequests: [],
         metadata: { status: 'disabled' },
         ts: new Date().getTime(),
+        deviceType: getDeviceType(features),
     };
 
     // update affected devices

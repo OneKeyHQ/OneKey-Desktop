@@ -64,7 +64,7 @@ const BackupStep = (props: Props) => {
                         <Text>
                             <Translation id="TR_DEVICE_DISCONNECTED_DURING_ACTION_DESCRIPTION" />
                         </Text>
-                        <StyledImage image="UNI_ERROR" />
+                        <StyledImage image="uni-error" />
                         <Wrapper.Controls>
                             <OnboardingButton.Cta
                                 onClick={() => {
