@@ -33,7 +33,7 @@ import {
     Version,
     Welcome,
 } from '@suite-views';
-import { findErrorBatchDevice } from '@suite-utils/device';
+import { isNRFNotEnable } from '@suite-utils/device';
 import { getBleVerAsArray } from '@suite-utils/getBleVerAsArray';
 
 type SuiteAppStateProps = {
@@ -96,6 +96,7 @@ const getSuiteApplicationState = ({
 
     if (
         window.$BLE_DATA?.required &&
+        !isNRFNotEnable(device) &&
         isNewer(
             (window.$BLE_DATA?.version.split('.').map(Number) as [number, number, number]) ?? [
                 1,

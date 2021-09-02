@@ -2,8 +2,8 @@ import { resolveStaticPath } from '@suite-utils/nextjs';
 import { SUITE } from '@suite-actions/constants';
 import { Dispatch } from '@suite-types';
 import { LANGUAGES } from '@suite-config';
-import enLocale from '@trezor/suite-data/files/translations/en.json';
-import zhLocale from '@trezor/suite-data/files/translations/zh.json';
+import enLocale from '@trezor/suite-data/files/translations/en-US.json';
+import zhLocale from '@trezor/suite-data/files/translations/zh-CN.json';
 
 export const fetchLocale = (locale: typeof LANGUAGES[number]['code']) => async (
     dispatch: Dispatch,

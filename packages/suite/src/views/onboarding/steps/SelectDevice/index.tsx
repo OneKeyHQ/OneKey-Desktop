@@ -7,6 +7,16 @@ import { Props } from './Container';
 const SelectDeviceStep = ({ onboardingActions }: Props) => {
     const deviceType = useDeviceType();
 
+    const titleTranslationId = () => {
+        if (deviceType === 'mini') return 'TR_MINI_TITLE';
+        return 'TR_MODEL_ONE';
+    };
+
+    const descTranslationId = () => {
+        if (deviceType === 'mini') return 'TR_MINI_DESCRIPTION';
+        return 'TR_MODEL_ONE_DESC';
+    };
+
     return (
         <Wrapper.Step>
             <Wrapper.StepHeading>
@@ -23,12 +33,12 @@ const SelectDeviceStep = ({ onboardingActions }: Props) => {
                             onboardingActions.selectTrezorModel(1);
                             onboardingActions.goToNextStep();
                         }}
-                        title={<Translation id="TR_MODEL_ONE" />}
-                        text={<Translation id="TR_MODEL_ONE_DESC" />}
+                        title={<Translation id={titleTranslationId()} />}
+                        text={<Translation id={descTranslationId()} />}
                         button={
                             <Translation
                                 id="TR_SELECT_MODEL"
-                                values={{ model: <Translation id="TR_MODEL_ONE" /> }}
+                                values={{ model: <Translation id={titleTranslationId()} /> }}
                             />
                         }
                         imgSrc={`images/svg/${deviceType}-model-1.svg`}

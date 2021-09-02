@@ -323,3 +323,8 @@ export const findErrorBatchDevice = (device?: TrezorDevice) => {
     }
     return false;
 };
+
+export const isNRFNotEnable = (device?: TrezorDevice): boolean => {
+    if (!device) return true;
+    return !!['mini'].includes(device.deviceType || '');
+};

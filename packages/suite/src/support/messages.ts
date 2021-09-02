@@ -1,6 +1,12 @@
 import { defineMessages } from 'react-intl';
 
 const definedMessages = defineMessages({
+    TR_MINI_TITLE: {
+        id: 'TR_MINI_TITLE',
+    },
+    TR_MINI_DESCRIPTION: {
+        id: 'TR_MINI_DESCRIPTION',
+    },
     TR_3RD_PARTY_WALLETS: {
         defaultMessage: '3rd party wallets',
         id: 'TR_3RD_PARTY_WALLETS',
