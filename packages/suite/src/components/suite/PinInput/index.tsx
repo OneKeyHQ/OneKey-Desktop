@@ -34,15 +34,27 @@ const PinFooter = styled.div`
     flex-direction: column;
 `;
 
+const ErrorText = styled.div`
+    padding: 4px 0;
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+`;
+
 interface Props {
     onPinSubmit: (pin: string) => void;
+    pinRequestType:
+        | 'PinMatrixRequestType_NewSecond'
+        | 'PinMatrixRequestType_NewFirst'
+        | 'PinMatrixRequestType_Current'
+        | string;
 }
 
 const PinInput = (props: Props) => {
-    const { onPinSubmit } = props;
+    const { onPinSubmit, pinRequestType } = props;
 
     const [pin, setPin] = useState('');
-
+    const [error, setError] = useState(false);
     const onPinBackspace = useCallback(() => {
         setPin(prevPin => prevPin.substring(0, prevPin.length - 1));
     }, []);
@@ -57,8 +69,18 @@ const PinInput = (props: Props) => {
     );
 
     const submit = () => {
+        // initial must at least 4
+        if (
+            (pinRequestType === 'PinMatrixRequestType_NewFirst' ||
+                pinRequestType === 'PinMatrixRequestType_NewSecond') &&
+            pin.length < 4
+        ) {
+            setError(true);
+            return;
+        }
         onPinSubmit(pin);
         setPin('');
+        setError(false);
     };
 
     useEffect(() => {
@@ -154,6 +176,11 @@ const PinInput = (props: Props) => {
                 <Button variant="primary" fullWidth onClick={submit} data-test="@pin/submit-button">
                     <Translation id="TR_ENTER_PIN" />
                 </Button>
+                {!!error && (
+                    <ErrorText>
+                        <Translation id="TR_ENTER_PIN_MIN_LENGTH" />
+                    </ErrorText>
+                )}
             </PinFooter>
         </Wrapper>
     );

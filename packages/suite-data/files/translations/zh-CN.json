@@ -1290,5 +1290,6 @@
     "NETWORK_KOVAN": "Kovan 测试网",
     "NETWORK_AVALANCHE": "Avalance 主网",
     "TR_MINI_TITLE": "MINI\n\n",
-    "TR_MINI_DESCRIPTION": "四个主要按钮和 1.44 英寸 LCD 真彩屏幕"
+    "TR_MINI_DESCRIPTION": "四个主要按钮和 1.44 英寸 LCD 真彩屏幕",
+    "TR_ENTER_PIN_MIN_LENGTH": "请为您的 PIN 设置至少 4 个数字。"
 }

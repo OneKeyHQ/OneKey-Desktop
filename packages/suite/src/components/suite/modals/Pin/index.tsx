@@ -326,7 +326,7 @@ const Pin = ({
                     <How>
                         <Translation id="TR_THE_PIN_LAYOUT_IS_DISPLAYED" />
                     </How>
-                    <PinInput onPinSubmit={submit} />
+                    <PinInput onPinSubmit={submit} pinRequestType={pinRequestType} />
                 </Col>
             </Wrapper>
         </Modal>

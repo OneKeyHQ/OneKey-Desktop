@@ -1290,5 +1290,6 @@
     "NETWORK_KOVAN": "Kovan Test Network",
     "NETWORK_AVALANCHE": "Avalance Mainnet",
     "TR_MINI_TITLE": "MINI\n\n",
-    "TR_MINI_DESCRIPTION": "Four buttons with 1.44 inch LCD screen"
+    "TR_MINI_DESCRIPTION": "Four buttons with 1.44 inch LCD screen",
+    "TR_ENTER_PIN_MIN_LENGTH": "Please set at least 4 number for your PIN."
 }

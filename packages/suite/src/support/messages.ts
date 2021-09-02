@@ -1,11 +1,17 @@
 import { defineMessages } from 'react-intl';
 
 const definedMessages = defineMessages({
+    TR_ENTER_PIN_MIN_LENGTH: {
+        id: 'TR_ENTER_PIN_MIN_LENGTH',
+        defaultMessage: 'Please set at least 4 number for your PIN.',
+    },
     TR_MINI_TITLE: {
         id: 'TR_MINI_TITLE',
+        defaultMessage: 'MINI\n\n',
     },
     TR_MINI_DESCRIPTION: {
         id: 'TR_MINI_DESCRIPTION',
+        defaultMessage: 'Four buttons with 1.44 inch LCD screen',
     },
     TR_3RD_PARTY_WALLETS: {
         defaultMessage: '3rd party wallets',
