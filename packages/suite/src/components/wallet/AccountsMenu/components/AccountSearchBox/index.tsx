@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
-import { useTheme, Icon, Input, CoinLogo, variables, Switch } from '@trezor/components';
+import { useTheme, Icon, Input, CoinLogo, variables, Switch, Tooltip } from '@trezor/components';
 import { useSelector, useAccountSearch, useActions } from '@suite-hooks';
 
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
@@ -77,6 +77,9 @@ const CheckboxContainer = styled.div`
 
 const StyledLabel = styled.label`
     margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `;
 
 interface Props {
@@ -159,6 +162,12 @@ const AccountSearchBox = (props: Props) => {
             <CheckboxContainer>
                 <StyledLabel>
                     <Translation id="TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS" />
+                    <Tooltip
+                        placement="top"
+                        content={<Translation id="TR_ACCOUNTS_HIDE_SMALL_ACCOUNTS_DESCRIPTION" />}
+                    >
+                        <Icon icon="QUESTION" size={16} color={theme.TYPE_DARK_GREY} />
+                    </Tooltip>
                 </StyledLabel>
                 <Switch
                     checked={hide0BalanceWallet}

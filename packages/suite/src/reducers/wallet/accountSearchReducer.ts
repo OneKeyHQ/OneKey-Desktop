@@ -8,11 +8,13 @@ import { Account as AccountType } from '@wallet-types';
 export interface State {
     coinFilter: AccountType['symbol'] | undefined;
     searchString: string | undefined;
+    newAccounts: Record<string, true>;
 }
 
 export const initialState: State = {
     coinFilter: undefined,
     searchString: undefined,
+    newAccounts: {},
 };
 
 const accountSearchReducer = (state: State = initialState, action: Action): State => {
@@ -33,7 +35,15 @@ const accountSearchReducer = (state: State = initialState, action: Action): Stat
                 draft.coinFilter = undefined;
                 draft.searchString = undefined;
                 break;
-
+            case ACCOUNT_SEARCH.ADD_NEW_ACCOUNTS:
+                draft.newAccounts[action.payload] = true;
+                break;
+            case ACCOUNT_SEARCH.REMOVE_NEW_ACCOUNTS:
+                delete draft.newAccounts[action.payload];
+                break;
+            case ACCOUNT_SEARCH.CLEAN_NEW_ACCOUNTS:
+                draft.newAccounts = {};
+                break;
             // no default
         }
     });

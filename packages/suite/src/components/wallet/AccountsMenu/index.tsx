@@ -131,11 +131,19 @@ const mapStateToProps = (state: AppState) => ({
     selectedAccount: state.wallet.selectedAccount,
     fiat: state.wallet.fiat,
     hide0BalanceWallet: state.wallet.settings.hide0BalanceWallet,
+    newAccounts: state.wallet.accountSearch.newAccounts,
 });
 
 type Props = ReturnType<typeof mapStateToProps>;
 
-const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWallet }: Props) => {
+const AccountsMenu = ({
+    device,
+    accounts,
+    selectedAccount,
+    fiat,
+    hide0BalanceWallet,
+    newAccounts,
+}: Props) => {
     const theme = useTheme();
     const { discovery, getDiscoveryStatus } = useDiscovery();
     const { params } = selectedAccount;
@@ -204,6 +212,10 @@ const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWal
     if (hide0BalanceWallet) {
         const filterAccounts = (accArr: Account[]) => {
             return accArr.filter(acc => {
+                const { descriptor } = acc;
+                if (newAccounts && newAccounts[descriptor]) {
+                    return true;
+                }
                 const fiatCurrency = toFiatCurrency(
                     acc.formattedBalance,
                     targetCurrency,
