@@ -58,29 +58,41 @@ const Footer = styled.div`
 `;
 
 enum CHAIN_SYMBOL_ID {
-    eth = 1,
-    kovan = 42,
-    bsc = 56,
+    ETH = 1,
+    KOVAN = 42,
+    BSC = 56,
+    HECO = 128,
+    POLYGON = 137,
 }
 
 const CHAIN_SYMBOL_RPC = {
-    [CHAIN_SYMBOL_ID.eth]: 'https://rpc.blkdb.cn/eth',
-    [CHAIN_SYMBOL_ID.kovan]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-    [CHAIN_SYMBOL_ID.bsc]: 'https://rpc.blkdb.cn/bsc',
+    [CHAIN_SYMBOL_ID.KOVAN]: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
+    [CHAIN_SYMBOL_ID.ETH]: 'https://rpc.blkdb.cn/eth',
+    [CHAIN_SYMBOL_ID.BSC]: 'https://rpc.blkdb.cn/bsc',
+    [CHAIN_SYMBOL_ID.HECO]: 'https://rpc.blkdb.cn/heco',
+    [CHAIN_SYMBOL_ID.POLYGON]: 'https://rpc-mainnet.matic.network'
 };
 
 const CHAIN_OPTIONS = [
     {
-        label: '以太坊 Ethereum 主网络',
-        value: CHAIN_SYMBOL_ID.eth,
+        label: <Translation id="NETWORK_ETHEREUM"></Translation>,
+        value: CHAIN_SYMBOL_ID.ETH,
     },
     {
-        label: '币安智能链 BSC 主网',
-        value: CHAIN_SYMBOL_ID.bsc,
+        label: <Translation id="NETWORK_BSC"></Translation>,
+        value: CHAIN_SYMBOL_ID.BSC,
     },
     {
-        label: 'Kovan 测试网络',
-        value: CHAIN_SYMBOL_ID.kovan,
+        label: <Translation id="NETWORK_HECO"></Translation>,
+        value: CHAIN_SYMBOL_ID.HECO,
+    },
+    {
+        label: <Translation id="NETWORK_POLYGON"></Translation>,
+        value: CHAIN_SYMBOL_ID.POLYGON,
+    },
+    {
+        label: <Translation id="NETWORK_KOVAN"></Translation>,
+        value: CHAIN_SYMBOL_ID.KOVAN,
     },
 ];
 
@@ -121,7 +133,7 @@ const Container: FC<Props> = ({
     const [isLoading, setIsLoading] = useState(true);
     const [webviewRef, setWebviewRef] = useState<Electron.WebviewTag>();
     const [loadFailed, setLoadFailed] = useState(false);
-    const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID>(CHAIN_SYMBOL_ID.eth);
+    const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID>(CHAIN_SYMBOL_ID.ETH);
 
     const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId];
 

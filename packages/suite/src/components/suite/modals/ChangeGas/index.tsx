@@ -112,10 +112,25 @@ const ChangeGas = (props: Props) => {
     const [selectedType, setSelectedType] = useState<GasNowTypes>('fast');
 
     useEffect(() => {
-        fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey')
-            .then(response => response.json())
-            .then(data => setGasNowData(data));
-    }, []);
+        if (+props.transaction.chainId === 1) {
+            fetch('https://www.gasnow.org/api/v3/gas/price?utm_source=onekey')
+                .then(response => response.json())
+                .then(data => setGasNowData(data));
+        } else {
+            web3.eth.getGasPrice().then(gasPrice => {
+                setGasNowData({
+                    code: 200,
+                    data: {
+                        rapid: +gasPrice * 1.5,
+                        fast: +gasPrice * 1.25,
+                        standard: +gasPrice,
+                        slow: +gasPrice,
+                        timestamp: +gasPrice,
+                    },
+                });
+            });
+        }
+    }, [props.transaction.chainId, web3.eth]);
 
     useEffect(() => {
         const getGasLimit = async () => {

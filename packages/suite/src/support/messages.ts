@@ -5629,6 +5629,42 @@ const definedMessages = defineMessages({
         defaultMessage:
             'Accounts with less than $100 in assets will be hidden (for new accounts, hide on the next visit to the current page)',
     },
+    NETWORK_BSC: {
+        id: 'NETWORK_BSC',
+        defaultMessage: 'BSC Mainnet',
+    },
+    NETWORK_ETHEREUM: {
+        id: 'NETWORK_ETHEREUM',
+        defaultMessage: 'Ethereum Mainnet',
+    },
+    NETWORK_FANTOM: {
+        id: 'NETWORK_FANTOM',
+        defaultMessage: 'Fantom Mainnet',
+    },
+    NETWORK_HECO: {
+        id: 'NETWORK_HECO',
+        defaultMessage: 'HECO Mainnet',
+    },
+    NETWORK_KOVAN: {
+        id: 'NETWORK_KOVAN',
+        defaultMessage: 'Kovan Test Network',
+    },
+    NETWORK_OEC: {
+        id: 'NETWORK_OEC',
+        defaultMessage: 'OEC Mainnet',
+    },
+    NETWORK_POLYGON: {
+        id: 'NETWORK_POLYGON',
+        defaultMessage: 'Polygon Mainnet',
+    },
+    NETWORK_XDAI: {
+        id: 'NETWORK_XDAI',
+        defaultMessage: 'xDai Mainnet',
+    },
+    NETWORK_AVALANCHE: {
+        id: 'NETWORK_AVALANCHE',
+        defaultMessage: 'Avalanche Mainnet',
+    },
 } as const);
 
 export default definedMessages;

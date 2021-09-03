@@ -85,6 +85,7 @@ const Label = styled.div<Pick<Props, 'rbfForm'>>`
     font-weight: ${variables.FONT_WEIGHT.MEDIUM};
     text-transform: capitalize;
     font-size: ${variables.FONT_SIZE.NORMAL};
+    white-space: nowrap;
     color: ${props => props.theme.TYPE_DARK_GREY};
 `;
 
@@ -127,8 +128,13 @@ const Fees = (props: Props) => {
         changeFeeLevel,
         composedLevels,
     } = props;
+    console.log('composedLevels', composedLevels);
+
     const { layoutSize } = useLayoutSize();
     const selectedOption = getValues('selectedFee') || 'normal';
+
+    console.log('selectedOption', selectedOption);
+
     const error = errors.selectedFee;
     const selectedLevel = feeInfo.levels.find(level => level.label === selectedOption)!;
     const transactionInfo = composedLevels ? composedLevels[selectedOption] : undefined;
