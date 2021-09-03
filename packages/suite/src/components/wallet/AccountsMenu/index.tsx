@@ -207,7 +207,7 @@ const AccountsMenu = ({ device, accounts, selectedAccount, fiat, hide0BalanceWal
                 const fiatCurrency = toFiatCurrency(
                     acc.formattedBalance,
                     targetCurrency,
-                    fiatMaps[acc.symbol].current?.rates,
+                    fiatMaps[acc.symbol]?.current?.rates,
                 );
                 if (!fiatCurrency) return true;
                 return fiatCurrency && +fiatCurrency > BALANCE_TO_HIDE;
