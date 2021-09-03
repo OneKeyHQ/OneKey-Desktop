@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeAccountVisibility } from '@wallet-actions/accountActions';
+import { addNewAccount } from '@wallet-actions/accountSearchActions';
 import { changeCoinVisibility } from '@settings-actions/walletSettingsActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { AppState, Dispatch, TrezorDevice } from '@suite-types';
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
         {
             changeAccountVisibility,
             changeCoinVisibility,
+            addNewAccount,
             goto: routerActions.goto,
         },
         dispatch,
