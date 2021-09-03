@@ -135,7 +135,7 @@ const CHAIN_OPTIONS = [
         value: CHAIN_SYMBOL_ID.HECO,
     },
     {
-        label: <Translation id="NETWORK_HECO"></Translation>,
+        label: <Translation id="NETWORK_OEC"></Translation>,
         value: CHAIN_SYMBOL_ID.OKEX,
     },
     {
