@@ -2,14 +2,13 @@ import produce from 'immer';
 import * as SelectedAccount from '@explore-actions/constants/SelectedAccountConstants';
 import { Action } from '@suite-types';
 import { STORAGE } from '@suite-actions/constants';
+import { Account } from '@wallet-types';
 
 type SelectedAccountState = {
-    current: string;
+    current?: Account;
 };
 
-const initialState = {
-    current: '',
-};
+const initialState = {};
 
 const SelectedAccountReducer = (
     state: SelectedAccountState = initialState,

@@ -105,7 +105,7 @@ const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) =>
     }));
 
     const { setSelectedAccoount } = useActions({
-        setSelectedAccoount: selectedAccountActions.setSelectedAccoount,
+        setSelectedAccoount: selectedAccountActions.setSelectedAccount,
     });
 
     const currentFiatRates = fiat.coins.find(
@@ -147,7 +147,7 @@ const AccountItem = forwardRef((props: Props, ref: React.Ref<HTMLDivElement>) =>
             <AccountHeader
                 onClick={() => {
                     if (selected) return;
-                    setSelectedAccoount(account.descriptor);
+                    setSelectedAccoount(account);
                 }}
                 data-test={dataTestKey}
             >

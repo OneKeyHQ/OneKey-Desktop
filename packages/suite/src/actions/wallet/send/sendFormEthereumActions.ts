@@ -358,6 +358,7 @@ type SwapEthSignParams = {
     data: string;
     nonce: string;
     rpcUrl: string;
+    accountPath?: string;
 };
 
 /**
@@ -422,7 +423,7 @@ export const signAndPublishTransactionInSwap = (
             state: device.state,
         },
         useEmptyPassphrase: device.useEmptyPassphrase,
-        path: account.path,
+        path: values.accountPath || account.path,
         transaction,
     });
 

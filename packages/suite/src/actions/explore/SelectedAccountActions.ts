@@ -1,18 +1,18 @@
 import * as SelectedAccount from './constants/SelectedAccountConstants';
 
 import { Dispatch, GetState } from '@suite-types';
+import { Account } from '@wallet-types';
 
 export type SelectedAccountActions =
     | {
           type: typeof SelectedAccount.SET;
-          payload: string;
+          payload: Account;
       }
     | {
           type: typeof SelectedAccount.GET;
-          payload: string;
       };
 
-export const setSelectedAccoount = (payload: string) => (dispatch: Dispatch) => {
+export const setSelectedAccount = (payload: Account) => (dispatch: Dispatch) => {
     dispatch({ type: SelectedAccount.SET, payload });
 };
 
