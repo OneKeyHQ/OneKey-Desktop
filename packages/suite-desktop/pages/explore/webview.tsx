@@ -207,11 +207,8 @@ const Container: FC<Props & TabProps> = ({
 
     const chainRPCUrl = activeChainId ? CHAIN_SYMBOL_RPC[activeChainId] : null;
     const [input, setInput] = useState(dapp?.url ?? 'home');
-
-    const { current } = selectedAccount;
-    const { account } = defaultAccount;
-
-    const freshAddress = { address: current || account?.descriptor || '' };
+    const currentAccount = selectedAccount?.current || defaultAccount?.account;
+    const freshAddress = { address: currentAccount?.descriptor || '' };
 
     const setIsLoading = useCallback(
         val => {
@@ -284,6 +281,7 @@ const Container: FC<Props & TabProps> = ({
                         ...transaction,
                         chainId: activeChainId,
                         rpcUrl: chainRPCUrl,
+                        accountPath: currentAccount?.path
                     };
                     const alteredParams = (await openDeferredModal({
                         transaction: params,
