@@ -4,6 +4,7 @@
  */
 import Router from 'next/router';
 import * as suiteActions from '@suite-actions/suiteActions';
+import * as accountSearchActions from '@wallet-actions/accountSearchActions';
 import { SUITE, ROUTER } from '@suite-actions/constants';
 import {
     getPrefixedURL,
@@ -72,6 +73,7 @@ export const goto = (
     preserveParams = false,
 ) => async (dispatch: Dispatch, getState: GetState) => {
     const hasRouterLock = getState().suite.locks.includes(SUITE.LOCK_TYPE.ROUTER);
+    const currentUrl = getState().router.url;
     if (hasRouterLock) {
         dispatch(suiteActions.lockRouter(false));
     }
@@ -84,6 +86,10 @@ export const goto = (
         dispatch(onLocationChange(url));
         dispatch(suiteActions.lockRouter(true));
         return;
+    }
+
+    if (currentUrl.startsWith('/accounts') && !url.startsWith('/accounts')) {
+        dispatch(accountSearchActions.cleanNewAccounts());
     }
 
     if (preserveParams) {
