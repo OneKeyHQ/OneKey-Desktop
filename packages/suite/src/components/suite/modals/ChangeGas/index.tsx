@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { Translation } from '@suite-components';
 import { UserContextPayload } from '@suite-actions/modalActions';
 import { fromWei, hexToNumber, hexToNumberString, numberToHex, toWei } from 'web3-utils';
@@ -96,7 +96,7 @@ interface Props extends Extract<UserContextPayload, { type: 'change-gas' }> {
 
 // wrapper for shareable Fees component
 const ChangeGas = (props: Props) => {
-    const web3 = new Web3(props.transaction.rpcUrl);
+    const web3 = useMemo(() => new Web3(props.transaction.rpcUrl), [props.transaction.rpcUrl]);
     const [isCustomPrice, toggleCustomPrice] = useReducer(a => !a, false);
     const [gasNowData, setGasNowData] = useState<GasNowData>();
     const [gasPrice, setGasPrice] = useState(
@@ -130,7 +130,7 @@ const ChangeGas = (props: Props) => {
                 });
             });
         }
-    }, [props.transaction.chainId, web3.eth]);
+    }, [props.transaction.chainId, web3]);
 
     useEffect(() => {
         const getGasLimit = async () => {
@@ -151,7 +151,7 @@ const ChangeGas = (props: Props) => {
             }
         };
         getGasLimit();
-    }, [props.transaction, web3.eth]);
+    }, [props.transaction, web3]);
 
     useEffect(() => {
         if (!props.transaction.gasPrice) {
@@ -160,7 +160,7 @@ const ChangeGas = (props: Props) => {
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.transaction.gasPrice]);
+    }, [props.transaction.gasPrice, web3]);
 
     const setGasPriceWithGasNowData = (price?: number) => {
         if (!price) return;
@@ -244,6 +244,7 @@ const ChangeGas = (props: Props) => {
                     <InputWrapper>
                         {(['standard', 'fast', 'rapid'] as Array<GasNowTypes>).map(type => (
                             <PreDefinedPriceButton
+                                key={type}
                                 variant={type === selectedType ? 'primary' : 'secondary'}
                                 onClick={() => setSelectedType(type)}
                             >
