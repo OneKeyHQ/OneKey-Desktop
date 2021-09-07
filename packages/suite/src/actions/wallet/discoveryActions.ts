@@ -122,7 +122,7 @@ const handleProgress = (
     deviceState: string,
     item: DiscoveryItem,
     metadataEnabled: boolean,
-) => (dispatch: Dispatch) => {
+) => (dispatch: Dispatch, getState: GetState) => {
     // get fresh discovery data
     const discovery = dispatch(getDiscovery(deviceState));
     // ignore progress event when:
@@ -143,7 +143,7 @@ const handleProgress = (
             },
         ]);
     } else {
-        dispatch(createAccount(deviceState, item, response));
+        dispatch(createAccount(deviceState, item, response, getState()));
     }
     // calculate progress
     const progress = dispatch(
@@ -173,6 +173,7 @@ const handleProgress = (
 
 const getBundle = (discovery: Discovery) => (_d: Dispatch, getState: GetState): DiscoveryItem[] => {
     const bundle: DiscoveryItem[] = [];
+    const { ethAccountIndex } = getState().wallet.settings;
     // find all accounts
     const accounts = getState().wallet.accounts.filter(
         a => a.deviceState === discovery.deviceState,
@@ -202,12 +203,19 @@ const getBundle = (discovery: Discovery) => (_d: Dispatch, getState: GetState): 
             });
 
         // check if requested coin already have an empty account
-        const hasEmptyAccount = prevAccounts.find(a => a.empty && !a.visible);
+        let hasEmptyAccount = prevAccounts.find(a => a.empty && !a.visible);
         // check if requested coin not failed before
         const failed = discovery.failed.find(
             account =>
                 account.symbol === configNetwork.symbol && account.accountType === accountType,
         );
+
+        if (configNetwork.symbol === 'eth' && ethAccountIndex > 0) {
+            const prevIndex = (prevAccounts[0] && prevAccounts[0].index) || 0;
+            if (prevIndex > 0 && prevIndex <= ethAccountIndex) {
+                hasEmptyAccount = undefined;
+            }
+        }
 
         if (!hasEmptyAccount && !failed) {
             const index = prevAccounts[0] ? prevAccounts[0].index + 1 : 0;
