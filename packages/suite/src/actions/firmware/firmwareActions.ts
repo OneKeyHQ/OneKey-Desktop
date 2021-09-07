@@ -108,28 +108,44 @@ export const firmwareUpdate = () => async (dispatch: Dispatch, getState: GetStat
         );
     }
 
-    try {
-        if (window?.$BLE_MODE && window.$BLE_DATA?.web_update) {
-            const resp = await fetch(window.$BLE_DATA?.web_update);
-            const binary = await resp.arrayBuffer();
+    if (!device.deviceType)
+        return dispatch({ type: FIRMWARE.SET_ERROR, payload: 'unknown device, please reconnect' });
 
-            // @ts-expect-error
-            payload.binary = binary;
-            payload.version = window.$BLE_DATA.version.split('.').map(Number) as [
-                1,
-                number,
-                number,
-            ];
-        } else {
-            const stmUrl = targetRelease?.release?.url || device.firmwareRelease!.release.url;
-            const resp = await fetch(stmUrl);
-            const binary = await resp.arrayBuffer();
+    if (device.deviceType === 'classic') {
+        try {
+            if (window?.$BLE_MODE && window.$BLE_DATA?.web_update) {
+                const resp = await fetch(window.$BLE_DATA?.web_update);
+                const binary = await resp.arrayBuffer();
 
-            // @ts-expect-error
-            payload.binary = binary;
+                // @ts-expect-error
+                payload.binary = binary;
+                payload.version = window.$BLE_DATA.version.split('.').map(Number) as [
+                    1,
+                    number,
+                    number,
+                ];
+            } else {
+                const stmUrl = targetRelease?.release?.url || device.firmwareRelease!.release.url;
+                if (!stmUrl)
+                    return dispatch({ type: FIRMWARE.SET_ERROR, payload: 'unknown firmware url' });
+                const resp = await fetch(stmUrl);
+                const binary = await resp.arrayBuffer();
+
+                // @ts-expect-error
+                payload.binary = binary;
+            }
+        } catch (e) {
+            return dispatch({ type: FIRMWARE.SET_ERROR, payload: e.message });
         }
-    } catch (e) {
-        return dispatch({ type: FIRMWARE.SET_ERROR, payload: e.message });
+    } else if (device.deviceType === 'mini') {
+        // @ts-expect-error
+        const stmUrl = targetRelease?.release?.url_mini || device.firmwareRelease?.release.url_mini;
+        if (!stmUrl) return dispatch({ type: FIRMWARE.SET_ERROR, payload: 'unknown firmware url' });
+        const resp = await fetch(stmUrl);
+        const binary = await resp.arrayBuffer();
+
+        // @ts-expect-error
+        payload.binary = binary;
     }
 
     const updateResponse = await TrezorConnect.firmwareUpdate(payload);
