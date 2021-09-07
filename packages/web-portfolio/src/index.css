@@ -1,0 +1,47 @@
+/* ./src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply w-full h-full;
+  }
+
+  body {
+    @apply m-0 overflow-hidden antialiased bg-white dark:bg-gray-900;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+}
+
+@layer components {
+  .tooltip {
+    /* the !important is must-have, go to https://github.com/wwayne/react-tooltip for more info */
+    @apply px-2 py-1 text-xs rounded-md shadow transition !important;
+
+    &.type-dark {
+      @apply bg-gray-700 text-gray-50 !important;
+
+      &.place-top::after {
+        @apply border-t-gray-700 !important;
+      }
+    }
+
+    &.show {
+      @apply opacity-100 !important;
+    }
+  }
+
+  .sidebar {
+    &:hover {
+      .collapse-indicate {
+        @apply scale-100 opacity-100;
+      }
+    }
+  }
+}

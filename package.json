@@ -22,7 +22,8 @@
         ],
         "nohoist": [
             "**/babel-jest",
-            "packages/web-discover"
+            "packages/web-discover",
+            "packages/web-portfolio"
         ]
     },
     "scripts": {

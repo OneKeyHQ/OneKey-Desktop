@@ -24,6 +24,7 @@ module.exports = {
         },
     },
     rules: {
+        'import/no-anonymous-default-export': 'off',
         // I believe type is enforced by callers.
         '@typescript-eslint/explicit-function-return-type': 'off',
         // Enforce arrow functions only is afaik not possible. But this helps.
@@ -38,7 +39,7 @@ module.exports = {
         'react/jsx-filename-extension': [
             'error',
             {
-                extensions: ['.tsx'],
+                extensions: ['.tsx', '.jsx'],
             },
         ],
         // I believe shadowing is a nice language feature.
@@ -51,14 +52,6 @@ module.exports = {
         'import/extensions': ['error', 'never'],
         'import/no-extraneous-dependencies': 'off',
         'import/no-cycle': 'off',
-        'import/no-anonymous-default-export': [
-            'error',
-            {
-                allowArray: true,
-                allowLiteral: true,
-                allowObject: true,
-            },
-        ],
         // We have types.
         'react/prop-types': 'off',
         // It's fine.
