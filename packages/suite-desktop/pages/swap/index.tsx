@@ -106,7 +106,8 @@ function getParameterByName(name: string, url = window.location.href) {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    selectedAccount: state.wallet.selectedAccount,
+    defaultAccount: state.wallet.selectedAccount,
+    selectedAccount: state.explore.selectedAccount,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
 });
@@ -123,6 +124,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const Container: FC<Props> = ({
+    defaultAccount,
     selectedAccount,
     signWithPush,
     language,
@@ -136,18 +138,8 @@ const Container: FC<Props> = ({
     const [activeChainId, setActiveChainId] = useState<CHAIN_SYMBOL_ID>(CHAIN_SYMBOL_ID.ETH);
 
     const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId];
-
-    const { account } = selectedAccount;
-    const unused = account?.addresses
-        ? account?.addresses.unused
-        : [
-              {
-                  path: account?.path,
-                  address: account?.descriptor,
-                  transfers: account?.history.total,
-              },
-          ];
-    const freshAddress = unused[0];
+    const currentAccount = selectedAccount?.current || defaultAccount?.account;
+    const freshAddress = { address: currentAccount?.descriptor || '' };
 
     useEffect(() => {
         if (!ref) return;
@@ -256,6 +248,7 @@ const Container: FC<Props> = ({
                         ...transaction,
                         chainId: activeChainId,
                         rpcUrl: chainRPCUrl,
+                        accountPath: currentAccount?.path
                     };
                     const alteredParams = (await openDeferredModal({
                         transaction: params,
@@ -292,7 +285,7 @@ const Container: FC<Props> = ({
         };
     }, [webviewRef, chainRPCUrl, activeChainId, signWithPush, freshAddress.address]);
 
-    if (selectedAccount.status === 'loading') {
+    if (defaultAccount.status === 'loading') {
         return (
             <ToastInfo>
                 <Image width={160} height={160} image="spinner" />
@@ -300,12 +293,12 @@ const Container: FC<Props> = ({
         );
     }
 
-    if (selectedAccount.status === 'exception') {
+    if (defaultAccount.status === 'exception') {
         return (
             <Wrapper key="swap-exception">
-                <AccountMode mode={selectedAccount.mode} />
-                <AccountAnnouncement selectedAccount={selectedAccount} />
-                <Exception account={selectedAccount} />
+                <AccountMode mode={defaultAccount.mode} />
+                <AccountAnnouncement selectedAccount={defaultAccount} />
+                <Exception account={defaultAccount} />
             </Wrapper>
         );
     }
@@ -351,7 +344,7 @@ const Container: FC<Props> = ({
 };
 
 const SwapContainer: FC<Props> = props => {
-    return <Swap key="swap" menu={<Container {...props} />} />;
+    return <Swap key="swap" menu={<Container {...props} />} loaded={props.defaultAccount.status === 'loaded'} />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SwapContainer);

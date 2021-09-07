@@ -22,8 +22,20 @@ export const create = (
     deviceState: string,
     discoveryItem: DiscoveryItem,
     accountInfo: AccountInfo,
+    appState?: ReturnType<GetState>,
 ): AccountAction => {
     const defaultAccountType = discoveryItem.coin === 'btc' ? DEFAULT_BTC_ACCOUNT_TYPE : 'normal';
+    let visible =
+        !accountInfo.empty ||
+        (discoveryItem.accountType === defaultAccountType && discoveryItem.index === 0);
+    const ethAccountIndex = appState?.wallet.settings.ethAccountIndex || -1;
+
+    if (discoveryItem.coin === 'eth' && ethAccountIndex > 0) {
+        if (discoveryItem.index <= ethAccountIndex) {
+            visible = true;
+        }
+    }
+
     const account = {
         type: ACCOUNT.CREATE,
         payload: {
@@ -35,9 +47,7 @@ export const create = (
             accountType: discoveryItem.accountType,
             symbol: discoveryItem.coin,
             empty: accountInfo.empty,
-            visible:
-                !accountInfo.empty ||
-                (discoveryItem.accountType === defaultAccountType && discoveryItem.index === 0),
+            visible,
             balance: accountInfo.balance,
             availableBalance: accountInfo.availableBalance,
             formattedBalance: accountUtils.formatNetworkAmount(
