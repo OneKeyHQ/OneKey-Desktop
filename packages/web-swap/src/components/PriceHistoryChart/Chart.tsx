@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from 'react';
 import {
     XAxis,
     Tooltip,
@@ -22,62 +23,75 @@ interface ChartProps {
 }
 
 const Chart = ({ data, onMouseMove, onMouseLeave, color = '#00B812', range }: ChartProps) => {
-    const renderTooltip = ({
-        active,
-        label,
-        payload,
-    }: {
-        active?: boolean;
-        label?: string;
-        payload?: any[];
-    }) => {
-        if (!active || !payload || !payload?.length) return null;
-        const formattedTime = dayjs(label).format('HH:mm YYYY.MM.DD [GMT]Z');
-        return (
-            <div className="flex flex-row items-start p-3 text-sm font-semibold text-white bg-gray-900 rounded-xl">
-                {formattedTime}
-            </div>
-        );
-    };
+    const renderTooltip = useCallback(
+        ({ active, label, payload }: { active?: boolean; label?: string; payload?: any[] }) => {
+            if (!active || !payload || !payload?.length) return null;
+            const formattedTime = dayjs(label).format('HH:mm YYYY.MM.DD [GMT]Z');
+            return (
+                <div className="flex flex-row items-start p-3 text-sm font-semibold text-white bg-gray-900 rounded-xl">
+                    {formattedTime}
+                </div>
+            );
+        },
+        [],
+    );
 
-    const formatXAxisTicks = (time: number) => {
-        const timeObject = dayjs(time);
+    const formatXAxisTicks = useCallback(
+        (time: number) => {
+            const timeObject = dayjs(time);
 
-        switch (range) {
-            case 'd':
-                return timeObject.format('h:mm A');
-            default:
-                return timeObject.format('MMM DD');
-        }
-    };
+            switch (range) {
+                case 'd':
+                    return timeObject.format('h:mm A');
+                default:
+                    return timeObject.format('MMM DD');
+            }
+        },
+        [range],
+    );
 
-    const formatYAxis = (price: number) => {
+    const formatYAxis = useCallback((price: number) => {
         const priceDecimal = new BigNumber(price);
         return priceDecimal.gte(10 ** 5) ? priceDecimal.toFixed(2) : priceDecimal.toPrecision(6);
-    };
+    }, []);
 
-    const tickData = data.filter((_, i) => i % Math.floor(data.length / 3) === 0);
-    const startXTicks = tickData.map(([time]) => time);
+    const tickData = useMemo(
+        () => data.filter((_, i) => i % Math.floor(data.length / 3) === 0),
+        [data],
+    );
+    const startXTicks = useMemo(() => tickData.map(([time]) => time), [tickData]);
 
-    const xAxisTicks =
-        data.length > 0
-            ? startXTicks.length === 4
-                ? startXTicks
-                : [...startXTicks, data[data.length - 1][0]]
-            : [];
+    const xAxisTicks = useMemo(
+        () =>
+            data.length > 0
+                ? startXTicks.length === 4
+                    ? startXTicks
+                    : [...startXTicks, data[data.length - 1][0]]
+                : [],
+        [data, startXTicks],
+    );
 
-    const shrinkedData =
-        data.length > 360
-            ? data.filter(
-                  (_, i) => i % Math.round(data.length / 360) === 0 || i === data.length - 1,
-              )
-            : data;
+    const shrinkedData = useMemo(
+        () =>
+            data.length > 360
+                ? data.filter(
+                      (_, i) => i % Math.round(data.length / 360) === 0 || i === data.length - 1,
+                  )
+                : data,
+        [data],
+    );
 
-    const maximalPrice = data?.[0]?.[1] ?? 0;
-    const lengthOfMaximalPrice = formatYAxis(maximalPrice).length;
+    const maximalPrice = useMemo(() => data?.[0]?.[1] ?? 0, [data]);
+    const lengthOfMaximalPrice = useMemo(
+        () => formatYAxis(maximalPrice).length,
+        [formatYAxis, maximalPrice],
+    );
     const xOffset = 4;
     const constOffset = 2;
-    const leftMargin = (lengthOfMaximalPrice - xOffset) ** 2 + constOffset;
+    const leftMargin = useMemo(
+        () => (lengthOfMaximalPrice - xOffset) ** 2 + constOffset,
+        [lengthOfMaximalPrice],
+    );
 
     return (
         <ResponsiveContainer height="100%" width="100%">
@@ -114,10 +128,6 @@ const Chart = ({ data, onMouseMove, onMouseLeave, color = '#00B812', range }: Ch
                     axisLine={false}
                     tickLine={false}
                     domain={['dataMin', 'dataMax']}
-                    // domain={[
-                    //   (dataMin: number) => (dataMin >= 10 ? dataMin + 10 - (dataMin % 10) : dataMin),
-                    //   (dataMax: number) => (dataMax >= 10 ? dataMax - (dataMax % 10) : dataMax)
-                    // ]}
                     tickFormatter={formatYAxis}
                 />
                 <CartesianGrid vertical={false} stroke="#aaa" strokeDasharray="5 5" />
