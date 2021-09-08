@@ -10,10 +10,19 @@
     },
     "workspaces": {
         "packages": [
-            "packages/*"
+            "packages/blockchain-link",
+            "packages/components",
+            "packages/integration-tests",
+            "packages/rollout",
+            "packages/suite",
+            "packages/suite-data",
+            "packages/suite-desktop",
+            "packages/suite-storage",
+            "packages/suite-web"
         ],
         "nohoist": [
-            "**/babel-jest"
+            "**/babel-jest",
+            "packages/web-swap"
         ]
     },
     "scripts": {
