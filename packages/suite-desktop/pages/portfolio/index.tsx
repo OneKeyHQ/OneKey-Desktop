@@ -94,7 +94,8 @@ function getParameterByName(name: string, url = window.location.href) {
 }
 
 const mapStateToProps = (state: AppState) => ({
-    selectedAccount: state.wallet.selectedAccount,
+    defaultAccount: state.wallet.selectedAccount,
+    selectedAccount: state.explore.selectedAccount,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
 });
@@ -111,6 +112,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 const Container: FC<Props> = ({
+    defaultAccount,
     selectedAccount,
     signWithPush,
     language,
@@ -125,17 +127,9 @@ const Container: FC<Props> = ({
 
     const chainRPCUrl = CHAIN_SYMBOL_RPC[activeChainId];
 
-    const { account } = selectedAccount;
-    const unused = account?.addresses
-        ? account?.addresses.unused
-        : [
-              {
-                  path: account?.path,
-                  address: account?.descriptor,
-                  transfers: account?.history.total,
-              },
-          ];
-    const freshAddress = unused[0];
+    const currentAccount = selectedAccount?.current || defaultAccount?.account;
+    const freshAddress = { address: currentAccount?.descriptor || '' };
+
 
     useEffect(() => {
         if (!ref) return;
@@ -246,6 +240,7 @@ const Container: FC<Props> = ({
                         ...transaction,
                         chainId: activeChainId,
                         rpcUrl: chainRPCUrl,
+                        accountPath: currentAccount?.path
                     };
                     const alteredParams = (await openDeferredModal({
                         transaction: params,
@@ -289,7 +284,7 @@ const Container: FC<Props> = ({
         openDeferredModal,
     ]);
 
-    if (selectedAccount.status === 'loading') {
+    if (defaultAccount.status === 'loading') {
         return (
             <ToastInfo>
                 <Image width={160} height={160} image="spinner" />
@@ -314,7 +309,7 @@ const Container: FC<Props> = ({
 };
 
 const PortfolioContainer: FC<Props> = props => {
-    return <Portfolio key="portfolio" menu={<Container {...props} />} />;
+    return <Portfolio key="portfolio" menu={<Container {...props} />} loaded={props.defaultAccount.status === 'loaded'} />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PortfolioContainer);

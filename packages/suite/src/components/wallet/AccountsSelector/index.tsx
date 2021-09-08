@@ -95,7 +95,7 @@ const AccountsSelector = ({ device, accounts, selectedAccount, defaultAccount }:
     const { current } = selectedAccount;
     const { account } = defaultAccount;
 
-    const currentAddress = current || account?.descriptor;
+    const currentAddress = current?.descriptor || account?.descriptor;
 
     const { isMobileLayout } = useLayoutSize();
 

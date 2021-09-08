@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { changeAccountVisibility } from '@wallet-actions/accountActions';
 import { addNewAccount } from '@wallet-actions/accountSearchActions';
-import { changeCoinVisibility } from '@settings-actions/walletSettingsActions';
+import { changeCoinVisibility, setETHAccountIndex } from '@settings-actions/walletSettingsActions';
 import * as routerActions from '@suite-actions/routerActions';
 import { AppState, Dispatch, TrezorDevice } from '@suite-types';
 import Index from './index';
@@ -21,6 +21,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
             changeAccountVisibility,
             changeCoinVisibility,
             addNewAccount,
+            setETHAccountIndex,
             goto: routerActions.goto,
         },
         dispatch,

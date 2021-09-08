@@ -15,6 +15,7 @@ export interface State {
         [key: string]: Omit<FeeLevel, 'blocks'>; // Key: Network['symbol']
     };
     blockbookUrls: BlockbookUrl[];
+    ethAccountIndex: number;
 }
 
 export const initialState: State = {
@@ -24,6 +25,7 @@ export const initialState: State = {
     enabledNetworks: ['btc'],
     lastUsedFeeLevel: {},
     blockbookUrls: [],
+    ethAccountIndex: -1,
 };
 
 const settingsReducer = (state: State = initialState, action: Action): State => {
@@ -42,6 +44,9 @@ const settingsReducer = (state: State = initialState, action: Action): State => 
 
             case WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET:
                 draft.hide0BalanceWallet = action.payload;
+                break;
+            case WALLET_SETTINGS.SET_ETH_ACCOUNT_INDEX:
+                draft.ethAccountIndex = action.payload;
                 break;
 
             case WALLET_SETTINGS.CHANGE_NETWORKS:

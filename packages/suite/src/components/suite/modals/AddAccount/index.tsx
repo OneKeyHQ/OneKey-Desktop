@@ -138,6 +138,7 @@ const AddAccount = (props: Props) => {
     const onEnableAccount = (account: Account) => {
         props.onCancel();
         props.addNewAccount(account.descriptor);
+        props.setETHAccountIndex(account.index);
         props.changeAccountVisibility(account);
         if (props.app === 'wallet' && !props.noRedirect) {
             // redirect to account only if added from "wallet" app
