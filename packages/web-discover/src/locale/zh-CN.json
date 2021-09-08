@@ -1,0 +1,19 @@
+{
+  "action__confirm": "确认",
+  "action__my_favorites": "我的收藏",
+  "action_cancel": "取消",
+  "action_delete": "删除",
+  "content__history": "历史记录",
+  "content__new": "上新",
+  "content__ranking": "排行",
+  "content__search_or_enter_dapp_url": "搜索或输入 DApp 网址",
+  "content__search_results": "搜索结果",
+  "content__search_results_not_found": "找不到搜索结果",
+  "modal__delete_all_history": "删除所有历史记录？",
+  "modal__delete_all_history_desc": "确定要删除所有历史记录吗？",
+  "modal__unfavorite_this_dapp": "取消对这个 DApp 的收藏？",
+  "modal__unfavorite_this_dapp_desc": "确定不再收藏这个 DApp",
+  "title__dapp_list": "DApp 列表",
+  "title__polular": "热门",
+  "title__recommend": "推荐"
+}

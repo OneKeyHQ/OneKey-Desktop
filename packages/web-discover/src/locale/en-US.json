@@ -1,0 +1,19 @@
+{
+  "action__confirm": "Confirm",
+  "action__my_favorites": "My Favorites",
+  "action_cancel": "Cancel",
+  "action_delete": "Delete",
+  "content__history": "History",
+  "content__new": "New",
+  "content__ranking": "Ranking",
+  "content__search_or_enter_dapp_url": "Search or Enter DApp URL",
+  "content__search_results": "Search Results",
+  "content__search_results_not_found": "Search results not found",
+  "modal__delete_all_history": "Delete all history?",
+  "modal__delete_all_history_desc": "Are you sure you want to delete all history?",
+  "modal__unfavorite_this_dapp": "Unfavorite this DApp?",
+  "modal__unfavorite_this_dapp_desc": "Are you sure you want to unfavorite this DApp",
+  "title__dapp_list": "DApp List",
+  "title__polular": "Popular",
+  "title__recommend": "Recommend"
+}
