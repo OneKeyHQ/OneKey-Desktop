@@ -87,7 +87,7 @@ const PricePairInfo: FC<PricePairInfoProps> = ({
     return (
         <div className="flex flex-col">
             <PairDropdown tokens={tokens} onItemSelect={onItemSelect} />
-            <h2 className="mb-2 text-3xl font-semibold">{currentPrice}</h2>
+            <h2 className="mb-2 text-3xl font-semibold text-gray-900">{currentPrice}</h2>
             {subContent}
         </div>
     );

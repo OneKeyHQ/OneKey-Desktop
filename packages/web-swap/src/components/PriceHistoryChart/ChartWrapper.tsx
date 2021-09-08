@@ -11,19 +11,31 @@ interface PriceHistoryChartProps {
     topLeft?: ReactNode;
     topRight?: ReactNode;
     data?: PriceTuple[];
+    chartColor?: string;
     className?: string;
+    onMouseMove?: (value: number) => void;
+    onMouseLeave?: () => void;
 }
 
 const PriceHistoryChart: FC<PriceHistoryChartProps> = ({
     data,
+    chartColor,
     topLeft,
     topRight,
     range,
     className,
+    onMouseMove,
+    onMouseLeave,
 }) => {
     const chartNode = !!data?.length && (
         <CustomResponsiveContainer height="100%" width="100%">
-            <Chart data={data} range={range} />
+            <Chart
+                data={data}
+                range={range}
+                color={chartColor}
+                onMouseMove={onMouseMove}
+                onMouseLeave={onMouseLeave}
+            />
         </CustomResponsiveContainer>
     );
 
