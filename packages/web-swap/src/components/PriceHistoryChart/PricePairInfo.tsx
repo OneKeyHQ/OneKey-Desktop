@@ -63,13 +63,10 @@ const PairDropdown: FC<PairDropdownProps> = ({ tokens, onItemSelect }) => {
 
     return (
         <Dropdown
+            className="z-10"
             trigger={triggerNode}
             place="bottom-start"
-            sections={[
-                {
-                    items,
-                },
-            ]}
+            sections={[{ items }]}
         />
     );
 };
