@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "@onekeyhq/onekey"
+  ],
+  "ignorePatterns": [
+    "node_modules/**/*"
+  ]
+}
