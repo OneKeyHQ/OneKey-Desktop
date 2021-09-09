@@ -5665,6 +5665,10 @@ const definedMessages = defineMessages({
         id: 'NETWORK_AVALANCHE',
         defaultMessage: 'Avalanche Mainnet',
     },
+    TR_USE_CHANGE_ADDRESS: {
+        id: 'TR_USE_CHANGE_ADDRESS',
+        defaultMessage: 'Use Change Address',
+    },
 } as const);
 
 export default definedMessages;

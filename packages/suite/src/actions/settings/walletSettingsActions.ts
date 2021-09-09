@@ -12,6 +12,7 @@ export type WalletSettingsAction =
     | { type: typeof WALLET_SETTINGS.SET_LOCAL_CURRENCY; localCurrency: string }
     | { type: typeof WALLET_SETTINGS.SET_HIDE_BALANCE; toggled: boolean }
     | { type: typeof WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET; payload: boolean }
+    | { type: typeof WALLET_SETTINGS.SET_USE_CHANGE_ADDRESS; payload: boolean }
     | { type: typeof WALLET_SETTINGS.SET_ETH_ACCOUNT_INDEX; payload: number }
     | {
           type: typeof WALLET_SETTINGS.SET_LAST_USED_FEE_LEVEL;
@@ -31,6 +32,13 @@ export const setLocalCurrency = (localCurrency: string) => ({
 export const setETHAccountIndex = (payload: number) => (dispatch: Dispatch) => {
     dispatch({
         type: WALLET_SETTINGS.SET_ETH_ACCOUNT_INDEX,
+        payload,
+    });
+};
+
+export const setUseChangeAddress = (payload: boolean) => (dispatch: Dispatch) => {
+    dispatch({
+        type: WALLET_SETTINGS.SET_USE_CHANGE_ADDRESS,
         payload,
     });
 };

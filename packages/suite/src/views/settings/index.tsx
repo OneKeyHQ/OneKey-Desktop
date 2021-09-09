@@ -18,6 +18,7 @@ import { Button, Tooltip, Switch } from '@trezor/components';
 import { capitalizeFirstLetter } from '@suite-utils/string';
 import * as suiteActions from '@suite-actions/suiteActions';
 import * as desktopUpdateActions from '@suite-actions/desktopUpdateActions';
+import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
 
 import { Props } from './Container';
 import { getReleaseUrl } from '@suite/services/github';
@@ -65,9 +66,10 @@ const Settings = ({
     const isDeviceLocked = isLocked();
 
     // Tor
-    const { tor, torOnionLinks } = useSelector(state => ({
+    const { tor, torOnionLinks, useChangeAddress } = useSelector(state => ({
         tor: state.suite.tor,
         torOnionLinks: state.suite.settings.torOnionLinks,
+        useChangeAddress: state.wallet.settings.useChangeAddress,
     }));
     const { setOnionLinks } = useActions({
         setOnionLinks: suiteActions.setOnionLinks,
@@ -82,8 +84,9 @@ const Settings = ({
     }, [torAddress]);
 
     // Auto Updater
-    const { setUpdateWindow } = useActions({
+    const { setUpdateWindow, setUseChangeAddress } = useActions({
         setUpdateWindow: desktopUpdateActions.setUpdateWindow,
+        setUseChangeAddress: walletSettingsActions.setUseChangeAddress,
     });
     const checkForUpdates = useCallback(() => window.desktopApi?.checkForUpdates(true), []);
     const installRestart = useCallback(() => window.desktopApi?.installUpdate(), []);
@@ -223,6 +226,19 @@ const Settings = ({
                         </ActionColumn>
                     </SectionItem>
                 )}
+            </Section>
+
+            <Section title={<Translation id="TR_USE_CHANGE_ADDRESS" />}>
+                <SectionItem data-test="@settings/change-address">
+                    <TextColumn title={<Translation id="TR_USE_CHANGE_ADDRESS" />} />
+                    <ActionColumn>
+                        <Switch
+                            data-test="@settings/change-address"
+                            checked={useChangeAddress}
+                            onChange={checked => setUseChangeAddress(checked)}
+                        />
+                    </ActionColumn>
+                </SectionItem>
             </Section>
 
             {/* {(isDesktop() || (isWeb() && tor)) && (
