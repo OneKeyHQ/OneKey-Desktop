@@ -1226,6 +1226,7 @@
     "TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE": "It is a brand new device, just unpacked",
     "TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE_INSTRUCTIONS": "In that case you should immediately contact OneKey support with detailed information on your purchase and refrain from using this device.",
     "TR_USER_HAS_WORKED_WITH_THIS_DEVICE": "I have worked with it before",
+    "TR_USE_CHANGE_ADDRESS": "Use Change Address",
     "TR_USE_IT_ANYWAY": "Continue anyway",
     "TR_USING_EITHER_YOUR_SINGLE_BACKUP": "If you have a seed or Shamir backup of another wallet, you can choose to restore it",
     "TR_USING_TOUCHSCREEN": "Using the touchscreen display you enter all the words in the correct order until completed.",

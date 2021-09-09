@@ -105,6 +105,7 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
             break;
         case WALLET_SETTINGS.SET_HIDE_0_BALANCE_WALLET:
         case WALLET_SETTINGS.SET_ETH_ACCOUNT_INDEX:
+        case WALLET_SETTINGS.SET_USE_CHANGE_ADDRESS:
         case WALLET_SETTINGS.SET_HIDE_BALANCE:
         case WALLET_SETTINGS.SET_LOCAL_CURRENCY:
         case WALLET_SETTINGS.SET_LAST_USED_FEE_LEVEL:

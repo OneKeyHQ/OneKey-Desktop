@@ -1226,6 +1226,7 @@
     "TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE": "这是一个刚拆开包装的全新硬件设备",
     "TR_USER_HAS_NOT_WORKED_WITH_THIS_DEVICE_INSTRUCTIONS": "在这种情况下，你应该立即与OneKey支持部门联系，详细说明你的购买情况，并避免使用该硬件设备。",
     "TR_USER_HAS_WORKED_WITH_THIS_DEVICE": "我曾经和它合作过",
+    "TR_USE_CHANGE_ADDRESS": "使用找零地址",
     "TR_USE_IT_ANYWAY": "我要继续",
     "TR_USING_EITHER_YOUR_SINGLE_BACKUP": "如果你有另一个钱包的助记词或 Shamir 备份，则可以选择还原它",
     "TR_USING_TOUCHSCREEN": "通过触摸屏显示，你可以按照正确的顺序输入所有的单词，直到完成",
