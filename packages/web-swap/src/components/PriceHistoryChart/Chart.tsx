@@ -89,7 +89,7 @@ const Chart = ({ data, onMouseMove, onMouseLeave, color = '#00B812', range }: Ch
     const xOffset = 4;
     const constOffset = 2;
     const leftMargin = useMemo(
-        () => (lengthOfMaximalPrice - xOffset) ** 2 + constOffset,
+        () => (lengthOfMaximalPrice - xOffset) ** 2.055 + constOffset,
         [lengthOfMaximalPrice],
     );
 
@@ -97,7 +97,7 @@ const Chart = ({ data, onMouseMove, onMouseLeave, color = '#00B812', range }: Ch
         <ResponsiveContainer height="100%" width="100%">
             <AreaChart
                 data={shrinkedData}
-                margin={{ top: 30, right: 0, bottom: 55, left: leftMargin }}
+                margin={{ top: 30, right: 0, bottom: 0, left: leftMargin }}
                 onMouseMove={({ activePayload }: { activePayload: { value: number }[] }) => {
                     if (activePayload?.length) {
                         onMouseMove?.(activePayload[0].value);
