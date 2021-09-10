@@ -38,10 +38,13 @@ const StatusText = styled.div<{ show: boolean; status: Status }>`
     font-size: ${variables.FONT_SIZE.TINY};
     color: ${props => getStatusColor(props.status, props.theme)};
 
-    padding-left: 24px;
     opacity: ${props => (props.show ? 1 : 0)};
+
     right: ${props => (props.show ? '12px' : '4px')};
     transition: opacity 0.5s ease, right 0.5s ease;
+    height: 18px;
+    border-radius: 9px;
+    padding: 0 7px;
 `;
 
 const OuterCircle = styled.div<{ show: boolean; status: Status }>`
@@ -106,7 +109,10 @@ const DeviceStatus = ({
     return (
         <>
             <StatusText
-                className={classNames('hidden', { 'md:block': !isCollapsed })}
+                className={classNames(
+                    'hidden border-gray-100 bg-gray-50 dark:bg-gray-800 dark:border-gray-700',
+                    { 'md:block': !isCollapsed },
+                )}
                 status={status}
                 show={showTextStatus}
             >
