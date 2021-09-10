@@ -101,8 +101,6 @@ export const composeTransaction = (formValues: FormState, formState: UseSendForm
         coin: account.symbol,
     };
 
-    console.log('account', account);
-
     const response = await TrezorConnect.composeTransaction({
         ...params,
         account: params.account, // needs to be present in order to correct resolve of @onekeyhq/connect params overload
