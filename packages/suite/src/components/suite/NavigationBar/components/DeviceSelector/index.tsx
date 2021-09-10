@@ -111,11 +111,12 @@ const DeviceSelector = (
             onMouseEnter={() => setShowTextStatus(true)}
             onMouseLeave={() => setShowTextStatus(false)}
             data-test="@menu/switch-device"
-            onClick={() =>
+            onClick={() => {
                 goto('suite-switch-device', {
                     cancelable: true,
-                }) && analytics.report({ type: 'menu/goto/switch-device' })
-            }
+                });
+                analytics.report({ type: 'menu/goto/switch-device' });
+            }}
             triggerAnim={triggerAnim}
             isMobileLayout={props.isMobileLayout}
             isCollapsed={props.isCollapsed}
