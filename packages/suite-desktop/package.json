@@ -212,6 +212,7 @@
         "next-transpile-modules": "^4.1.0",
         "react": "17.0.1",
         "react-dom": "17.0.1",
+        "react-ga": "^3.3.0",
         "styled-components": "5.1.1",
         "worker-loader": "^3.0.7"
     }
