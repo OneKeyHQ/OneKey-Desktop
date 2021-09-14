@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import type { FC, ReactNode } from 'react';
 import { Button, Dropdown } from '@onekeyhq/ui-components';
 import cx from 'classnames';
 
-export type TokenPair = [string] | [string, string];
+export type TokenPair = [] | [string] | [string, string] | undefined;
 
 interface PairDropdownProps {
     tokens: TokenPair;
@@ -10,6 +11,12 @@ interface PairDropdownProps {
 }
 
 const PairDropdown: FC<PairDropdownProps> = ({ tokens, onItemSelect }) => {
+    const [currentSelected, setCurrentSelected] = useState<string>();
+
+    if (!tokens?.length) {
+        return <div>No token selected</div>;
+    }
+
     const textClasses = 'text-lg font-medium';
     const [first, second] = tokens;
     const upperlizedFirst = first.toUpperCase();
@@ -29,11 +36,12 @@ const PairDropdown: FC<PairDropdownProps> = ({ tokens, onItemSelect }) => {
             trailingIcon="ChevronDownSolid"
             type="plain"
         >
-            {upperlizedFirst} / {upperlizedSecond}
+            {currentSelected || `${upperlizedFirst} / ${upperlizedSecond}`}
         </Button>
     );
 
     const handleItemClick = (v: string) => {
+        setCurrentSelected(v);
         onItemSelect?.(v);
     };
 
