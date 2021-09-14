@@ -3,6 +3,7 @@ import App from 'next/app';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import * as Sentry from '@sentry/browser';
+import ReactGA from 'react-ga';
 import { initStore } from '@suite/reducers/store';
 import Metadata from '@suite-components/Metadata';
 import Preloader from '@suite-components/Preloader';
@@ -16,7 +17,7 @@ import ThemeProvider from '@suite-support/ThemeProvider';
 
 import { isDev } from '@suite-utils/build';
 import TrezorConnect from '@onekeyhq/connect';
-import { SENTRY_CONFIG } from '@suite-config';
+import { SENTRY_CONFIG, GA_TRACKING_CODE } from '@suite-config';
 import { Store } from '@suite-types';
 import ImagesPreloader from '../support/ImagesPreloader';
 import { CypressExportStore } from '../support/CypressExportStore';
@@ -45,6 +46,7 @@ class TrezorSuiteApp extends App<Props> {
             Sentry.configureScope(scope => {
                 scope.setTag('version', process.env.VERSION || 'undefined');
             });
+            ReactGA.initialize(GA_TRACKING_CODE);
         }
         if (window.Cypress) {
             // exposing ref to TrezorConnect allows us to mock its methods in cypress tests

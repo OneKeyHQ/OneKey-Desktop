@@ -16,6 +16,7 @@ export interface State {
     };
     blockbookUrls: BlockbookUrl[];
     ethAccountIndex: number;
+    useChangeAddress: boolean;
 }
 
 export const initialState: State = {
@@ -26,6 +27,7 @@ export const initialState: State = {
     lastUsedFeeLevel: {},
     blockbookUrls: [],
     ethAccountIndex: -1,
+    useChangeAddress: false,
 };
 
 const settingsReducer = (state: State = initialState, action: Action): State => {
@@ -47,6 +49,9 @@ const settingsReducer = (state: State = initialState, action: Action): State => 
                 break;
             case WALLET_SETTINGS.SET_ETH_ACCOUNT_INDEX:
                 draft.ethAccountIndex = action.payload;
+                break;
+            case WALLET_SETTINGS.SET_USE_CHANGE_ADDRESS:
+                draft.useChangeAddress = action.payload;
                 break;
 
             case WALLET_SETTINGS.CHANGE_NETWORKS:

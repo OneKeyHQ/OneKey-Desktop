@@ -242,8 +242,9 @@ const Container: FC<Props & TabProps> = ({
     }, [freshAddress.address]);
 
     useEffect(() => {
-        if (isConnected && lastAddress && freshAddress.address !== lastAddress) {
-            handleReload();
+        if (isConnected && lastAddress && freshAddress.address !== lastAddress && webviewRef) {
+            const code = `window.ethereum && window.ethereum.onekeyChangeAddress('${freshAddress.address}')`;
+            webviewRef?.executeJavaScript(code)
         }
     }, [freshAddress.address, lastAddress]);
 

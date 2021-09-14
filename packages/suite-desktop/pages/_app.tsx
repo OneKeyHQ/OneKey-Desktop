@@ -4,6 +4,7 @@ import { Store } from 'redux';
 import { Provider as ReduxProvider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import * as Sentry from '@sentry/browser';
+import ReactGA from "react-ga";
 import { initStore } from '@suite/reducers/store';
 import Preloader from '@suite-components/Preloader';
 import ToastContainer from '@suite-components/ToastContainer';
@@ -12,7 +13,7 @@ import OnlineStatus from '@suite-support/OnlineStatus';
 import IntlProvider from '@suite-support/ConnectedIntlProvider';
 import ErrorBoundary from '@suite-support/ErrorBoundary';
 import DesktopUpdater from '@desktop/support/DesktopUpdater';
-import { SENTRY_CONFIG } from '@suite-config';
+import { SENTRY_CONFIG, GA_TRACKING_CODE } from '@suite-config';
 import Resize from '@suite-support/Resize';
 import ThemeProvider from '@suite-support/ThemeProvider';
 import GlobalStyles from '@suite-support/styles/global';
@@ -37,6 +38,7 @@ class TrezorSuiteApp extends App<Props> {
             Sentry.configureScope(scope => {
                 scope.setTag('version', process.env.VERSION || 'undefined');
             });
+            ReactGA.initialize(GA_TRACKING_CODE)
         }
         window.desktopApi!.clientReady();
     }

@@ -1,5 +1,6 @@
 import TrezorConnect, { FeeLevel, SignTransaction } from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
+import { clone } from 'lodash';
 import * as notificationActions from '@suite-actions/notificationActions';
 import { formatNetworkAmount } from '@wallet-utils/accountUtils';
 import { getBitcoinComposeOutputs } from '@wallet-utils/sendFormUtils';
@@ -18,10 +19,46 @@ import {
 } from '@wallet-types/sendForm';
 import { Dispatch, GetState } from '@suite-types';
 
+/* eslint-disable no-bitwise, no-restricted-globals */
+
+export const HD_HARDENED = 0x80000000;
+export const toHardened = (n: number): number => (n | HD_HARDENED) >>> 0;
+export const fromHardened = (n: number): number => (n & ~HD_HARDENED) >>> 0;
+
+export const getHDPath = (path: string): Array<number> => {
+    const parts: Array<string> = path.toLowerCase().split('/');
+    if (parts[0] !== 'm') throw new Error('Method_InvalidParameter');
+    return parts
+        .filter((p: string) => p !== 'm' && p !== '')
+        .map((p: string) => {
+            let hardened = false;
+            if (p.substr(p.length - 1) === "'") {
+                hardened = true;
+                p = p.substr(0, p.length - 1);
+            }
+            let n: number = parseInt(p, 10);
+            if (isNaN(n)) {
+                throw new Error('Method_InvalidParameter');
+            } else if (n < 0) {
+                throw new Error('Method_InvalidParameter');
+            }
+            if (hardened) {
+                // hardened index
+                n = toHardened(n);
+            }
+            return n;
+        });
+};
+
+/* eslint-enable no-bitwise, no-restricted-globals */
+
 export const composeTransaction = (formValues: FormState, formState: UseSendFormState) => async (
     dispatch: Dispatch,
+    getState: GetState,
 ) => {
     const { account, feeInfo } = formState;
+    const { useChangeAddress } = getState().wallet.settings;
+
     if (!account.addresses || !account.utxo) return;
 
     const composeOutputs = getBitcoinComposeOutputs(formValues, account.symbol);
@@ -77,6 +114,25 @@ export const composeTransaction = (formValues: FormState, formState: UseSendForm
             }),
         );
         return;
+    }
+    const isSendMax = composeOutputs.find(e => e.type === 'send-max') !== undefined;
+    const composeOutputsRecords = (composeOutputs as any[]).reduce((result, item) => {
+        result[item.address] = true;
+        return result;
+    }, {});
+    if (!useChangeAddress && !isSendMax) {
+        const { used, unused } = account.addresses;
+        const current = used[0] ?? unused[0];
+        const { path } = current;
+        const hdPath = getHDPath(path);
+        response.payload.forEach((item: any) => {
+            const changeItems = (item.transaction.outputs as any[]).filter(
+                output => !composeOutputsRecords[output.address],
+            );
+            if (changeItems.length === 1) {
+                (changeItems as any[])[0].address_n = hdPath;
+            }
+        });
     }
 
     // wrap response into PrecomposedLevels object where key is a FeeLevel label
