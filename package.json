@@ -22,7 +22,9 @@
         ],
         "nohoist": [
             "**/babel-jest",
-            "packages/web-swap"
+            "packages/web-swap",
+            "packages/web-pool",
+            "packages/web-farm"
         ]
     },
     "scripts": {
