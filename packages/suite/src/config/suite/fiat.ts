@@ -1,6 +1,7 @@
 export default {
     tickers: [
         { symbol: 'eth', coingeckoId: 'ethereum' },
+        { symbol: 'bnb', coingeckoId: 'binancecoin' },
         { symbol: 'etc', coingeckoId: 'ethereum-classic' },
         { symbol: 'xrp', coingeckoId: 'ripple' },
         { symbol: 'btc', coingeckoId: 'bitcoin' },
