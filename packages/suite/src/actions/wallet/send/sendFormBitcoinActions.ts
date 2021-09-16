@@ -1,4 +1,4 @@
-import TrezorConnect, { FeeLevel, SignTransaction } from '@onekeyhq/connect';
+import TrezorConnect, { FeeLevel, RegularOutput, SignTransaction } from '@onekeyhq/connect';
 import BigNumber from 'bignumber.js';
 import { clone } from 'lodash';
 import * as notificationActions from '@suite-actions/notificationActions';
@@ -115,24 +115,27 @@ export const composeTransaction = (formValues: FormState, formState: UseSendForm
         );
         return;
     }
-    const isSendMax = composeOutputs.find(e => e.type === 'send-max') !== undefined;
-    const composeOutputsRecords = (composeOutputs as any[]).reduce((result, item) => {
-        result[item.address] = true;
-        return result;
-    }, {});
-    if (!useChangeAddress && !isSendMax) {
+
+    const isRegularOutputs = composeOutputs.every(e => e.type === 'external');
+    if (!useChangeAddress && isRegularOutputs) {
         const { used, unused } = account.addresses;
-        const current = used[0] ?? unused[0];
-        const { path } = current;
-        const hdPath = getHDPath(path);
-        response.payload.forEach((item: any) => {
-            const changeItems = (item.transaction.outputs as any[]).filter(
-                output => !composeOutputsRecords[output.address],
-            );
-            if (changeItems.length === 1) {
-                (changeItems as any[])[0].address_n = hdPath;
-            }
-        });
+        const defaultAccount = used[0] ?? unused[0];
+        const addressN = getHDPath(defaultAccount.path);
+        const isFinal = response.payload.every(e => e.type === 'final');
+        if (isFinal) {
+            response.payload.forEach(item => {
+                if (item.type === 'final') {
+                    const { outputs } = item.transaction;
+                    const changeOutputs = outputs.filter(e => e.address_n);
+                    if (changeOutputs.length === 1) {
+                        const [change] = changeOutputs;
+                        if (change.address_n) {
+                            change.address_n = addressN;
+                        }
+                    }
+                }
+            });
+        }
     }
 
     // wrap response into PrecomposedLevels object where key is a FeeLevel label
