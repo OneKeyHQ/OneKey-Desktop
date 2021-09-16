@@ -7,6 +7,7 @@ import {
     RadioButtonGroup,
     TokenGroup,
     Token,
+    Input,
 } from '@onekeyhq/ui-components';
 import { TransactionSettings, DescriptionList } from '../index';
 
@@ -56,29 +57,41 @@ const UnstakeModal: FC<UnstakeModalProps> = ({ className, visible, onClose, ...r
                     <div className="space-y-6">
                         <TradeForm
                             labelCorner={
-                                <RadioButtonGroup
-                                    value={selectedPercentage}
-                                    onChange={setSelectedPercentage}
-                                    label="example"
-                                    size="xs"
-                                    className="flex-1"
-                                >
-                                    <RadioButtonGroup.Option
-                                        className="flex-1"
-                                        value="min"
-                                        label="25%"
+                                <div className="flex flex-wrap justify-between flex-1">
+                                    <RadioButtonGroup
+                                        value={selectedPercentage}
+                                        onChange={setSelectedPercentage}
+                                        label="example"
+                                        className="w-full sm:w-auto"
+                                    >
+                                        <RadioButtonGroup.Option
+                                            className="flex-1"
+                                            value="min"
+                                            label="25%"
+                                        />
+                                        <RadioButtonGroup.Option
+                                            className="flex-1"
+                                            value="medium"
+                                            label="50%"
+                                        />
+                                        <RadioButtonGroup.Option
+                                            className="flex-1"
+                                            value="large"
+                                            label="75%"
+                                        />
+                                        <RadioButtonGroup.Option
+                                            className="flex-1"
+                                            value="max"
+                                            label="100%"
+                                        />
+                                    </RadioButtonGroup>
+                                    <Input
+                                        value={selectedPercentage}
+                                        addonAfter="%"
+                                        className="w-full mt-2 sm:w-20 sm:mt-0"
+                                        paddingRight={32}
                                     />
-                                    <RadioButtonGroup.Option
-                                        className="flex-1"
-                                        value="medium"
-                                        label="50%"
-                                    />
-                                    <RadioButtonGroup.Option
-                                        className="flex-1"
-                                        value="max"
-                                        label="100%"
-                                    />
-                                </RadioButtonGroup>
+                                </div>
                             }
                         >
                             <TradeForm.Input
