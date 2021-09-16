@@ -5669,6 +5669,11 @@ const definedMessages = defineMessages({
         id: 'TR_USE_CHANGE_ADDRESS',
         defaultMessage: 'Use Change Address',
     },
+    TR_USE_CHANGE_ADDRESS_DESC: {
+        id: 'TR_USE_CHANGE_ADDRESS_DESC',
+        defaultMessage:
+            'Using change address let your wallet send leftover BTC to a different change address that is also part of your Bitcoin wallet. Instead of the same input address.',
+    },
 } as const);
 
 export default definedMessages;
