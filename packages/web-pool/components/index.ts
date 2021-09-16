@@ -1,6 +1,3 @@
-export { default as Layout } from './Layout';
-export { default as Page } from './Page';
-export { default as Section } from './Section';
 export { default as InvestmentCard } from './InvestmentCard';
 export { default as TransactionSettings } from './TransactionSettings';
 export { default as DescriptionList } from './DescriptionList';

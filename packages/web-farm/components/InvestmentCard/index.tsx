@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { FC, Fragment } from "react";
+import cx, { Argument } from "classnames";
 import {
   TokenGroup,
   TokenGroupProps,
@@ -6,20 +7,26 @@ import {
   Dropdown,
 } from "@onekeyhq/ui-components";
 
-const InverstmentCard = (props) => {
-  const {
-    tokenGroup = TokenGroupProps,
-    type,
-    descriptions = [],
-    primaryAction,
-    secondaryAction,
-    TertiaryAction,
-    ...rest
-  } = props;
+type InverstmentCardProps = {
+  /**
+   * 设置额外的 class
+   */
+  className?: Argument;
+  tokenGroup?: TokenGroupProps;
+  type?: string;
+  descriptions?: Array<any>;
+  primaryAction?: () => void;
+  secondaryAction?: () => void;
+  TertiaryAction?: () => void;
+};
 
+const defaultProps = {} as const;
+
+const InverstmentCard: FC<InverstmentCardProps> = ({ className, type, descriptions, tokenGroup, primaryAction, secondaryAction, TertiaryAction, ...rest }) => {
   return (
     <>
-      <Card {...rest}>
+      <Card className={cx("", !!className && className)} {...rest}>
+        
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <TokenGroup size="lg" {...tokenGroup} />
@@ -83,6 +90,24 @@ const InverstmentCard = (props) => {
                 ]}
               />
             )}
+            {type === "claim" && (
+              <Dropdown
+                sections={[
+                  {
+                    items: [
+                      {
+                        content: "Claim",
+                        onAction: primaryAction,
+                      },
+                      {
+                        content: "Unstake",
+                        onAction: secondaryAction,
+                      },
+                    ],
+                  },
+                ]}
+              />
+            )}
           </div>
         </div>
         <div className="pt-4 mt-4 space-y-2 border-t border-gray-200">
@@ -96,9 +121,12 @@ const InverstmentCard = (props) => {
               </Fragment>
             ))}
         </div>
+
       </Card>
     </>
   );
 };
+
+InverstmentCard.defaultProps = defaultProps;
 
 export default InverstmentCard;

@@ -1,19 +1,41 @@
-import React from "react";
+import React, { FC } from "react";
+import cx, { Argument } from "classnames";
 import {
   Modal,
   Button,
   TradeForm,
+  RadioButtonGroup,
   TokenGroup,
   Token,
 } from "@onekeyhq/ui-components";
 import { TransactionSettings, DescriptionList } from "../index";
 
-const DepositModal = ({ visible, onClose }) => {
+type AddLiquidityModalProps = {
+  /**
+   * 设置额外的 class
+   */
+  className?: Argument;
+  /**
+   * 是否可见
+   */
+  visible?: boolean;
+  /**
+   * 点击模态框遮罩时或键盘按下 Esc 时的回调
+   */
+  onClose: () => void;
+};
+
+const defaultProps = {} as const;
+
+const AddLiquidityModal: FC<AddLiquidityModalProps> = ({ className, visible, onClose, ...rest }) => {
+  const [selectedPercentage, setSelectedPercentage] = React.useState("min");
+
   return (
     <>
-      <Modal visible={visible} onClose={onClose} className="sm:!max-w-md">
+      <Modal visible={visible} onClose={onClose} className={cx("sm:!max-w-md", !!className && className)} {...rest}>
+        
         <Modal.Header
-          title="Deposit"
+          title="Withdraw"
           onClose={onClose}
           actions={
             <div className="okd-flex okd-space-x-6">
@@ -28,22 +50,25 @@ const DepositModal = ({ visible, onClose }) => {
         />
         <Modal.Body>
           <div className="space-y-6">
-            <TradeForm label="From">
+            <TradeForm
+              label="From"
+              labelCorner={
+                <RadioButtonGroup
+                  value={selectedPercentage}
+                  onChange={setSelectedPercentage}
+                  label="example"
+                  size="xs"
+                >
+                  <RadioButtonGroup.Option value="min" label="25%" />
+                  <RadioButtonGroup.Option value="medium" label="50%" />
+                  <RadioButtonGroup.Option value="max" label="100%" />
+                </RadioButtonGroup>
+              }
+            >
               <TradeForm.Input
                 placeholder="0.0"
                 showBalance
                 showRate
-                valueType={
-                  <div className="okd-flex okd-items-center">
-                    <Token chain="bsc" name="BSC" />
-                  </div>
-                }
-              ></TradeForm.Input>
-            </TradeForm>
-            <TradeForm label="To">
-              <TradeForm.Input
-                readOnly
-                value="5.4651"
                 valueType={
                   <div className="okd-flex okd-items-center">
                     <TokenGroup
@@ -56,22 +81,16 @@ const DepositModal = ({ visible, onClose }) => {
                   </div>
                 }
               />
-              <TradeForm.Description
-                list={[
-                  {
-                    description: "Est. Pool Allocation",
-                    values: [
-                      {
-                        name: "cake",
-                        value: "26.26",
-                      },
-                    ],
-                  },
-                  {
-                    description: "Est. Daily Income",
-                    values: "$0.01",
-                  },
-                ]}
+            </TradeForm>
+            <TradeForm label="To">
+              <TradeForm.Input
+                readOnly
+                value="5.4651"
+                valueType={
+                  <div className="okd-flex okd-items-center">
+                    <Token chain="bsc" name="BSC" />
+                  </div>
+                }
               />
             </TradeForm>
             <DescriptionList>
@@ -89,13 +108,16 @@ const DepositModal = ({ visible, onClose }) => {
               Approve
             </Button>
             <Button className="flex-1" disabled type="primary">
-              Deposit
+              Withdraw
             </Button>
           </div>
         </Modal.Footer>
+
       </Modal>
     </>
   );
 };
 
-export default DepositModal;
+AddLiquidityModal.defaultProps = defaultProps;
+
+export default AddLiquidityModal;

@@ -11,62 +11,38 @@ import {
     Layout,
     Section,
 } from '@onekeyhq/ui-components';
-import {
-    InvestmentCard,
-    AddLiquidityModal,
-    RemoveLiquidityModal,
-    DepositModal,
-    WithDrawModal,
-} from '../components/index';
+import { InvestmentCard, StakeModal, UnstakeModal, ClaimModal } from '../components/index';
 
 export default function Home() {
-    const [addLiquidityModalVisible, setAddLiquidityModalVisible] = React.useState(false);
+    const [stakeModal, setStakeModal] = React.useState(false);
 
-    const showAddLiquidityModalVisibleModal = () => {
-        setAddLiquidityModalVisible(true);
+    const showStakeModal = () => {
+        setStakeModal(true);
     };
-    const hideAddLiquidityModalVisible = () => {
-        setAddLiquidityModalVisible(false);
-    };
-
-    const [removeLiquidityModalVisible, setRemoveLiquidityModalVisible] = React.useState(false);
-
-    const showRemoveLiquidityModalVisibleModal = () => {
-        setRemoveLiquidityModalVisible(true);
-    };
-    const hideRemoveLiquidityModalVisible = () => {
-        setRemoveLiquidityModalVisible(false);
+    const hideStakeModal = () => {
+        setStakeModal(false);
     };
 
-    const [depositModal, setDepositModal] = React.useState(false);
+    const [unstakeModal, setUnstakeModal] = React.useState(false);
 
-    const showDepositModalModal = () => {
-        setDepositModal(true);
+    const showUnstakeModal = () => {
+        setUnstakeModal(true);
     };
-    const hideDepositModal = () => {
-        setDepositModal(false);
+    const hideUnstakeModal = () => {
+        setUnstakeModal(false);
     };
 
-    const [withDrawModal, setWithDrawModal] = React.useState(false);
+    const [claimModal, setClaimModal] = React.useState(false);
 
-    const showWithDrawModalModal = () => {
-        setWithDrawModal(true);
+    const showClaimModal = () => {
+        setClaimModal(true);
     };
-    const hideWithDrawModal = () => {
-        setWithDrawModal(false);
+    const hideClaimModal = () => {
+        setClaimModal(false);
     };
 
     const TokenGroupDatas = {
-        cornerToken: {
-            src:
-                'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@d5c68edec1f5eaec59ac77ff2b48144679cebca1/128/color/eth.png',
-        },
         sources: [
-            {
-                src:
-                    'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@d5c68edec1f5eaec59ac77ff2b48144679cebca1/128/color/btc.png',
-                name: 'BTC',
-            },
             {
                 src:
                     'https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@d5c68edec1f5eaec59ac77ff2b48144679cebca1/128/color/bnb.png',
@@ -85,53 +61,23 @@ export default function Home() {
             <Layout
                 page={{
                     pageHeader: {
-                        title: 'Pool',
+                        title: 'Farm',
                         actions: <Button type="primary">Connect</Button>,
                     },
                 }}
             >
-                <Section sectionHeader={{ title: 'Active Pools' }}>
+                <Section
+                    sectionHeader={{
+                        title: 'Active Farms',
+                    }}
+                >
                     <div className="grid gap-4 sm:grid-cols-2 lg:gap-5 xl:grid-cols-3">
                         <InvestmentCard
-                            type="liquidity"
-                            primaryAction={showAddLiquidityModalVisibleModal}
-                            secondaryAction={showRemoveLiquidityModalVisibleModal}
+                            type="claim"
+                            primaryAction={showClaimModal}
+                            secondaryAction={showUnstakeModal}
                             tokenGroup={{
-                                cornerToken: { chain: 'unknown' },
                                 sources: [
-                                    {
-                                        chain: 'bsc',
-                                        name: 'BSC',
-                                    },
-                                    {
-                                        chain: 'eth',
-                                        name: 'ETH',
-                                    },
-                                ],
-                                description: 'Unknown',
-                            }}
-                            descriptions={[
-                                {
-                                    key: 'Total Amounts',
-                                    value: '234.11',
-                                },
-                                {
-                                    key: 'Total Value',
-                                    value: '$1000',
-                                },
-                            ]}
-                        />
-                        <InvestmentCard
-                            type="deposit"
-                            primaryAction={showDepositModalModal}
-                            secondaryAction={showWithDrawModalModal}
-                            tokenGroup={{
-                                cornerToken: { chain: 'unknown' },
-                                sources: [
-                                    {
-                                        chain: 'bsc',
-                                        name: 'BSC',
-                                    },
                                     {
                                         chain: 'eth',
                                         name: 'ETH',
@@ -154,6 +100,7 @@ export default function Home() {
                 </Section>
                 <Section
                     sectionHeader={{
+                        className: '!mb-4',
                         title: (
                             <div className="flex items-center">
                                 Opportunities
@@ -170,10 +117,9 @@ export default function Home() {
                                 type="search"
                             />
                         ),
-                        className: '!mb-4',
                     }}
                 >
-                    <Card className="">
+                    <Card className="overflow-hidden">
                         <div className="-m-4 sm:-m-6">
                             <Table
                                 rowkey="placeholder"
@@ -245,8 +191,8 @@ export default function Home() {
                                         apy: apyDatas,
                                         uptime: '59 Days',
                                         action: {
-                                            label: 'Add Liquidity',
-                                            action: showAddLiquidityModalVisibleModal,
+                                            label: 'Stake',
+                                            action: showStakeModal,
                                         },
                                     },
                                     {
@@ -255,8 +201,8 @@ export default function Home() {
                                         apy: apyDatas,
                                         uptime: '59 Days',
                                         action: {
-                                            label: 'Deposit',
-                                            action: showDepositModalModal,
+                                            label: 'Stake',
+                                            action: showStakeModal,
                                         },
                                     },
                                     {
@@ -265,8 +211,8 @@ export default function Home() {
                                         apy: apyDatas,
                                         uptime: '59 Days',
                                         action: {
-                                            label: 'Add Liquidity',
-                                            action: showAddLiquidityModalVisibleModal,
+                                            label: 'Stake',
+                                            action: showStakeModal,
                                         },
                                     },
                                     {
@@ -275,8 +221,8 @@ export default function Home() {
                                         apy: apyDatas,
                                         uptime: '59 Days',
                                         action: {
-                                            label: 'Deposit',
-                                            action: showDepositModalModal,
+                                            label: 'Stake',
+                                            action: showStakeModal,
                                         },
                                     },
                                 ]}
@@ -284,16 +230,9 @@ export default function Home() {
                         </div>
                     </Card>
                 </Section>
-                <AddLiquidityModal
-                    visible={addLiquidityModalVisible}
-                    onClose={() => hideAddLiquidityModalVisible()}
-                />
-                <RemoveLiquidityModal
-                    visible={removeLiquidityModalVisible}
-                    onClose={() => hideRemoveLiquidityModalVisible()}
-                />
-                <DepositModal visible={depositModal} onClose={() => hideDepositModal()} />
-                <WithDrawModal visible={withDrawModal} onClose={() => hideWithDrawModal()} />
+                <StakeModal visible={stakeModal} onClose={() => hideStakeModal()} />
+                <UnstakeModal visible={unstakeModal} onClose={() => hideUnstakeModal()} />
+                <ClaimModal visible={claimModal} onClose={() => hideClaimModal()} />
             </Layout>
         </UIProvider>
     );

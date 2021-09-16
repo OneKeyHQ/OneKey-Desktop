@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
+import cx, { Argument } from "classnames";
 import {
   Modal,
   Button,
@@ -9,14 +10,33 @@ import {
 } from "@onekeyhq/ui-components";
 import { TransactionSettings, DescriptionList } from "../index";
 
-const AddLiquidityModal = ({ visible, onClose }) => {
-  const [selectedPercentage, setSelectedPercentage] = React.useState("25%");
+type RemoveLiquidityModalProps = {
+  /**
+   * 设置额外的 class
+   */
+  className?: Argument;
+  /**
+   * 是否可见
+   */
+  visible?: boolean;
+  /**
+   * 点击模态框遮罩时或键盘按下 Esc 时的回调
+   */
+  onClose: () => void;
+};
+
+const defaultProps = {} as const;
+
+const RemoveLiquidityModal: FC<RemoveLiquidityModalProps> = ({ className, visible, onClose, ...rest }) => {
+  const [selectedToken, setSelectedToken] = React.useState("single");
+  const [selectedPercentage, setSelectedPercentage] = React.useState("min");
 
   return (
     <>
-      <Modal visible={visible} onClose={onClose} className="sm:!max-w-md">
+      <Modal visible={visible} onClose={onClose} className={cx("sm:!max-w-md", !!className && className)} {...rest}>
+        
         <Modal.Header
-          title="Withdraw"
+          title="Remove Liquidity"
           onClose={onClose}
           actions={
             <div className="okd-flex okd-space-x-6">
@@ -40,9 +60,9 @@ const AddLiquidityModal = ({ visible, onClose }) => {
                   label="example"
                   size="xs"
                 >
-                  <RadioButtonGroup.Option value="25%" label="25%" />
-                  <RadioButtonGroup.Option value="50%" label="50%" />
-                  <RadioButtonGroup.Option value="100%" label="100%" />
+                  <RadioButtonGroup.Option value="min" label="25%" />
+                  <RadioButtonGroup.Option value="medium" label="50%" />
+                  <RadioButtonGroup.Option value="max" label="100%" />
                 </RadioButtonGroup>
               }
             >
@@ -57,13 +77,27 @@ const AddLiquidityModal = ({ visible, onClose }) => {
                       description="something"
                       sources={[
                         { chain: "bsc", name: "BSC" },
+                        { chain: "eth", name: "ETH" },
                       ]}
                     />
                   </div>
                 }
-              ></TradeForm.Input>
+              />
             </TradeForm>
-            <TradeForm label="To">
+            <TradeForm
+              label="To"
+              labelCorner={
+                <RadioButtonGroup
+                  value={selectedToken}
+                  onChange={setSelectedToken}
+                  label="example"
+                  size="xs"
+                >
+                  <RadioButtonGroup.Option value="single" label="Single" />
+                  <RadioButtonGroup.Option value="multi" label="BNB + CAKE" />
+                </RadioButtonGroup>
+              }
+            >
               <TradeForm.Input
                 readOnly
                 value="5.4651"
@@ -73,6 +107,17 @@ const AddLiquidityModal = ({ visible, onClose }) => {
                   </div>
                 }
               />
+              {selectedToken === "multi" && (
+                <TradeForm.Input
+                  readOnly
+                  value="5.4651"
+                  valueType={
+                    <div className="okd-flex okd-items-center">
+                      <Token chain="bsc" name="BSC" />
+                    </div>
+                  }
+                />
+              )}
             </TradeForm>
             <DescriptionList>
               <DescriptionList.Item
@@ -89,13 +134,16 @@ const AddLiquidityModal = ({ visible, onClose }) => {
               Approve
             </Button>
             <Button className="flex-1" disabled type="primary">
-              Withdraw
+              Remove Liquidity
             </Button>
           </div>
         </Modal.Footer>
+
       </Modal>
     </>
   );
 };
 
-export default AddLiquidityModal;
+RemoveLiquidityModal.defaultProps = defaultProps;
+
+export default RemoveLiquidityModal;
