@@ -230,7 +230,10 @@ const Settings = ({
 
             <Section title={<Translation id="TR_USE_CHANGE_ADDRESS" />}>
                 <SectionItem data-test="@settings/change-address">
-                    <TextColumn title={<Translation id="TR_USE_CHANGE_ADDRESS" />} />
+                    <TextColumn
+                        title={<Translation id="TR_USE_CHANGE_ADDRESS" />}
+                        description={<Translation id="TR_USE_CHANGE_ADDRESS_DESC" />}
+                    />
                     <ActionColumn>
                         <Switch
                             data-test="@settings/change-address"
