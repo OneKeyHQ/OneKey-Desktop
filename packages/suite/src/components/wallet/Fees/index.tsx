@@ -128,12 +128,9 @@ const Fees = (props: Props) => {
         changeFeeLevel,
         composedLevels,
     } = props;
-    console.log('composedLevels', composedLevels);
 
     const { layoutSize } = useLayoutSize();
     const selectedOption = getValues('selectedFee') || 'normal';
-
-    console.log('selectedOption', selectedOption);
 
     const error = errors.selectedFee;
     const selectedLevel = feeInfo.levels.find(level => level.label === selectedOption)!;
