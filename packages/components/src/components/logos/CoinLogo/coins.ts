@@ -17,4 +17,5 @@ export const COINS = {
     vtc: require('../../../images/coins/vtc.svg'),
     xrp: require('../../../images/coins/xrp.svg'),
     zec: require('../../../images/coins/zec.svg'),
+    bnb: require('../../../images/coins/bnb.svg'),
 };

@@ -87,6 +87,20 @@ const networks = [
         features: ['sign-verify'],
     },
     {
+        name: 'Binance Smart Chain',
+        networkType: 'ethereum',
+        symbol: 'bnb',
+        chainId: 56,
+        bip44: "m/44'/60'/0'/0/i",
+        hasSignVerify: true,
+        decimals: 18,
+        explorer: {
+            tx: 'https://bsc1.onekey.so/tx/',
+            account: 'https://bsc1.onekey.so/address/',
+        },
+        features: ['sign-verify'],
+    },
+    {
         name: 'Ethereum Classic',
         networkType: 'ethereum',
         symbol: 'etc',

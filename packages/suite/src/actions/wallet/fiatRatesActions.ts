@@ -112,7 +112,7 @@ export const updateCurrentRates = (ticker: TickerId, maxAge = MAX_AGE) => async 
         //          TrezorConnect.blockchainGetCurrentFiatRates
         //          packages/blockchain-link/src/workers/blockbook/websocket.ts: getCurrentFiatRates
         //
-        if (!ticker.tokenAddress) {
+        if (!ticker.tokenAddress && ticker.symbol.toLowerCase() !== 'bnb') {
             // standalone coins
             const response = await TrezorConnect.blockchainGetCurrentFiatRates({
                 coin: ticker.symbol,
@@ -123,6 +123,7 @@ export const updateCurrentRates = (ticker: TickerId, maxAge = MAX_AGE) => async 
         // 2. 备选方案。通过 coingecko api 查询法币价格
         //      COINGECKO_API_BASE_URL='https://cdn.trezor.io/dynamic/coingecko/api/v3'
         //      这里使用的coingecko是trezor提供的一个转发域名，如果是web版部署需要nginx上配置转发接口，避免跨域问题
+
         if (!results) {
             // Fallback for standalone coins and primary source for erc20 tokens and xrp as blockbook doesn't provide fiat rates for them
             results = ticker.tokenAddress
@@ -331,6 +332,11 @@ export const updateTxsRates = (account: Account, txs: AccountTransaction[]) => a
 export const onUpdateRate = (res: BlockchainFiatRatesUpdate) => (dispatch: Dispatch) => {
     if (!res?.rates) return;
     const symbol = res.coin.shortcut.toLowerCase();
+
+    if (symbol === 'bnb') {
+        dispatch(updateCurrentRates({ symbol }));
+        return;
+    }
     // 直接更新价格，存储在 indexedDB -> db-onekey-suite -> fiatRates
     dispatch({
         type: RATE_UPDATE,

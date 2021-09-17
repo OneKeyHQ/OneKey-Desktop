@@ -2,7 +2,7 @@ import { LastWeekRates, TickerId } from '@wallet-types/fiatRates';
 import FIAT_CONFIG from '@suite-config/fiat';
 
 // coingecko proxy by trezor.io, CORS supported
-const COINGECKO_API_BASE_URL = 'https://cdn.trezor.io/dynamic/coingecko/api/v3';
+const COINGECKO_API_BASE_URL = 'https://api.coingecko.com/api/v3';
 
 interface HistoricalResponse extends LastWeekRates {
     symbol: string;
@@ -65,18 +65,37 @@ const buildCoinUrl = (ticker: TickerId) => {
  * @param {TickerId} ticker
  * @returns
  */
+
 export const fetchCurrentTokenFiatRates = async (ticker: TickerId) => {
     if (!ticker.tokenAddress) return null;
 
-    const networkTickerConfig = getTickerConfig(ticker);
-    if (!networkTickerConfig || networkTickerConfig?.coingeckoId !== 'ethereum') {
-        console.warn('fetchCurrentTokenFiatRates: This API supports only ethereum', ticker);
+    const platforms: Record<string, string> = {
+        eth: 'ethereum',
+        bnb: 'binance-smart-chain',
+        etc: 'ethereum-classic',
+        xrp: 'ripple',
+        btc: 'bitcoin',
+        ltc: 'litecoin',
+        bch: 'bitcoin-cash',
+        btg: 'bitcoin-gold',
+        dash: 'dash',
+        dgb: 'digibyte',
+        doge: 'dogecoin',
+        vtc: 'vertcoin',
+        nmc: 'namecoin',
+        zec: 'zcash',
+    };
+    console.log('ticker.symbol', ticker.symbol);
+    const mainNetworkSymbol = ticker.mainNetworkSymbol ?? 'ethereum';
+    const platformId = platforms[mainNetworkSymbol];
+    if (!platformId) {
+        console.warn("fetchCurrentTokenFiatRates: This API don't supports current network", ticker);
         return null;
     }
 
-    const url = `${COINGECKO_API_BASE_URL}/simple/token_price/${
-        networkTickerConfig.coingeckoId
-    }?contract_addresses=${ticker.tokenAddress}&vs_currencies=${FIAT_CONFIG.currencies.join(',')}`;
+    const url = `${COINGECKO_API_BASE_URL}/simple/token_price/${platformId}?contract_addresses=${
+        ticker.tokenAddress
+    }&vs_currencies=${FIAT_CONFIG.currencies.join(',')}`;
 
     const rates = await fetchCoinGecko(url);
     if (!rates) return null;

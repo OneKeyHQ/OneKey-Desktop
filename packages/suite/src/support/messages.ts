@@ -1990,6 +1990,10 @@ const definedMessages = defineMessages({
         defaultMessage: 'XRP',
         id: 'TR_NETWORK_XRP',
     },
+    TR_NETWORK_BNB: {
+        defaultMessage: 'Binance',
+        id: 'TR_NETWORK_BNB',
+    },
     TR_NETWORK_XRP_TESTNET: {
         defaultMessage: 'XRP Testnet',
         id: 'TR_NETWORK_XRP_TESTNET',

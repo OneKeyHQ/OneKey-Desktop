@@ -72,6 +72,8 @@ export const getTitleForNetwork = (symbol: Account['symbol']) => {
             return 'TR_NETWORK_XRP';
         case 'txrp':
             return 'TR_NETWORK_XRP_TESTNET';
+        case 'bnb':
+            return 'TR_NETWORK_BNB';
         default:
             return 'TR_NETWORK_UNKNOWN';
     }
