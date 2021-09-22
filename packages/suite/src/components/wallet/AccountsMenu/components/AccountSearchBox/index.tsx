@@ -80,6 +80,11 @@ const StyledLabel = styled.label`
     display: flex;
     flex-direction: row;
     align-items: center;
+    font-size: 14px;
+`;
+
+const SmallText = styled.div`
+    font-size: 14px;
 `;
 
 interface Props {

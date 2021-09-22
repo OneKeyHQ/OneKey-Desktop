@@ -85,7 +85,7 @@ const FiatValueWrapper = styled.div`
 
 const AccountHeader = styled.div`
     display: flex;
-    padding: 12px 16px;
+    padding: 12px;
     border-radius: 4px;
     cursor: pointer;
 `;
