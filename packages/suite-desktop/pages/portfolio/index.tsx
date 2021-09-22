@@ -98,6 +98,8 @@ const mapStateToProps = (state: AppState) => ({
     selectedAccount: state.explore.selectedAccount,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
+    accounts: state.wallet.accounts,
+    device: state.suite.device,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -117,7 +119,7 @@ const Container: FC<Props> = ({
     signWithPush,
     language,
     theme,
-    openDeferredModal,
+    openDeferredModal
 }) => {
     const [ref, setRef] = useState<HTMLElement>();
     const [isLoading, setIsLoading] = useState(true);
@@ -309,7 +311,12 @@ const Container: FC<Props> = ({
 };
 
 const PortfolioContainer: FC<Props> = props => {
-    return <Portfolio key="portfolio" menu={<Container {...props} />} loaded={props.defaultAccount.status === 'loaded'} />;
+    const { accounts, device } = props;
+    const list = accounts.filter(a => device && device.state === a.deviceState);
+    const normalAccounts = list.filter(
+        a => a.accountType === 'normal' && a.symbol === 'eth' && (!a.empty || a.visible),
+    );
+    return <Portfolio key="portfolio" menu={<Container {...props} />} loaded={props.defaultAccount.status === 'loaded' && normalAccounts.length > 1 } />;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PortfolioContainer);

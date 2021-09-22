@@ -14,6 +14,8 @@ import Container from './webview';
 const mapStateToProps = (state: AppState) => ({
     defaultAccount: state.wallet.selectedAccount,
     selectedAccount: state.explore.selectedAccount,
+    accounts: state.wallet.accounts,
+    device: state.suite.device,
     language: state.suite.settings.language,
     theme: state.suite.settings.theme.variant,
     favorites: state.explore.favorite,
@@ -155,7 +157,11 @@ class ExploreContainer extends React.Component<Props, { tabs: any[], activeTab: 
 
     render() {
         const { tabs, activeTab } = this.state;
-        const { defaultAccount } = this.props;
+        const { defaultAccount, accounts, device } = this.props;
+        const list = accounts.filter(a => device && device.state === a.deviceState);
+        const normalAccounts = list.filter(
+            a => a.accountType === 'normal' && a.symbol === 'eth' && (!a.empty || a.visible),
+        );
         const tabsMap = tabs.reduce((res, item) => {
             res[item.code] = item
             return res
@@ -202,7 +208,7 @@ class ExploreContainer extends React.Component<Props, { tabs: any[], activeTab: 
             </StyledTabs>
         );
     
-        return <Explore key="explore" menu={body} loaded={defaultAccount.status === 'loaded'} />;
+        return <Explore key="explore" menu={body} loaded={defaultAccount.status === 'loaded' && normalAccounts.length > 1 } />;
     }
 }
 
