@@ -1,0 +1,2 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[27],{"86CL":function(n,o,_){(window.__NEXT_P=window.__NEXT_P||[]).push(["/accounts/coinmarket/buy",function(){return _("x2oL")}])},x2oL:function(n,o,_){"use strict";_.r(o);var u=_("A/8A");o.default=u.a}},[["86CL",0,1,7,13,10,3,15,8,11,9,14,6,12,5,16,2,4,18]]]);
+//# sourceMappingURL=buy-de8d0004e8fe22cb2b9a.js.map

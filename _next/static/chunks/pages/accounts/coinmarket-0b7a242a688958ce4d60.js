@@ -1,0 +1,2 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[26],{"Hh/8":function(n,_,o){(window.__NEXT_P=window.__NEXT_P||[]).push(["/accounts/coinmarket",function(){return o("K/yA")}])},"K/yA":function(n,_,o){"use strict";o.r(_);var w=o("A/8A");_.default=w.a}},[["Hh/8",0,1,7,13,10,3,15,8,11,9,14,6,12,5,16,2,4,18]]]);
+//# sourceMappingURL=coinmarket-0b7a242a688958ce4d60.js.map

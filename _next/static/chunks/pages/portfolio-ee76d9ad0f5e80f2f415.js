@@ -1,0 +1,2 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[47],{Km8e:function(t,o,e){"use strict";var n=Object.assign.bind(Object);t.exports=n,t.exports.default=t.exports},"qX+u":function(t,o,e){(window.__NEXT_P=window.__NEXT_P||[]).push(["/portfolio",function(){return e("y4bi")}])},y4bi:function(t,o,e){"use strict";e.r(o);var n=e("ERkP"),i=e.n(n).a.createElement;o.default=()=>(Object(n.useEffect)((()=>{window.location.href="https://portfolio.onekey.so"}),[]),i("div",null))}},[["qX+u",0,1]]]);
+//# sourceMappingURL=portfolio-ee76d9ad0f5e80f2f415.js.map
